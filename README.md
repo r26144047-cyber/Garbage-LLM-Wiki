@@ -8,7 +8,7 @@
  
 | 成果 | 連結 |
 |---|---|
-| Wiki 網站 | https://<你的帳號>.github.io/garbage-wiki/ |
+| Wiki 網站 | [https://<你的帳號>.github.io/garbage-wiki/](https://github.com/r26144047-cyber/Garbage-LLM-Wiki) |
 | 教學簡報（18 頁，含小測驗） | https://<你的帳號>.github.io/garbage-wiki/slides.html |
  
 ## 工作流程
