@@ -4,13 +4,7 @@
  
 - **主題**：台灣垃圾分類。涵蓋法定五類垃圾、資源回收物品、回收前處理、危險物品、廚餘養豬禁令（2027-01-01 起全面禁止）、居家針頭與藥品、縣市差異。
 - **資料截至**：2026-11-10。實際規定請以所在縣市環保局公告為準。
-## 線上瀏覽
- 
-| 成果 | 連結 |
-|---|---|
-| Wiki 網站 | [https://<你的帳號>.github.io/garbage-wiki/](https://github.com/r26144047-cyber/Garbage-LLM-Wiki) |
-| 教學簡報（18 頁，含小測驗） | https://<你的帳號>.github.io/garbage-wiki/slides.html |
- 
+
 ## 工作流程
  
 ![兩層迴圈流程圖：外層建立與維護 wiki，內層把 wiki 轉成簡報](assets/workflow.png)
