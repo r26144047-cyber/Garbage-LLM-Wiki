@@ -1,0 +1,1613 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>台灣垃圾分類 Wiki</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F2F5F3; --surface:#FFFFFF; --ink:#1A2421; --muted:#56625D; --line:#D3DAD6;
+  --bulky:#6A55A8; --hazard:#BE3B28; --food:#87661A; --recycle:#16776A; --general:#4B5551;
+  --tint:#E6ECE9;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#151B19; --surface:#1D2522; --ink:#E5ECE8; --muted:#9CA9A3; --line:#33403B;
+    --bulky:#A493E0; --hazard:#F07A63; --food:#D6AE52; --recycle:#5CC4B1; --general:#A9B4AF;
+    --tint:#24302C;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#151B19; --surface:#1D2522; --ink:#E5ECE8; --muted:#9CA9A3; --line:#33403B;
+  --bulky:#A493E0; --hazard:#F07A63; --food:#D6AE52; --recycle:#5CC4B1; --general:#A9B4AF;
+  --tint:#24302C;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  font-size:17px;line-height:1.8}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:3px solid var(--recycle);outline-offset:2px;border-radius:2px}
+
+/* 五類色條：全站識別，也是快速導覽 */
+.strip{display:flex;height:56px;position:sticky;top:0;z-index:5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--ink)}
+.strip a{flex:1;display:flex;align-items:center;justify-content:center;text-decoration:none;
+  color:#fff;font-weight:700;font-size:15px;transition:flex .25s ease;white-space:nowrap;overflow:hidden}
+.strip a.bulky{background:var(--bulky)}.strip a.hazard{background:var(--hazard)}
+.strip a.food{background:var(--food)}.strip a.recycle{background:var(--recycle)}.strip a.general{background:var(--general)}
+:root[data-theme="dark"] .strip a,:root:not([data-theme="light"]) .strip a{color:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .strip a{color:#111}}
+:root[data-theme="dark"] .strip a{color:#111}
+.strip a.on{flex:2.4}
+.strip a .q{opacity:.75;font-weight:500;margin-right:.4em}
+@media (max-width:640px){.strip a .q{display:none}.strip a{font-size:12px}.strip a.on{font-size:14px}}
+@media (prefers-reduced-motion:reduce){.strip a{transition:none}}
+
+.wrap{display:grid;grid-template-columns:260px minmax(0,1fr);max-width:1180px;margin:0 auto}
+nav.side{padding:28px 20px 40px 24px;border-right:1px solid var(--line);font-size:15px;line-height:1.6;
+  position:sticky;top:56px;align-self:start;max-height:calc(100vh - 56px);overflow:auto}
+.brand{font-family:"Noto Serif TC",serif;font-weight:900;font-size:22px;line-height:1.3;margin:0 0 4px}
+.sub{color:var(--muted);font-size:13px;margin:0 0 20px}
+.nav-g{color:var(--muted);font-size:13px;margin:20px 0 6px}
+nav ul{list-style:none;margin:0;padding:0}
+nav li a,.nav-home{display:block;padding:4px 8px;margin-left:-8px;border-radius:4px;text-decoration:none}
+nav li a.bulky{border-left:4px solid var(--bulky)}nav li a.hazard{border-left:4px solid var(--hazard)}
+nav li a.food{border-left:4px solid var(--food)}nav li a.recycle{border-left:4px solid var(--recycle)}
+nav li a.general{border-left:4px solid var(--general)}
+nav a.cur{background:var(--tint);font-weight:700}
+.theme{margin-top:28px;font:inherit;font-size:13px;background:none;border:1px solid var(--line);color:var(--muted);padding:4px 10px;border-radius:4px;cursor:pointer}
+.menu{display:none}
+
+main{padding:36px 40px 80px;min-width:0}
+.page{max-width:44em}
+.page h1{font-family:"Noto Serif TC",serif;font-weight:900;font-size:clamp(28px,4.5vw,40px);line-height:1.3;margin:6px 0 20px}
+.page h2{font-family:"Noto Serif TC",serif;font-weight:600;font-size:22px;margin:36px 0 8px}
+.page.bulky h1{color:var(--bulky)}.page.hazard h1{color:var(--hazard)}.page.food h1{color:var(--food)}
+.page.recycle h1{color:var(--recycle)}.page.general h1{color:var(--general)}
+.meta{color:var(--muted);font-size:13px;margin:0}
+.page p,.page li{max-width:40em}
+.table-scroll{overflow-x:auto;margin:16px 0}
+table{border-collapse:collapse;width:100%;min-width:420px;background:var(--surface);font-size:15px}
+th,td{border:1px solid var(--line);padding:8px 12px;text-align:left;vertical-align:top}
+th{background:var(--tint)}
+td:first-child,th:first-child{white-space:nowrap}
+a.wl{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px;text-decoration-color:var(--line)}
+a.wl.bulky{text-decoration-color:var(--bulky)}a.wl.hazard{text-decoration-color:var(--hazard)}
+a.wl.food{text-decoration-color:var(--food)}a.wl.recycle{text-decoration-color:var(--recycle)}a.wl.general{text-decoration-color:var(--general)}
+a.cite{font-size:12px;font-weight:700;text-decoration:none;background:var(--tint);border:1px solid var(--line);
+  padding:0 6px;border-radius:9px;margin:0 2px;vertical-align:2px}
+.warn{color:var(--hazard);font-weight:700}
+.ok{color:var(--recycle);font-weight:700}
+.unoff{color:var(--bulky);font-weight:700}
+.broken{color:var(--hazard);text-decoration:line-through}
+
+/* 首頁：判斷順序 */
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin:8px 0 32px;border:1px solid var(--line);background:var(--surface)}
+.flow a{display:block;padding:16px 14px 18px;text-decoration:none;border-right:1px solid var(--line);border-top:6px solid}
+.flow a:last-child{border-right:0}
+.flow .n{font-size:13px;color:var(--muted)}
+.flow .ask{display:block;font-family:"Noto Serif TC",serif;font-weight:900;font-size:21px;line-height:1.35;margin:2px 0 6px}
+.flow .to{font-size:14px}
+.flow .bulky{border-top-color:var(--bulky)}.flow .hazard{border-top-color:var(--hazard)}.flow .food{border-top-color:var(--food)}
+.flow .recycle{border-top-color:var(--recycle)}.flow .general{border-top-color:var(--general)}
+.flow-cap{color:var(--muted);font-size:14px;margin:-20px 0 32px}
+@media (max-width:860px){
+  .wrap{grid-template-columns:1fr}
+  nav.side{position:static;max-height:none;border-right:0;border-bottom:1px solid var(--line);padding:16px 20px}
+  nav.side .navbody{display:none}
+  nav.side.open .navbody{display:block}
+  .menu{display:inline-block;font:inherit;font-size:14px;background:var(--surface);border:1px solid var(--line);color:var(--ink);padding:4px 12px;border-radius:4px;margin-top:8px;cursor:pointer}
+  main{padding:24px 20px 64px}
+  .flow{grid-template-columns:1fr}
+  .flow a{border-right:0;border-top:0;border-left:6px solid;border-bottom:1px solid var(--line)}
+  .flow .bulky{border-left-color:var(--bulky)}.flow .hazard{border-left-color:var(--hazard)}.flow .food{border-left-color:var(--food)}
+  .flow .recycle{border-left-color:var(--recycle)}.flow .general{border-left-color:var(--general)}
+}
+</style>
+</head>
+<body>
+<div class="strip" role="navigation" aria-label="五個法定類別">
+  <a href="#cat-bulky" class="bulky" data-slug="cat-bulky"><span class="q">太大？</span>巨大垃圾</a>
+  <a href="#cat-hazardous" class="hazard" data-slug="cat-hazardous"><span class="q">有害？</span>有害垃圾</a>
+  <a href="#cat-food" class="food" data-slug="cat-food"><span class="q">食物？</span>廚餘</a>
+  <a href="#cat-recyclable" class="recycle" data-slug="cat-recyclable"><span class="q">可回收？</span>資源垃圾</a>
+  <a href="#cat-general" class="general" data-slug="cat-general"><span class="q">都不是</span>一般垃圾</a>
+</div>
+<div class="wrap">
+<nav class="side" aria-label="Wiki 目錄">
+  <p class="brand">台灣垃圾分類 Wiki</p>
+  <p class="sub">已 ingest 5 篇來源</p>
+  <button class="menu" type="button" aria-expanded="false">顯示目錄</button>
+  <div class="navbody">
+  <a href="#index" class="nav-home" data-slug="index">首頁</a><p class="nav-g">分類類別</p><ul><li><a href="#cat-bulky" data-slug="cat-bulky" class="bulky">巨大垃圾</a></li><li><a href="#cat-hazardous" data-slug="cat-hazardous" class="hazard">有害垃圾</a></li><li><a href="#cat-food" data-slug="cat-food" class="food">廚餘</a></li><li><a href="#cat-recyclable" data-slug="cat-recyclable" class="recycle">資源垃圾</a></li><li><a href="#cat-general" data-slug="cat-general" class="general">一般垃圾</a></li></ul><p class="nav-g">物品</p><ul><li><a href="#item-paper" data-slug="item-paper" class="">紙類</a></li><li><a href="#item-iron" data-slug="item-iron" class="">鐵類</a></li><li><a href="#item-aluminum" data-slug="item-aluminum" class="">鋁類</a></li><li><a href="#item-glass" data-slug="item-glass" class="">玻璃類</a></li><li><a href="#item-plastic" data-slug="item-plastic" class="">塑膠類</a></li><li><a href="#item-disc" data-slug="item-disc" class="">光碟片</a></li><li><a href="#item-phone" data-slug="item-phone" class="">手機與充電器</a></li><li><a href="#item-cooking-oil" data-slug="item-cooking-oil" class="">廢食用油</a></li><li><a href="#item-mandatory" data-slug="item-mandatory" class="">應回收物品類（電池、家電、燈管、車輛）</a></li><li><a href="#item-food-raw-cooked" data-slug="item-food-raw-cooked" class="">生熟廚餘怎麼分</a></li><li><a href="#item-receipt" data-slug="item-receipt" class="">感熱紙發票</a></li><li><a href="#item-pressurized-can" data-slug="item-pressurized-can" class="">高壓罐（噴霧罐、卡式瓦斯罐）</a></li><li><a href="#item-gas-cylinder" data-slug="item-gas-cylinder" class="">瓦斯鋼瓶</a></li><li><a href="#item-plastic-bag" data-slug="item-plastic-bag" class="">塑膠袋</a></li><li><a href="#item-styrofoam" data-slug="item-styrofoam" class="">保麗龍</a></li><li><a href="#item-lithium-battery" data-slug="item-lithium-battery" class="">鋰電池</a></li><li><a href="#item-medicine" data-slug="item-medicine" class="">廢藥品</a></li><li><a href="#item-needle" data-slug="item-needle" class="">居家針頭（瘦瘦針、胰島素針）</a></li></ul><p class="nav-g">概念</p><ul><li><a href="#concept-legal-categories" data-slug="concept-legal-categories" class="">垃圾分類的法定定義：五類與三類</a></li><li><a href="#concept-prep" data-slug="concept-prep" class="">回收前處理</a></li></ul><p class="nav-g">法規與地方差異</p><ul><li><a href="#law-regulation" data-slug="law-regulation" class="">一般廢棄物回收清除處理辦法</a></li><li><a href="#local-differences" data-slug="local-differences" class="">地方差異</a></li><li><a href="#policy-food-waste-pig" data-slug="policy-food-waste-pig" class="">廚餘養豬禁令（新舊規定與生效日）</a></li></ul><p class="nav-g">來源摘要</p><ul><li><a href="#S1" data-slug="S1" class="">〔S1〕一般廢棄物回收清除處理辦法</a></li><li><a href="#S2" data-slug="S2" class="">〔S2〕一般廢棄物回收項目排出方式</a></li><li><a href="#S3" data-slug="S3" class="">〔S3〕環境部廚餘分類說明</a></li><li><a href="#S4" data-slug="S4" class="">〔S4〕環境部廚餘去化專案報告（2025-12）</a></li><li><a href="#S5" data-slug="S5" class="">〔S5〕居家針頭與廢藥品的處理</a></li></ul><p class="nav-g">原始資料</p><ul><li><a href="#raw-S1" data-slug="raw-S1" class="">〔S1〕一般廢棄物回收清除處理辦法（摘錄）</a></li><li><a href="#raw-S2" data-slug="raw-S2" class="">〔S2〕一般廢棄物回收項目排出方式（整理筆記）</a></li><li><a href="#raw-S3" data-slug="raw-S3" class="">〔S3〕環境部〈廚餘該怎麼分類？〉與「廚餘再利用」說明（整理筆記）</a></li><li><a href="#raw-S4" data-slug="raw-S4" class="">〔S4〕2027 年全面禁止廚餘養豬：環境部廚餘再利用管理與去化規劃專案報告（整理筆記）</a></li><li><a href="#raw-S5" data-slug="raw-S5" class="">〔S5〕居家針頭與廢藥品的處理（整理筆記）</a></li></ul><p class="nav-g">維護</p><ul><li><a href="#lint-2026-11-10" data-slug="lint-2026-11-10" class="">健康檢查報告（2026-11-10）</a></li><li><a href="#log" data-slug="log" class="">更新紀錄</a></li><li><a href="#schema" data-slug="schema" class="">Wiki 規則（SCHEMA）</a></li><li><a href="#agents" data-slug="agents" class="">代理人操作說明（AGENTS.md）</a></li></ul>
+  <button class="theme" type="button">切換深淺色</button>
+  </div>
+</nav>
+<main>
+<template id="flow">
+  <div class="flow" aria-label="判斷順序">
+    <a href="#cat-bulky" class="bulky"><span class="n">第 1 問</span><span class="ask">太大嗎？</span><span class="to">巨大垃圾，先預約</span></a>
+    <a href="#cat-hazardous" class="hazard"><span class="n">第 2 問</span><span class="ask">有害嗎？</span><span class="to">有害垃圾，依物品走不同管道</span></a>
+    <a href="#cat-food" class="food"><span class="n">第 3 問</span><span class="ask">是食物嗎？</span><span class="to">廚餘，倒廚餘桶</span></a>
+    <a href="#cat-recyclable" class="recycle"><span class="n">第 4 問</span><span class="ask">可回收嗎？</span><span class="to">資源垃圾，交回收車</span></a>
+    <a href="#cat-general" class="general"><span class="n">最後</span><span class="ask">都不是</span><span class="to">一般垃圾，交垃圾車</span></a>
+  </div>
+  <p class="flow-cap">一般垃圾是法規上的剩餘類別，所以要先排除前四類。〔依 S1 整理〕</p>
+</template>
+<article class="page " id="p-index" data-slug="index" hidden><p class="meta">檔案 index.md</p><h1>台灣垃圾分類 Wiki</h1>
+<p>以台灣法規與官方說明為主的垃圾分類知識庫。共 ingest 5 篇來源。</p>
+<h2>從這裡開始</h2>
+<ul>
+<li><a href="#concept-legal-categories" class="wl ">垃圾分類的法定定義：五類與三類</a>：五類與三類，判斷順序</li>
+<li><a href="#concept-prep" class="wl ">回收前處理</a>：倒空、清洗、壓扁、拆開</li>
+</ul>
+<h2>分類類別</h2>
+<ul>
+<li><a href="#cat-bulky" class="wl bulky">巨大垃圾</a>：體積大的傢俱、樹枝，先預約</li>
+<li><a href="#cat-hazardous" class="wl hazard">有害垃圾</a>：經公告的有害一般廢棄物</li>
+<li><a href="#cat-food" class="wl food">廚餘</a>：生熟食物與殘渣</li>
+<li><a href="#cat-recyclable" class="wl recycle">資源垃圾</a>：公告回收項目與應回收物品</li>
+<li><a href="#cat-general" class="wl general">一般垃圾</a>：以上皆非的剩餘類別</li>
+</ul>
+<h2>物品：依材質</h2>
+<ul>
+<li><a href="#item-paper" class="wl ">紙類</a>、<a href="#item-iron" class="wl ">鐵類</a>、<a href="#item-aluminum" class="wl ">鋁類</a>、<a href="#item-glass" class="wl ">玻璃類</a>、<a href="#item-plastic" class="wl ">塑膠類</a></li>
+<li><a href="#item-disc" class="wl ">光碟片</a>、<a href="#item-phone" class="wl ">手機與充電器</a>、<a href="#item-cooking-oil" class="wl ">廢食用油</a></li>
+<li><a href="#item-mandatory" class="wl ">應回收物品類（電池、家電、燈管、車輛）</a></li>
+<li><a href="#item-food-raw-cooked" class="wl ">生熟廚餘怎麼分</a></li>
+</ul>
+<h2>物品：容易丟錯</h2>
+<ul>
+<li><a href="#item-receipt" class="wl ">感熱紙發票</a>：看起來是紙，其實是一般垃圾</li>
+<li><a href="#item-pressurized-can" class="wl ">高壓罐（噴霧罐、卡式瓦斯罐）</a>：排空、標示，絕不能進垃圾車</li>
+<li><a href="#item-gas-cylinder" class="wl ">瓦斯鋼瓶</a>：交瓦斯行</li>
+<li><a href="#item-plastic-bag" class="wl ">塑膠袋</a>：乾淨與髒污的分法不同</li>
+<li><a href="#item-styrofoam" class="wl ">保麗龍</a>：可回收，先拆膠帶</li>
+<li><a href="#item-lithium-battery" class="wl ">鋰電池</a>：貼絕緣膠帶，不要囤</li>
+<li><a href="#item-needle" class="wl ">居家針頭（瘦瘦針、胰島素針）</a>：裝硬瓶，送回醫院或藥局，不可丟垃圾車</li>
+<li><a href="#item-medicine" class="wl ">廢藥品</a>：送藥局檢收站</li>
+</ul>
+<h2>法規與地方差異</h2>
+<ul>
+<li><a href="#law-regulation" class="wl ">一般廢棄物回收清除處理辦法</a>：五類定義的法源</li>
+<li><a href="#policy-food-waste-pig" class="wl ">廚餘養豬禁令（新舊規定與生效日）</a>：2027-01-01 起全面禁止，新舊規定對照</li>
+<li><a href="#local-differences" class="wl ">地方差異</a>：縣市自訂項目、廚餘收運</li>
+</ul>
+<h2>來源</h2>
+<ul>
+<li><a href="#S1" class="wl ">&#x3014;S1&#x3015;一般廢棄物回收清除處理辦法</a>：一般廢棄物回收清除處理辦法（114/1/3 修正）</li>
+<li><a href="#S2" class="wl ">&#x3014;S2&#x3015;一般廢棄物回收項目排出方式</a>：一般廢棄物回收項目排出方式（環境部）</li>
+<li><a href="#S3" class="wl ">&#x3014;S3&#x3015;環境部廚餘分類說明</a>：環境部廚餘分類說明</li>
+<li><a href="#S4" class="wl ">&#x3014;S4&#x3015;環境部廚餘去化專案報告（2025-12）</a>：環境部廚餘去化專案報告（2025-12）</li>
+<li><a href="#S5" class="wl ">&#x3014;S5&#x3015;居家針頭與廢藥品的處理</a>：居家針頭與廢藥品的處理</li>
+</ul>
+<h2>維護</h2>
+<ul>
+<li><a href="#lint-2026-11-10" class="wl ">健康檢查報告（2026-11-10）</a>：健康檢查報告</li>
+<li><a href="#log" class="wl ">更新紀錄</a>：更新紀錄</li>
+<li><a href="#schema" class="wl ">Wiki 規則（SCHEMA）</a>：本 wiki 的規則</li>
+<li><a href="#agents" class="wl ">代理人操作說明（AGENTS.md）</a>：代理人操作說明</li>
+</ul></article>
+<article class="page bulky" id="p-cat-bulky" data-slug="cat-bulky" hidden><p class="meta">最後更新 2026-11-10　檔案 wiki/categories/cat-bulky.md</p><h1>巨大垃圾</h1>
+<h2>定義</h2>
+<p>體積龐大的廢棄傢俱、修剪庭院的樹枝，或經主管機關公告的一般廢棄物。<a class="cite" href="#S1">S1</a></p>
+<h2>怎麼丟</h2>
+<p>不能直接丟上垃圾車。要先聯絡清潔隊（執行機關）或受託機構約時間排出，並依當地規定的清除處理方式辦理。<a class="cite" href="#S1">S1</a></p>
+<h2>常見例子</h2>
+<p>沙發、床架、衣櫃、桌椅、修剪下來的樹枝。（依 S1 定義所舉類型推得）</p>
+<h2>相關</h2>
+<p><a href="#concept-legal-categories" class="wl ">垃圾分類的法定定義：五類與三類</a>、<a href="#local-differences" class="wl ">地方差異</a>（各縣市預約方式不同，待補）</p></article>
+<article class="page hazard" id="p-cat-hazardous" data-slug="cat-hazardous" hidden><p class="meta">最後更新 2026-11-10　檔案 wiki/categories/cat-hazardous.md</p><h1>有害垃圾</h1>
+<h2>法定定義</h2>
+<p>符合「有害事業廢棄物認定標準」，並經中央主管機關公告的一般廢棄物。<a class="cite" href="#S1">S1</a></p>
+<h2>法定排出方式</h2>
+<p>依指定時間、地點及作業方式，交給清潔隊或受託機構的<strong>專用車輛</strong>清除；要分開貯存排出，不可混入一般垃圾。<a class="cite" href="#S1">S1</a></p>
+<h2>現況：家戶常見的危險物品怎麼走</h2>
+<p>目前蒐集的 5 篇來源中，<strong>沒有找到中央公布的「家戶有害垃圾」項目清單</strong>。家裡常見的危險物品，實務上分別走以下管道：</p>
+<table>
+<thead>
+<tr>
+<th>物品</th>
+<th>管道</th>
+<th>頁面</th>
+<th>依據</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>乾電池、鋰電池</td>
+<td>資源回收車或販賣業者逆向回收</td>
+<td><a href="#item-lithium-battery" class="wl ">鋰電池</a>、<a href="#item-mandatory" class="wl ">應回收物品類（電池、家電、燈管、車輛）</a></td>
+<td><a class="cite" href="#S2">S2</a></td>
+</tr>
+<tr>
+<td>日光燈管、含汞物品</td>
+<td>資源回收車或販賣業者</td>
+<td><a href="#item-mandatory" class="wl ">應回收物品類（電池、家電、燈管、車輛）</a></td>
+<td><a class="cite" href="#S2">S2</a></td>
+</tr>
+<tr>
+<td>高壓罐</td>
+<td>排空、標示後交資源回收車</td>
+<td><a href="#item-pressurized-can" class="wl ">高壓罐（噴霧罐、卡式瓦斯罐）</a></td>
+<td><a class="cite" href="#S2">S2</a></td>
+</tr>
+<tr>
+<td>瓦斯鋼瓶</td>
+<td>瓦斯行</td>
+<td><a href="#item-gas-cylinder" class="wl ">瓦斯鋼瓶</a></td>
+<td><a class="cite" href="#S2">S2</a></td>
+</tr>
+<tr>
+<td>居家針頭</td>
+<td>送回原購買機構、醫院、藥局</td>
+<td><a href="#item-needle" class="wl ">居家針頭（瘦瘦針、胰島素針）</a></td>
+<td><a class="cite" href="#S5">S5</a><span class="unoff" aria-label="非官方來源">◇</span> 非官方（媒體報導）</td>
+</tr>
+<tr>
+<td>廢藥品</td>
+<td>醫院或藥局檢收站，其餘依地方規定</td>
+<td><a href="#item-medicine" class="wl ">廢藥品</a></td>
+<td><a class="cite" href="#S5">S5</a><span class="unoff" aria-label="非官方來源">◇</span> 非官方（公會網站）</td>
+</tr>
+</tbody>
+</table>
+<p><span class="warn" aria-label="待釐清">⚠</span> 待釐清：哪些家戶物品屬於法定「有害垃圾」、由專用車收運，需要另找中央公告確認。</p>
+<h2>共同原則</h2>
+<p>不要混進垃圾車：高壓罐和電池可能在壓縮時起火爆炸<a class="cite" href="#S2">S2</a>，針頭可能扎傷清潔隊員<a class="cite" href="#S5">S5</a><span class="unoff" aria-label="非官方來源">◇</span> 非官方（媒體報導）。</p>
+<h2>相關</h2>
+<p><a href="#concept-legal-categories" class="wl ">垃圾分類的法定定義：五類與三類</a></p></article>
+<article class="page food" id="p-cat-food" data-slug="cat-food" hidden><p class="meta">最後更新 2026-11-10　檔案 wiki/categories/cat-food.md</p><h1>廚餘</h1>
+<h2>定義</h2>
+<p>被拋棄的生、熟食物及其殘渣，或經主管機關公告的有機性一般廢棄物。<a class="cite" href="#S1">S1</a></p>
+<p><span class="ok" aria-label="已釐清">✔</span> 已釐清：另一種定義寫法為舊版用語，見 <a href="#S1" class="wl ">&#x3014;S1&#x3015;一般廢棄物回收清除處理辦法</a>。</p>
+<h2>兩種廚餘</h2>
+<table>
+<thead>
+<tr>
+<th>現在的名稱</th>
+<th>舊稱</th>
+<th>例子</th>
+<th>依據</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>熟廚餘</td>
+<td>養豬廚餘</td>
+<td>剩菜剩飯、麵食、魚蝦、肉類、內臟</td>
+<td><a class="cite" href="#S3">S3</a></td>
+</tr>
+<tr>
+<td>生廚餘</td>
+<td>堆肥廚餘</td>
+<td>生菜葉、果皮、茶渣、貝殼、果核、落葉、花材</td>
+<td><a class="cite" href="#S3">S3</a></td>
+</tr>
+</tbody>
+</table>
+<p>混雜或分不清楚的，歸生廚餘。<a class="cite" href="#S3">S3</a>詳細清單見 <a href="#item-food-raw-cooked" class="wl ">生熟廚餘怎麼分</a>。</p>
+<h2>為什麼名稱要改</h2>
+<p>「養豬廚餘」這個名稱來自舊制：熟廚餘以前主要送去養豬。非洲豬瘟後，家戶廚餘已經禁止餵豬，<strong>2027 年 1 月 1 日起所有廚餘全面禁止養豬</strong>。<a class="cite" href="#S4">S4</a>本 wiki 因此改用「熟廚餘、生廚餘」，舊稱只作對照。完整新舊規定見 <a href="#policy-food-waste-pig" class="wl ">廚餘養豬禁令（新舊規定與生效日）</a>。</p>
+<h2>家戶廚餘現在送去哪裡<a class="cite" href="#S4">S4</a></h2>
+<p>堆肥、黑水虻、生質能等再利用方式為優先，處理量能不足的部分以焚化或掩埋輔助。</p>
+<h2>怎麼丟<a class="cite" href="#S1">S1</a></h2>
+<ol>
+<li>依指定時間、地點交到<strong>廚餘回收貯存設備</strong>。</li>
+<li>依規定投入<strong>廚餘回收桶（箱、站）</strong>。</li>
+</ol>
+<h2>排出前<a class="cite" href="#S1">S1</a></h2>
+<p>先瀝乾水分並包好。</p>
+<h2>要不要分生熟</h2>
+<p>環境部禁令前的分類說明分生熟兩類<a class="cite" href="#S3">S3</a>；禁令後各縣市的收運方式正在調整，見 <a href="#local-differences" class="wl ">地方差異</a>。<span class="warn" aria-label="待釐清">⚠</span> 請以所在縣市的最新公告為準。</p>
+<h2>法規上的特殊地位</h2>
+<p>廚餘雖然也屬「公告回收項目」，但法規把它從資源垃圾中<strong>排除</strong>，獨立成一類。<a class="cite" href="#S1">S1</a></p>
+<h2>不要搞混</h2>
+<p>廢食用油不是廚餘，屬資源垃圾，見 <a href="#item-cooking-oil" class="wl ">廢食用油</a>。<a class="cite" href="#S2">S2</a></p>
+<h2>相關</h2>
+<p><a href="#cat-recyclable" class="wl recycle">資源垃圾</a>、<a href="#concept-legal-categories" class="wl ">垃圾分類的法定定義：五類與三類</a></p></article>
+<article class="page recycle" id="p-cat-recyclable" data-slug="cat-recyclable" hidden><p class="meta">最後更新 2026-11-10　檔案 wiki/categories/cat-recyclable.md</p><h1>資源垃圾</h1>
+<h2>定義</h2>
+<p>包含兩部分<a class="cite" href="#S1">S1</a>：</p>
+<ol>
+<li>依廢棄物清理法第 5 條第 6 項公告的「一般廢棄物回收項目」（廚餘除外）；</li>
+<li>依廢棄物清理法第 15 條第 2 項公告「應回收」的物品或其包裝、容器，在食用或使用後產生的廢棄物。</li>
+</ol>
+<h2>怎麼丟（三種管道）<a class="cite" href="#S1">S1</a></h2>
+<ol>
+<li>依指定時間、地點交給<strong>資源回收車</strong>。</li>
+<li>依各地區分類規定投入<strong>資源回收桶（箱、站）</strong>。</li>
+<li>屬於應回收廢棄物的，可以<strong>交回原販賣業者</strong>（逆向回收）或其他回收管道。</li>
+</ol>
+<h2>有哪些東西<a class="cite" href="#S2">S2</a></h2>
+<ul>
+<li><a href="#item-paper" class="wl ">紙類</a>、<a href="#item-iron" class="wl ">鐵類</a>、<a href="#item-aluminum" class="wl ">鋁類</a>、<a href="#item-glass" class="wl ">玻璃類</a>、<a href="#item-plastic" class="wl ">塑膠類</a></li>
+<li><a href="#item-disc" class="wl ">光碟片</a>、<a href="#item-phone" class="wl ">手機與充電器</a>、<a href="#item-cooking-oil" class="wl ">廢食用油</a></li>
+<li><a href="#item-mandatory" class="wl ">應回收物品類（電池、家電、燈管、車輛）</a></li>
+<li>縣市自訂項目（舊衣、雨傘骨架、滅火器等），見 <a href="#local-differences" class="wl ">地方差異</a></li>
+</ul>
+<p>容器類（鐵、鋁、玻璃、塑膠）指<strong>內容量小於 17 公升</strong>的容器。<a class="cite" href="#S2">S2</a></p>
+<h2>回收前要做什麼</h2>
+<p>見 <a href="#concept-prep" class="wl ">回收前處理</a>。</p>
+<h2>相關</h2>
+<p><a href="#cat-general" class="wl general">一般垃圾</a>（不能回收的就屬一般垃圾）、<a href="#concept-legal-categories" class="wl ">垃圾分類的法定定義：五類與三類</a></p></article>
+<article class="page general" id="p-cat-general" data-slug="cat-general" hidden><p class="meta">最後更新 2026-11-10　檔案 wiki/categories/cat-general.md</p><h1>一般垃圾</h1>
+<h2>定義</h2>
+<p>巨大垃圾、資源垃圾、有害垃圾、廚餘<strong>以外</strong>的一般廢棄物。<a class="cite" href="#S1">S1</a></p>
+<p>這是「剩餘類別」：一件東西要先確認不屬於其他四類，才算一般垃圾。</p>
+<h2>怎麼丟<a class="cite" href="#S1">S1</a></h2>
+<ol>
+<li>依指定時間、地點交給<strong>垃圾車</strong>。</li>
+<li>投入執行機關設置的<strong>一般垃圾貯存設備</strong>。</li>
+</ol>
+<h2>常被誤丟進回收的一般垃圾<a class="cite" href="#S2">S2</a></h2>
+<ul>
+<li>紙類：衛生紙、紙尿布、<a href="#item-receipt" class="wl ">感熱紙發票</a>、貼紙底襯、標籤貼紙、複寫紙</li>
+<li>塑膠類：保鮮膜、塑膠繩、膠帶、吸管、原子筆、塑膠玩具、泡棉、巧拼</li>
+<li>髒污塑膠袋、內層有鋁箔的零食包裝袋（見 <a href="#item-plastic-bag" class="wl ">塑膠袋</a>）</li>
+</ul>
+<h2>排出前<a class="cite" href="#S1">S1</a></h2>
+<p>尖銳物（刀片、碎玻璃）要用不易穿透的材質包好並標示；封緊垃圾袋口。</p>
+<h2>相關</h2>
+<p><a href="#concept-legal-categories" class="wl ">垃圾分類的法定定義：五類與三類</a></p></article>
+<article class="page " id="p-item-paper" data-slug="item-paper" hidden><p class="meta">最後更新 2026-11-10　檔案 wiki/items/item-paper.md</p><h1>紙類</h1>
+<p>所屬類別：<a href="#cat-recyclable" class="wl recycle">資源垃圾</a>（不可回收者為 <a href="#cat-general" class="wl general">一般垃圾</a>）</p>
+<h2>可回收<a class="cite" href="#S2">S2</a></h2>
+<ul>
+<li><strong>紙板</strong>：紙箱、瓦楞紙、紙製禮盒、紙製茶葉罐</li>
+<li><strong>書報</strong>：雜誌、書籍、筆記本、報紙</li>
+<li><strong>文化用紙</strong>：影印紙、非熱感應的傳真紙、包裝紙、日曆、紙袋、宣傳單、衛生紙滾筒、信封、名片等純紙漿成品</li>
+<li><strong>紙容器</strong>：牛奶盒、植物纖維容器、紙製平板容器（紙餐盒、紙盤、紙杯等免洗餐具）</li>
+<li><strong>鋁箔包</strong></li>
+</ul>
+<h2>交付前<a class="cite" href="#S2">S2</a></h2>
+<ol>
+<li>一般紙類與紙容器、鋁箔包<strong>分開</strong>打包。</li>
+<li>拆掉塑膠封面、膠帶、線圈、釘書針。</li>
+<li>鋁箔包、紙盒包抽出吸管、壓扁。</li>
+<li>紙餐盒先把剩菜倒進廚餘桶，再擦拭或沖一下。</li>
+</ol>
+<h2>不可回收，丟一般垃圾<a class="cite" href="#S2">S2</a></h2>
+<p>紙尿布、衛生紙、複寫紙、蠟紙、貼紙底襯、轉印紙、砂紙、塑膠光面紙、感熱紙（見 <a href="#item-receipt" class="wl ">感熱紙發票</a>）、標籤貼紙。</p>
+<p>理由：這些多為複合材質，可再利用的比例低，還會影響再生紙品質。<a class="cite" href="#S2">S2</a></p></article>
+<article class="page " id="p-item-iron" data-slug="item-iron" hidden><p class="meta">最後更新 2026-11-10　檔案 wiki/items/item-iron.md</p><h1>鐵類</h1>
+<p>所屬類別：<a href="#cat-recyclable" class="wl recycle">資源垃圾</a></p>
+<h2>可回收<a class="cite" href="#S2">S2</a></h2>
+<ul>
+<li><strong>鐵容器</strong>：內容量小於 17 公升，例如罐頭、髮膠罐、卡式爐瓦斯罐</li>
+<li><strong>鐵製用品</strong>：鐵窗、鐵架、鐵鍋、鐵櫃、鐵絲、鐵釘、菜刀刀身、鐵製餅乾盒等</li>
+</ul>
+<h2>交付前<a class="cite" href="#S2">S2</a></h2>
+<ol>
+<li>倒空、清洗、壓扁後裝成一袋。</li>
+<li>鐵製用品上的非鐵附著物要先拆開。</li>
+<li>噴霧罐、瓦斯罐等請看 <a href="#item-pressurized-can" class="wl ">高壓罐（噴霧罐、卡式瓦斯罐）</a>。</li>
+</ol>
+<h2>不可回收<a class="cite" href="#S2">S2</a></h2>
+<p>氣體鋼瓶，見 <a href="#item-gas-cylinder" class="wl ">瓦斯鋼瓶</a>。</p></article>
+<article class="page " id="p-item-aluminum" data-slug="item-aluminum" hidden><p class="meta">最後更新 2026-11-10　檔案 wiki/items/item-aluminum.md</p><h1>鋁類</h1>
+<p>所屬類別：<a href="#cat-recyclable" class="wl recycle">資源垃圾</a></p>
+<h2>可回收<a class="cite" href="#S2">S2</a></h2>
+<ul>
+<li><strong>鋁容器</strong>：內容量小於 17 公升，例如飲料罐、汽水罐、啤酒罐</li>
+<li><strong>鋁製用品</strong>：鋁鍋、鋁盆、鋁門窗外框、鋁合金鋼圈</li>
+</ul>
+<h2>交付前<a class="cite" href="#S2">S2</a></h2>
+<p>倒空、略為沖洗、壓扁；非鋁附著物要分離。</p></article>
+<article class="page " id="p-item-glass" data-slug="item-glass" hidden><p class="meta">最後更新 2026-11-10　檔案 wiki/items/item-glass.md</p><h1>玻璃類</h1>
+<p>所屬類別：<a href="#cat-recyclable" class="wl recycle">資源垃圾</a></p>
+<h2>可回收<a class="cite" href="#S2">S2</a></h2>
+<ul>
+<li><strong>玻璃容器</strong>：內容量小於 17 公升，例如油瓶、醬料瓶、酒瓶</li>
+<li><strong>玻璃製品</strong>：玻璃盤、杯、碗、平板玻璃</li>
+</ul>
+<h2>交付前<a class="cite" href="#S2">S2</a></h2>
+<p>去除瓶蓋、吸管，倒空後略為沖洗。</p>
+<h2>不可回收<a class="cite" href="#S2">S2</a></h2>
+<p>衛浴設備、陶瓷製品、陶瓷花瓶與酒瓶、<strong>鏡子</strong>、磁磚。</p>
+<p><span class="warn" aria-label="待釐清">⚠</span> 待釐清：S2 只說不可回收，沒有說要怎麼丟。碎玻璃、碎陶瓷屬尖銳物，S1 要求用不易穿透的材質包好並標示<a class="cite" href="#S1">S1</a>；少量陶瓷是否有縣市另訂管道，待後續來源確認。</p></article>
+<article class="page " id="p-item-plastic" data-slug="item-plastic" hidden><p class="meta">最後更新 2026-11-10　檔案 wiki/items/item-plastic.md</p><h1>塑膠類</h1>
+<p>所屬類別：<a href="#cat-recyclable" class="wl recycle">資源垃圾</a>（不可回收者為 <a href="#cat-general" class="wl general">一般垃圾</a>）</p>
+<h2>可回收<a class="cite" href="#S2">S2</a></h2>
+<ul>
+<li><strong>塑膠容器</strong>：內容量小於 17 公升、印有回收辨識碼 1–7 號的容器（PET、PVC、PP、PE、PS 等）</li>
+<li><strong>平板包材</strong>：塑膠便當盒、盒蓋、托盤、免洗餐具、塑膠襯墊、泡殼（商品的透明包裝殼）</li>
+<li><strong>一般塑膠製品</strong>：塑膠盆、塑膠桌椅、資料夾、籃子、衣架、水桶</li>
+<li><strong>塑膠袋</strong>：見 <a href="#item-plastic-bag" class="wl ">塑膠袋</a>（依縣市規定）</li>
+<li><strong>保麗龍</strong>：見 <a href="#item-styrofoam" class="wl ">保麗龍</a></li>
+</ul>
+<h2>交付前<a class="cite" href="#S2">S2</a></h2>
+<ol>
+<li>倒空、清洗、壓扁後裝成一袋。</li>
+<li>襯墊、泡殼去掉標籤。</li>
+<li>環境用藥、農藥、肥料容器至少清洗三次，清洗液重複噴灑利用，再送農會回收點或資源回收車。</li>
+</ol>
+<h2>不可回收，丟一般垃圾<a class="cite" href="#S2">S2</a></h2>
+<p>玻璃纖維製品、汽機車坐墊、塑膠膜、保鮮膜、塑膠繩、尼龍繩、塑膠布、安全座椅、巧拼地墊、護貝膜、泡棉、膠帶、原子筆、<strong>吸管</strong>、塑膠玩具、塑膠鉛筆盒等。</p></article>
+<article class="page " id="p-item-disc" data-slug="item-disc" hidden><p class="meta">最後更新 2026-11-10　檔案 wiki/items/item-disc.md</p><h1>光碟片</h1>
+<p>所屬類別：<a href="#cat-recyclable" class="wl recycle">資源垃圾</a></p>
+<h2>可回收<a class="cite" href="#S2">S2</a></h2>
+<p>CD、VCD、DVD 片本身，不含外殼。</p>
+<h2>交付前<a class="cite" href="#S2">S2</a></h2>
+<p>拆掉棉套或塑膠盒後裝成一袋；PC 塑膠材質的外殼另外回收。</p></article>
+<article class="page " id="p-item-phone" data-slug="item-phone" hidden><p class="meta">最後更新 2026-11-10　檔案 wiki/items/item-phone.md</p><h1>手機與充電器</h1>
+<p>所屬類別：<a href="#cat-recyclable" class="wl recycle">資源垃圾</a></p>
+<h2>可回收<a class="cite" href="#S2">S2</a></h2>
+<p>手機、具通話功能的平板或 GPS，以及配件：充電器（座充、旅充）、電池、耳機、傳輸線、讀卡機等。</p>
+<h2>交付前<a class="cite" href="#S2">S2</a></h2>
+<ol>
+<li>依品牌建議的方式<strong>刪除個人資料</strong>。</li>
+<li>功能型手機可先拆電池，拔出記憶卡與 SIM 卡。</li>
+</ol>
+<h2>相關</h2>
+<p><a href="#item-lithium-battery" class="wl ">鋰電池</a></p></article>
+<article class="page " id="p-item-cooking-oil" data-slug="item-cooking-oil" hidden><p class="meta">最後更新 2026-11-10　檔案 wiki/items/item-cooking-oil.md</p><h1>廢食用油</h1>
+<p>所屬類別：<a href="#cat-recyclable" class="wl recycle">資源垃圾</a>（注意：不是廚餘）</p>
+<h2>範圍<a class="cite" href="#S2">S2</a></h2>
+<p>所有烹調用油，包括回鍋油、過期食用油。</p>
+<h2>交付方式<a class="cite" href="#S2">S2</a></h2>
+<p>自備容器（原包裝、寶特瓶或塑膠空瓶）裝好蓋緊，交資源回收車，或送到清潔隊的定點回收地點。</p></article>
+<article class="page " id="p-item-mandatory" data-slug="item-mandatory" hidden><p class="meta">最後更新 2026-11-10　檔案 wiki/items/item-mandatory.md</p><h1>應回收物品類（電池、家電、燈管、車輛）</h1>
+<p>所屬類別：<a href="#cat-recyclable" class="wl recycle">資源垃圾</a></p>
+<h2>項目與交付方式<a class="cite" href="#S2">S2</a></h2>
+<table>
+<thead>
+<tr>
+<th>物品</th>
+<th>範圍</th>
+<th>怎麼交</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>乾電池</td>
+<td>一次電池（碳鋅、鹼錳、鈕扣）、充電電池（鎳鎘、鎳氫、鋰）</td>
+<td>回收車，或超商、量販店、通訊行等逆向回收；鋰電池見 <a href="#item-lithium-battery" class="wl ">鋰電池</a></td>
+</tr>
+<tr>
+<td>機動車輛</td>
+<td>汽車、機車</td>
+<td>「廢車回收一站通」平台或回收業者；汽車 10 年、機車 7 年以上可申請獎勵金</td>
+</tr>
+<tr>
+<td>廢輪胎</td>
+<td>橡膠外胎，不含內胎與實心胎</td>
+<td>家戶交回收車</td>
+</tr>
+<tr>
+<td>鉛蓄電池</td>
+<td>汽機車電瓶等</td>
+<td>家戶交回收車</td>
+</tr>
+<tr>
+<td>電子電器</td>
+<td>電視、冰箱、洗衣機、冷暖氣機、電風扇</td>
+<td>大型的交經銷商逆向回收或先約清潔隊；小型交回收車</td>
+</tr>
+<tr>
+<td>資訊物品</td>
+<td>筆電、平板、主機板、硬碟、螢幕、印表機、鍵盤等</td>
+<td>回收車；碳粉匣由廠商逆向回收</td>
+</tr>
+<tr>
+<td>照明光源</td>
+<td>日光燈管、省電燈泡、白熾燈泡、LED 燈管等</td>
+<td>用紙套包好交回收車或販賣業者；破損時用堅固容器包裝並註明</td>
+</tr>
+</tbody>
+</table>
+<h2>和「有害垃圾」的關係</h2>
+<p>乾電池、照明光源（含汞燈管）雖然帶有有害成分，但在 S2 中屬於回收項目，實務上走資源回收車或販賣業者逆向回收，而不是 <a href="#cat-hazardous" class="wl hazard">有害垃圾</a> 的專用車。<a class="cite" href="#S2">S2</a>第 5 篇來源也沒有找到把這些物品列為法定有害垃圾的中央公告，因此維持此寫法。</p></article>
+<article class="page " id="p-item-food-raw-cooked" data-slug="item-food-raw-cooked" hidden><p class="meta">最後更新 2026-11-10　檔案 wiki/items/item-food-raw-cooked.md</p><h1>生熟廚餘怎麼分</h1>
+<p>所屬類別：<a href="#cat-food" class="wl food">廚餘</a></p>
+<h2>熟廚餘（舊稱養豬廚餘）<a class="cite" href="#S3">S3</a></h2>
+<p>剩菜剩飯、麵食、魚、蝦、肉類、內臟、生鮮或熟食等。</p>
+<h2>生廚餘（舊稱堆肥廚餘）<a class="cite" href="#S3">S3</a></h2>
+<p>生菜葉、果皮、茶渣、貝殼、果核、落葉、花材等。</p>
+<h2>分不清楚時<a class="cite" href="#S3">S3</a></h2>
+<p>混雜或無法分辨的廚餘，歸生廚餘。</p>
+<h2>判斷口訣的新舊差異</h2>
+<table>
+<thead>
+<tr>
+<th>時期</th>
+<th>判斷原則</th>
+<th>依據</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>舊制</td>
+<td>適合豬吃的歸「養豬廚餘」，其餘歸「堆肥廚餘」</td>
+<td><a class="cite" href="#S3">S3</a></td>
+</tr>
+<tr>
+<td>現在</td>
+<td>家戶的熟廚餘已不會送去餵豬，改走堆肥、生質能等途徑</td>
+<td><a class="cite" href="#S4">S4</a></td>
+</tr>
+<tr>
+<td>現在</td>
+<td>家戶是否仍要分生熟：S4 未說明 <span class="warn" aria-label="待釐清">⚠</span> 依縣市公告</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>舊口訣「豬能吃的是養豬廚餘」仍可用來判斷生熟，只是名稱已經不符合實際去向。S3 是禁令前發布的說明，禁令後家戶是否仍分生熟收運，請以縣市公告為準。</p>
+<h2>相關</h2>
+<p><a href="#policy-food-waste-pig" class="wl ">廚餘養豬禁令（新舊規定與生效日）</a>、<a href="#local-differences" class="wl ">地方差異</a></p></article>
+<article class="page " id="p-item-receipt" data-slug="item-receipt" hidden><p class="meta">最後更新 2026-11-10　檔案 wiki/items/item-receipt.md</p><h1>感熱紙發票</h1>
+<p><strong>丟哪裡：</strong><a href="#cat-general" class="wl general">一般垃圾</a></p>
+<h2>為什麼不能丟紙類回收</h2>
+<p>感熱紙（電子發票證明聯、感熱式傳真紙、心電圖紙）列在紙類的「不可回收」清單。這類複合材質紙張能再利用的比例低，而且會影響再生紙品質。<a class="cite" href="#S2">S2</a></p>
+<h2>同一類的易混淆物</h2>
+<p>貼紙底襯、標籤貼紙、複寫紙、轉印紙、蠟紙。<a class="cite" href="#S2">S2</a></p>
+<h2>相關</h2>
+<p><a href="#item-paper" class="wl ">紙類</a></p></article>
+<article class="page " id="p-item-pressurized-can" data-slug="item-pressurized-can" hidden><p class="meta">最後更新 2026-11-10　檔案 wiki/items/item-pressurized-can.md</p><h1>高壓罐（噴霧罐、卡式瓦斯罐）</h1>
+<p><strong>丟哪裡：</strong><a href="#cat-recyclable" class="wl recycle">資源垃圾</a>（鐵類），但要特別處理</p>
+<h2>為什麼危險</h2>
+<p>卡式爐瓦斯罐、髮膠罐等高壓鐵罐遇到高溫或壓縮容易爆炸。若和垃圾一起丟進垃圾車的壓縮槽，可能起火或爆炸。<a class="cite" href="#S2">S2</a></p>
+<h2>交付前<a class="cite" href="#S2">S2</a></h2>
+<ol>
+<li>到<strong>空曠處</strong>把內容物排空，確認已完全用完。</li>
+<li><strong>單獨打包</strong>，標示「內有高壓瓶」。</li>
+<li>交給資源回收車的隨車人員，絕不能丟進垃圾車。</li>
+</ol>
+<h2>不要搞混</h2>
+<p>空的瓦斯鋼瓶不是這一類，見 <a href="#item-gas-cylinder" class="wl ">瓦斯鋼瓶</a>。</p></article>
+<article class="page " id="p-item-gas-cylinder" data-slug="item-gas-cylinder" hidden><p class="meta">最後更新 2026-11-10　檔案 wiki/items/item-gas-cylinder.md</p><h1>瓦斯鋼瓶</h1>
+<p><strong>丟哪裡：<strong>不歸清潔隊收，交</strong>瓦斯行</strong>逆向回收</p>
+<h2>為什麼</h2>
+<p>空瓦斯鋼瓶屬於壓力容器，用完後仍可能殘留瓦斯，因此不在清潔隊回收範圍內。<a class="cite" href="#S2">S2</a></p>
+<h2>怎麼處理<a class="cite" href="#S2">S2</a></h2>
+<p>洽瓦斯行，或內政部認證的瓦斯檢驗場；檢驗場資訊可在中華民國液化石油氣容器安全協會網站查詢。</p>
+<h2>不要搞混</h2>
+<p>卡式爐用的小瓦斯罐可以回收，見 <a href="#item-pressurized-can" class="wl ">高壓罐（噴霧罐、卡式瓦斯罐）</a>。</p></article>
+<article class="page " id="p-item-plastic-bag" data-slug="item-plastic-bag" hidden><p class="meta">最後更新 2026-11-10　檔案 wiki/items/item-plastic-bag.md</p><h1>塑膠袋</h1>
+<p>**丟哪裡：**乾淨的 → <a href="#cat-recyclable" class="wl recycle">資源垃圾</a>（依縣市規定）；髒的或複合材質 → <a href="#cat-general" class="wl general">一般垃圾</a></p>
+<h2>可回收<a class="cite" href="#S2">S2</a></h2>
+<p>乾淨、不含油漬的<strong>單一材質</strong>塑膠袋。此項標註為依各縣市自行公告為準，見 <a href="#local-differences" class="wl ">地方差異</a>。</p>
+<h2>不可回收<a class="cite" href="#S2">S2</a></h2>
+<ol>
+<li>沾到湯汁、油漬、血水的塑膠袋。</li>
+<li>內層有錫箔或鋁箔的複合材質袋，例如糖果、餅乾、茶包的小包裝袋。</li>
+</ol>
+<h2>相關</h2>
+<p><a href="#item-plastic" class="wl ">塑膠類</a></p></article>
+<article class="page " id="p-item-styrofoam" data-slug="item-styrofoam" hidden><p class="meta">最後更新 2026-11-10　檔案 wiki/items/item-styrofoam.md</p><h1>保麗龍</h1>
+<p><strong>丟哪裡：</strong><a href="#cat-recyclable" class="wl recycle">資源垃圾</a>（塑膠類，發泡 PS）</p>
+<h2>範圍<a class="cite" href="#S2">S2</a></h2>
+<p>漁箱、冰品盒、蛋糕盒、家電包裝用的保麗龍和箱內填充物。</p>
+<h2>交付前<a class="cite" href="#S2">S2</a></h2>
+<p>撕掉膠帶，拆掉木材、鐵釘和其他非保麗龍的包材。</p>
+<h2>相關</h2>
+<p><a href="#item-plastic" class="wl ">塑膠類</a></p></article>
+<article class="page " id="p-item-lithium-battery" data-slug="item-lithium-battery" hidden><p class="meta">最後更新 2026-11-10　檔案 wiki/items/item-lithium-battery.md</p><h1>鋰電池</h1>
+<p><strong>丟哪裡：</strong><a href="#cat-recyclable" class="wl recycle">資源垃圾</a>（應回收物品類的乾電池），<strong>絕不能混入垃圾</strong></p>
+<h2>為什麼要特別處理</h2>
+<p>鋰金屬材料活性大。<a class="cite" href="#S2">S2</a></p>
+<h2>交付前<a class="cite" href="#S2">S2</a></h2>
+<ol>
+<li>從物品中取出後<strong>儘快排出，不要囤放</strong>。</li>
+<li>排出前單獨存放，避開高溫。</li>
+<li>在正負極貼上<strong>絕緣膠帶</strong>，避免短路。</li>
+<li>交資源回收車，或超商、量販店、通訊行等販賣業者逆向回收。</li>
+</ol>
+<h2>相關</h2>
+<p><a href="#item-mandatory" class="wl ">應回收物品類（電池、家電、燈管、車輛）</a>、<a href="#item-phone" class="wl ">手機與充電器</a></p></article>
+<article class="page " id="p-item-medicine" data-slug="item-medicine" hidden><p class="meta">最後更新 2026-11-10　檔案 wiki/items/item-medicine.md</p><h1>廢藥品</h1>
+<p>**丟哪裡：**優先送回醫院或貼有「居家廢棄藥物檢收站」標章的藥局；特定種類以外的藥品，依各地規定處理。</p>
+<h2>新舊說法對照</h2>
+<table>
+<thead>
+<tr>
+<th>時期</th>
+<th>說法</th>
+<th>依據</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>舊說法（環保署時期）</td>
+<td>盡可能拿回原就診醫院；部分公立醫院、衛生所、社區藥局有回收；都沒有時可併同生活垃圾交清潔隊焚化</td>
+<td><a class="cite" href="#S5">S5</a></td>
+</tr>
+<tr>
+<td>地方作法（台北市）</td>
+<td>五大類送檢收站，其餘依一般家中垃圾處理</td>
+<td><a class="cite" href="#S5">S5</a><span class="unoff" aria-label="非官方來源">◇</span> 非官方（公會網站）</td>
+</tr>
+</tbody>
+</table>
+<p><span class="warn" aria-label="待釐清">⚠</span> 待釐清：環境部 2026 年 9 月的說明只談針頭，沒有提到廢藥品，中央對廢藥品是否有新規定，尚待確認。</p>
+<h2>需要送檢收的五大類（台北市）<a class="cite" href="#S5">S5</a><span class="unoff" aria-label="非官方來源">◇</span> 非官方（公會網站）</h2>
+<ol>
+<li>針具針頭</li>
+<li>含液體藥品的抗生素</li>
+<li>抗癌與免疫抑制劑</li>
+<li>荷爾蒙</li>
+<li>管制藥品</li>
+</ol>
+<h2>相關</h2>
+<p><a href="#item-needle" class="wl ">居家針頭（瘦瘦針、胰島素針）</a>、<a href="#cat-hazardous" class="wl hazard">有害垃圾</a>、<a href="#local-differences" class="wl ">地方差異</a></p></article>
+<article class="page " id="p-item-needle" data-slug="item-needle" hidden><p class="meta">最後更新 2026-11-10　檔案 wiki/items/item-needle.md</p><h1>居家針頭（瘦瘦針、胰島素針）</h1>
+<p>**丟哪裡：**送回原購買機構、醫院、藥局或指定回收點。<strong>不可丟垃圾車、回收車、路邊垃圾桶。</strong></p>
+<h2>為什麼危險<a class="cite" href="#S5">S5</a><span class="unoff" aria-label="非官方來源">◇</span> 非官方（媒體報導）</h2>
+<p>居家針頭和醫院的針具一樣具感染性。清潔隊員或拾荒者被扎傷，可能感染 B 型、C 型肝炎。</p>
+<h2>怎麼處理<a class="cite" href="#S5">S5</a><span class="unoff" aria-label="非官方來源">◇</span> 非官方（媒體報導）</h2>
+<ol>
+<li>裝進<strong>不易穿刺的容器</strong>，例如厚牛奶瓶，或醫療院所提供的收集盒。</li>
+<li>蓋緊並<strong>清楚標示</strong>是廢棄針頭。</li>
+<li><strong>優先送回原購買機構</strong>；也可送醫院或指定地點。領藥時就先問醫療院所有沒有回收服務。</li>
+</ol>
+<h2>新舊說法對照</h2>
+<table>
+<thead>
+<tr>
+<th>時期</th>
+<th>說法</th>
+<th>依據</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>舊說法（環保署時期，2023 年 8 月改制為環境部之前）</td>
+<td>先拿回醫院；若無回收管道，裝硬容器交清潔隊</td>
+<td><a class="cite" href="#S5">S5</a></td>
+</tr>
+<tr>
+<td>新說法（環境部 2026 年 9 月說明）</td>
+<td>不可混入垃圾或回收物；送回原購買機構、醫院或指定地點</td>
+<td><a class="cite" href="#S5">S5</a><span class="unoff" aria-label="非官方來源">◇</span> 非官方（媒體報導）</td>
+</tr>
+</tbody>
+</table>
+<p>本 wiki 建議依新說法處理。新說法目前只有媒體轉述環境部的說法，尚未取得環境部新聞稿原文。</p>
+<h2>罰則<a class="cite" href="#S5">S5</a><span class="unoff" aria-label="非官方來源">◇</span> 非官方（媒體報導）</h2>
+<p>居家護理針頭屬一般廢棄物。依 2026 年 6 月三讀通過的廢棄物清理法修正案，任意棄置最高可罰新台幣 10 萬元。</p>
+<h2>針筒本體</h2>
+<p>台北市的說法：沒有直接接觸血液或體液的針筒屬一般廢棄物，密封後交清潔隊。<a class="cite" href="#S5">S5</a>其他縣市見 <a href="#local-differences" class="wl ">地方差異</a>。</p>
+<h2>相關</h2>
+<p><a href="#cat-hazardous" class="wl hazard">有害垃圾</a>、<a href="#item-medicine" class="wl ">廢藥品</a>；尖銳物包裝原則見 <a href="#concept-prep" class="wl ">回收前處理</a><a class="cite" href="#S1">S1</a></p></article>
+<article class="page " id="p-concept-legal-categories" data-slug="concept-legal-categories" hidden><p class="meta">最後更新 2026-11-10　檔案 wiki/concepts/concept-legal-categories.md</p><h1>垃圾分類的法定定義：五類與三類</h1>
+<h2>法定五類<a class="cite" href="#S1">S1</a></h2>
+<table>
+<thead>
+<tr>
+<th>類別</th>
+<th>一句話判斷</th>
+<th>交付管道</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#cat-bulky" class="wl bulky">巨大垃圾</a></td>
+<td>體積大的傢俱、樹枝</td>
+<td>先預約</td>
+</tr>
+<tr>
+<td><a href="#cat-hazardous" class="wl hazard">有害垃圾</a></td>
+<td>經公告的有害一般廢棄物</td>
+<td>法定為專用車；家戶常見危險物品實務上走回收或逆向回收</td>
+</tr>
+<tr>
+<td><a href="#cat-food" class="wl food">廚餘</a></td>
+<td>生熟食物與殘渣</td>
+<td>廚餘桶</td>
+</tr>
+<tr>
+<td><a href="#cat-recyclable" class="wl recycle">資源垃圾</a></td>
+<td>公告回收項目、應回收物品與容器</td>
+<td>回收車、回收桶、交回賣家</td>
+</tr>
+<tr>
+<td><a href="#cat-general" class="wl general">一般垃圾</a></td>
+<td>以上皆非</td>
+<td>垃圾車</td>
+</tr>
+</tbody>
+</table>
+<p>法規定義「分類」為：在排出、貯存、回收、清除及處理過程中，為利後續運輸與處理，把不同類別性質者分開的行為。<a class="cite" href="#S1">S1</a></p>
+<h2>日常說的「強制分類三類」</h2>
+<p>學校與宣導文件常說垃圾強制分類為「一般垃圾、資源垃圾、廚餘」三大類（參見 raw/S1 參照資料）<span class="unoff" aria-label="非官方來源">◇</span> 非官方（學校文件）。</p>
+<p>這是<strong>日常排出時的簡化說法</strong>：家戶每天面對的主要是垃圾車、回收車、廚餘桶三個出口。巨大垃圾與有害垃圾頻率低，又需另外預約或交專用車，因此常被省略。</p>
+<h2>對照</h2>
+<table>
+<thead>
+<tr>
+<th>法定五類</th>
+<th>日常三類</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>資源垃圾</td>
+<td>資源垃圾</td>
+</tr>
+<tr>
+<td>廚餘</td>
+<td>廚餘</td>
+</tr>
+<tr>
+<td>一般垃圾</td>
+<td>一般垃圾</td>
+</tr>
+<tr>
+<td>巨大垃圾</td>
+<td>另行預約，不在三類內</td>
+</tr>
+<tr>
+<td>有害垃圾</td>
+<td>交專用車，不在三類內</td>
+</tr>
+</tbody>
+</table>
+<h2>延伸</h2>
+<p>回收前要做什麼，見 <a href="#concept-prep" class="wl ">回收前處理</a>。</p>
+<h2>判斷順序建議</h2>
+<p>因為一般垃圾是剩餘類別，判斷時可依序問：太大嗎？有害嗎？是食物嗎？可回收嗎？都不是，才丟垃圾車。（本 wiki 依 S1 定義整理的判斷流程）</p>
+<p>注意「有害嗎？」這一步：電池、燈管、高壓罐等走資源回收<a class="cite" href="#S2">S2</a>，針頭、藥品走醫院或藥局<a class="cite" href="#S5">S5</a><span class="unoff" aria-label="非官方來源">◇</span> 非官方（媒體報導），並不是都交專用車。請看 <a href="#cat-hazardous" class="wl hazard">有害垃圾</a> 的管道對照表。</p></article>
+<article class="page " id="p-concept-prep" data-slug="concept-prep" hidden><p class="meta">最後更新 2026-11-10　檔案 wiki/concepts/concept-prep.md</p><h1>回收前處理</h1>
+<p>S2 各材質的交付注意事項，可以歸納成幾個共通動作。（本頁為跨頁整理）</p>
+<table>
+<thead>
+<tr>
+<th>動作</th>
+<th>適用</th>
+<th>依據</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>倒空殘餘物</td>
+<td>所有容器</td>
+<td><a class="cite" href="#S2">S2</a></td>
+</tr>
+<tr>
+<td>略為沖洗或擦拭</td>
+<td>鐵鋁玻璃塑膠容器、紙餐盒</td>
+<td><a class="cite" href="#S2">S2</a></td>
+</tr>
+<tr>
+<td>壓扁</td>
+<td>鐵鋁容器、塑膠容器、鋁箔包</td>
+<td><a class="cite" href="#S2">S2</a></td>
+</tr>
+<tr>
+<td>拆開不同材質</td>
+<td>紙類去膠帶與釘書針、鐵鋁用品去附著物、保麗龍去膠帶與鐵釘、光碟去外殼</td>
+<td><a class="cite" href="#S2">S2</a></td>
+</tr>
+<tr>
+<td>分開打包</td>
+<td>一般紙類與紙容器、鋁箔包分開</td>
+<td><a class="cite" href="#S2">S2</a></td>
+</tr>
+<tr>
+<td>剩菜先倒廚餘</td>
+<td>紙或塑膠餐盒</td>
+<td><a class="cite" href="#S2">S2</a></td>
+</tr>
+<tr>
+<td>危險物單獨處理</td>
+<td>高壓罐、鋰電池、燈管</td>
+<td><a class="cite" href="#S2">S2</a></td>
+</tr>
+<tr>
+<td>尖銳醫療物裝硬瓶並標示</td>
+<td>居家針頭（<a href="#item-needle" class="wl ">居家針頭（瘦瘦針、胰島素針）</a>）</td>
+<td><a class="cite" href="#S5">S5</a><span class="unoff" aria-label="非官方來源">◇</span> 非官方（媒體報導）</td>
+</tr>
+</tbody>
+</table>
+<h2>中央法規的排出原則<a class="cite" href="#S1">S1</a></h2>
+<p>執行機關應宣導民眾：廚餘先瀝乾水分並包好；刀片、玻璃碎片等尖銳物用不易穿透的容器或材質包好並標示；木、竹片裁剪後綑紮；封緊垃圾袋口；有害垃圾分開貯存排出。</p>
+<h2>為什麼要做</h2>
+<p>「看起來像可回收」不等於能回收。污染或複合材質會降低再利用比例、影響再生品質（見 <a href="#item-receipt" class="wl ">感熱紙發票</a>）。</p></article>
+<article class="page " id="p-law-regulation" data-slug="law-regulation" hidden><p class="meta">最後更新 2026-11-10　檔案 wiki/law/law-regulation.md</p><h1>一般廢棄物回收清除處理辦法</h1>
+<h2>基本資料<a class="cite" href="#S1">S1</a></h2>
+<ul>
+<li>主管機關：環境部（改制前為行政院環境保護署）</li>
+<li>法源：廢棄物清理法第 12 條第 1 項</li>
+<li>現行版本：民國 114 年 1 月 3 日修正</li>
+</ul>
+<h2>沿革<a class="cite" href="#S1">S1</a></h2>
+<table>
+<thead>
+<tr>
+<th>日期（民國）</th>
+<th>事件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>86 年 4 月 23 日</td>
+<td>訂定，原名「一般廢棄物貯存清除處理方法及設施標準」</td>
+</tr>
+<tr>
+<td>87 年 6 月 10 日</td>
+<td>修正</td>
+</tr>
+<tr>
+<td>91 年 11 月 27 日</td>
+<td>更名為現名</td>
+</tr>
+<tr>
+<td>110 年 2 月 22 日</td>
+<td>修正</td>
+</tr>
+<tr>
+<td>114 年 1 月 3 日</td>
+<td>修正，新增建築物拆除石綿瓦廢棄物的管理方式</td>
+</tr>
+</tbody>
+</table>
+<h2>本辦法規範的內容</h2>
+<ul>
+<li>五類一般廢棄物的定義：見 <a href="#concept-legal-categories" class="wl ">垃圾分類的法定定義：五類與三類</a></li>
+<li>各類的排出方式：見各分類類別頁</li>
+<li>委託業者清運時也須依同樣類別分類</li>
+</ul>
+<h2>與其他法規的關係</h2>
+<ul>
+<li>資源垃圾的範圍引用廢棄物清理法第 5 條第 6 項與第 15 條第 2 項的公告。</li>
+<li>有害垃圾引用「有害事業廢棄物認定標準」。</li>
+<li>違規罰則規定在廢棄物清理法。2026 年 6 月立法院三讀通過廢棄物清理法修正案；依環境部說明，任意棄置居家針頭等廢棄物最高可罰新台幣 10 萬元。<a class="cite" href="#S5">S5</a><span class="unoff" aria-label="非官方來源">◇</span> 非官方（媒體報導）</li>
+</ul>
+<p><span class="warn" aria-label="待釐清">⚠</span> 待釐清：修正案的條號、生效日與完整罰則級距，尚未取得法條原文。</p></article>
+<article class="page " id="p-local-differences" data-slug="local-differences" hidden><p class="meta">最後更新 2026-11-10　檔案 wiki/law/local-differences.md</p><h1>地方差異</h1>
+<p>中央辦法規定依「執行機關指定之時間、地點及作業方式」排出，並依「各地區設置資源回收設施分類規定」投放<a class="cite" href="#S1">S1</a>，因此實際細節由各縣市決定。</p>
+<h2>縣市自訂回收項目<a class="cite" href="#S2">S2</a></h2>
+<p>各直轄市、縣（市）可視需要增訂回收項目。S2 中以下項目標註「依各縣市自行公告為準」：</p>
+<ul>
+<li>乾淨的單一材質塑膠袋（<a href="#item-plastic-bag" class="wl ">塑膠袋</a>）</li>
+<li>含汞廢棄物（水銀體溫計、血壓計、溫度計）</li>
+<li>舊衣（洗淨後投有地方政府許可字號的回收箱，或交回收車）</li>
+<li>雨傘骨架、滅火器（優先交販賣業者）、安全帽、行李箱、獎盃、腳踏車、嬰兒車</li>
+</ul>
+<h2>廚餘收運方式</h2>
+<p>中央禁令前的說明分生熟兩類<a class="cite" href="#S3">S3</a>；廚餘養豬禁令後，各縣市的收運與處理方式正在調整<a class="cite" href="#S4">S4</a>。例如有媒體報導台北市規劃不再分紅、藍兩桶，全部作堆肥處理（記於 raw/S4 參照，尚未有官方來源）<span class="unoff" aria-label="非官方來源">◇</span> 非官方（媒體報導）。</p>
+<p><span class="warn" aria-label="待釐清">⚠</span> 請以所在縣市環保局的最新公告為準。</p>
+<h2>居家針頭與廢藥品（台北市）<a class="cite" href="#S5">S5</a></h2>
+<ul>
+<li>針頭：回診時交醫療院所，或送貼有「居家廢棄藥物檢收站」標章的藥局。</li>
+<li>未接觸血液或體液的針筒本體：屬一般廢棄物，密封後交清潔隊。</li>
+<li>藥品：五大類送檢收站，其餘依一般家中垃圾處理。<span class="unoff" aria-label="非官方來源">◇</span> 非官方（公會網站）</li>
+<li>依 2026 年 9 月報導，台北市的檢收專區有 48 間醫院、337 間藥局加入。<span class="unoff" aria-label="非官方來源">◇</span> 非官方（媒體報導）</li>
+</ul>
+<h2>待補充</h2>
+<ul>
+<li>各縣市資源回收細分規定</li>
+<li>巨大垃圾預約方式</li>
+<li>各縣市實際公告的自訂項目清單</li>
+</ul></article>
+<article class="page " id="p-policy-food-waste-pig" data-slug="policy-food-waste-pig" hidden><p class="meta">最後更新 2026-11-10　檔案 wiki/law/policy-food-waste-pig.md</p><h1>廚餘養豬禁令（新舊規定與生效日）</h1>
+<h2>時間軸</h2>
+<table>
+<thead>
+<tr>
+<th>時期</th>
+<th>生效期間</th>
+<th>家戶廚餘</th>
+<th>事業廚餘</th>
+<th>依據</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>舊制</td>
+<td>至 2025 年 10 月非洲豬瘟爆發前</td>
+<td>熟廚餘（養豬廚餘）可送養豬場，須蒸煮至中心溫度 90℃以上、維持 1 小時以上；生廚餘堆肥</td>
+<td>同左</td>
+<td><a class="cite" href="#S3">S3</a></td>
+</tr>
+<tr>
+<td>疫情應變期</td>
+<td>2025 年 10 月下旬起</td>
+<td>農業部宣布禁止以廚餘餵豬；家戶廚餘改走堆肥、能源化，輔以焚化、掩埋</td>
+<td>同左</td>
+<td><a class="cite" href="#S4">S4</a></td>
+</tr>
+<tr>
+<td>轉型期</td>
+<td>2026-01-01 至 2026-12-31</td>
+<td><strong>禁止養豬</strong></td>
+<td>僅正面表列來源，在 GPS 與溫度影像監控下可養豬</td>
+<td><a class="cite" href="#S4">S4</a></td>
+</tr>
+<tr>
+<td>全面禁止</td>
+<td><strong>2027-01-01 起</strong></td>
+<td>禁止養豬</td>
+<td><strong>禁止養豬</strong></td>
+<td><a class="cite" href="#S4">S4</a></td>
+</tr>
+</tbody>
+</table>
+<p><span class="warn" aria-label="待釐清">⚠</span> 時效提醒：今天是 2026-11-10，目前處於「轉型期」。2027-01-01 後請重新 lint 本頁，確認禁令已如期生效、有無新的公告。</p>
+<h2>轉型期可養豬的事業廚餘（正面表列）<a class="cite" href="#S4">S4</a></h2>
+<p>集中供膳（學校、部隊、矯正機關）、餐館業、超市與賣場的過期食品、食品加工廠的動物性廢渣或屠宰下腳料；正面表列另含連鎖便利商店、百貨公司、旅館、量販店、連鎖速食店、長照與護理機構、觀光遊樂業。</p>
+<h2>不可養豬的廚餘<a class="cite" href="#S4">S4</a></h2>
+<p>家戶廚餘、小吃攤、公寓大樓。</p>
+<h2>廚餘以後去哪裡<a class="cite" href="#S4">S4</a></h2>
+<p>堆肥、黑水虻、生質能為主，焚化與掩埋為輔。環境部預估再利用設施量能將從 1,100 噸/日，提升到 2026 年底 1,720 噸/日、2027 年底 2,119 噸/日，屆時可大於全國廚餘產生量（約 2,115 噸/日），不再需要焚化或掩埋。</p>
+<h2>對民眾的影響</h2>
+<ul>
+<li>家戶的分類方式：環境部禁令前的說明分生熟兩類<a class="cite" href="#S3">S3</a>；禁令後是否調整，S4 未說明 <span class="warn" aria-label="待釐清">⚠</span> 依縣市公告，見 <a href="#local-differences" class="wl ">地方差異</a>。</li>
+<li>名稱：「養豬廚餘」改稱「熟廚餘」，見 <a href="#cat-food" class="wl food">廚餘</a>。</li>
+</ul>
+<h2>相關</h2>
+<p><a href="#item-food-raw-cooked" class="wl ">生熟廚餘怎麼分</a>、<a href="#S4" class="wl ">&#x3014;S4&#x3015;環境部廚餘去化專案報告（2025-12）</a></p></article>
+<article class="page " id="p-S1" data-slug="S1" hidden><p class="meta">最後更新 2026-11-10（第 2 次更新）　檔案 wiki/sources/S1.md</p><h1><a class="cite" href="#S1">S1</a>一般廢棄物回收清除處理辦法</h1>
+<p><strong>類型</strong>：中央法規　<strong>主管機關</strong>：環境部　<strong>現行版本</strong>：民國 114 年 1 月 3 日修正　<strong>法源</strong>：廢棄物清理法第 12 條第 1 項</p>
+<h2>為什麼先讀這篇</h2>
+<p>它定義了台灣一般廢棄物的五個法定類別與各自的排出方式，是整個 wiki 的骨架。</p>
+<h2>重點</h2>
+<ol>
+<li>一般廢棄物分為五類：<a href="#cat-bulky" class="wl bulky">巨大垃圾</a>、<a href="#cat-recyclable" class="wl recycle">資源垃圾</a>、<a href="#cat-hazardous" class="wl hazard">有害垃圾</a>、<a href="#cat-food" class="wl food">廚餘</a>、<a href="#cat-general" class="wl general">一般垃圾</a>。</li>
+<li>「一般垃圾」是剩餘類別：不屬於其他四類的才是一般垃圾，所以判斷時要先排除前四類。</li>
+<li>每一類有不同的交付管道：預約、回收車或回收桶、專用車、垃圾車、廚餘桶。</li>
+<li>資源垃圾可以「逆向回收」，交回原販賣業者。</li>
+<li>委託業者清運的，也要依同樣類別分類。</li>
+<li>114 年修正的重點是新增建築物拆除石綿瓦廢棄物的管理方式。</li>
+</ol>
+<h2>影響的頁面</h2>
+<p><a href="#concept-legal-categories" class="wl ">垃圾分類的法定定義：五類與三類</a>、<a href="#law-regulation" class="wl ">一般廢棄物回收清除處理辦法</a>、五個分類類別頁、<a href="#local-differences" class="wl ">地方差異</a></p>
+<h2>已釐清（2026-11-10）</h2>
+<p><span class="ok" aria-label="已釐清">✔</span> 先前發現另一份版本的第二條，廚餘定義寫法不同（「丟棄之生、熟食物及其殘渣或有機性廢棄物，並經主管機關公告之一般廢棄物」）。比對環境部主管法規系統後，這段文字與<strong>歷史版本</strong>一致，屬舊版用語，不是現行規定的矛盾。本 wiki 採現行用語。</p>
+<h2>補充：排出原則（第 13 條）</h2>
+<p>執行機關應宣導民眾：廚餘先瀝乾水分並包好；刀片、玻璃碎片等尖銳物用不易穿透的容器或材質包好並標示；木、竹片裁剪後綑紮；封緊垃圾袋口；有害垃圾分開貯存排出；資源垃圾依回收管道分類排出。見 <a href="#concept-prep" class="wl ">回收前處理</a>。</p>
+<h2>來源品質（2026-11-10 依新來源政策檢查）</h2>
+<ul>
+<li>條文網址：raw/S1 記錄的是民間法規網站 rootlaw。<span class="ok" aria-label="已釐清">✔</span> 已有官方替代：環境部主管法規系統的現行條文與歷史版本網址，記於 <a href="#raw-S2">raw/S2 原始資料</a> 末段，本頁條文內容以該系統為準。行政院公報網址為官方，不受影響。</li>
+<li>「強制分類三類」的說法引用兩所大學的宣導文件 <span class="unoff" aria-label="非官方來源">◇</span> 非官方（學校文件），待找到政府機關的說明後替換。</li>
+</ul>
+<h2>原始資料</h2>
+<p><a href="#raw-S1">raw/S1 原始資料</a>（第 13 條與現行、歷史條文網址記於 <a href="#raw-S2">raw/S2 原始資料</a> 末段）</p></article>
+<article class="page " id="p-S2" data-slug="S2" hidden><p class="meta">最後更新 2026-11-10　檔案 wiki/sources/S2.md</p><h1><a class="cite" href="#S2">S2</a>一般廢棄物回收項目排出方式</h1>
+<p><strong>類型</strong>：中央官方說明　<strong>發布</strong>：環境部資源回收網　<strong>依據</strong>：廢棄物清理法第 5 條第 6 項公告</p>
+<h2>為什麼讀這篇</h2>
+<p>S1 定義了「資源垃圾」，但沒有說哪些東西算。S2 列出各材質的可回收、不可回收物品與交付注意事項，是物品頁的主要依據。</p>
+<h2>重點</h2>
+<ol>
+<li>容器類（鐵、鋁、玻璃、塑膠）的範圍以<strong>內容量小於 17 公升</strong>為準。</li>
+<li>看起來是紙、不代表能回收：感熱紙、貼紙底襯、衛生紙等複合或污染紙類屬一般垃圾，理由是再利用比例低且影響再生品質。</li>
+<li>安全相關：高壓罐要排空並標示「內有高壓瓶」；瓦斯鋼瓶不歸清潔隊；鋰電池要貼絕緣膠帶、不暫存。</li>
+<li>乾電池、照明光源、含汞物品在 S2 中屬回收項目，走資源回收車或販賣業者逆向回收。</li>
+<li>標 * 的項目由各縣市自行公告。</li>
+</ol>
+<h2>新增的頁面</h2>
+<p>物品群組：<a href="#item-paper" class="wl ">紙類</a>、<a href="#item-iron" class="wl ">鐵類</a>、<a href="#item-aluminum" class="wl ">鋁類</a>、<a href="#item-glass" class="wl ">玻璃類</a>、<a href="#item-plastic" class="wl ">塑膠類</a>、<a href="#item-disc" class="wl ">光碟片</a>、<a href="#item-phone" class="wl ">手機與充電器</a>、<a href="#item-cooking-oil" class="wl ">廢食用油</a>、<a href="#item-mandatory" class="wl ">應回收物品類（電池、家電、燈管、車輛）</a></p>
+<p>容易丟錯：<a href="#item-receipt" class="wl ">感熱紙發票</a>、<a href="#item-pressurized-can" class="wl ">高壓罐（噴霧罐、卡式瓦斯罐）</a>、<a href="#item-gas-cylinder" class="wl ">瓦斯鋼瓶</a>、<a href="#item-plastic-bag" class="wl ">塑膠袋</a>、<a href="#item-styrofoam" class="wl ">保麗龍</a>、<a href="#item-lithium-battery" class="wl ">鋰電池</a></p>
+<p>概念：<a href="#concept-prep" class="wl ">回收前處理</a></p>
+<h2>原始資料</h2>
+<p><a href="#raw-S2">raw/S2 原始資料</a></p></article>
+<article class="page " id="p-S3" data-slug="S3" hidden><p class="meta">最後更新 2026-11-10　檔案 wiki/sources/S3.md</p><h1><a class="cite" href="#S3">S3</a>環境部廚餘分類說明</h1>
+<p><strong>類型</strong>：中央官方說明　<strong>發布</strong>：環境部一般（生活）廢棄物管理資訊系統　<strong>注意</strong>：寫於廚餘養豬禁令之前</p>
+<h2>為什麼讀這篇</h2>
+<p>S1 只定義了廚餘，S3 說明廚餘怎麼再分成兩種。</p>
+<h2>重點</h2>
+<ol>
+<li>廚餘分成熟廚餘與生廚餘兩種，舊稱分別是「養豬廚餘」與「堆肥廚餘」。</li>
+<li>熟廚餘：剩菜剩飯、麵食、魚蝦、肉類、內臟、生鮮或熟食。</li>
+<li>生廚餘：生菜葉、果皮、茶渣、貝殼、果核、落葉、花材。</li>
+<li>混雜或分不清楚的，一律歸生廚餘（堆肥廚餘）。</li>
+<li>舊制下以廚餘養豬，必須加熱到中心溫度 90℃以上、維持至少一小時並持續攪拌。</li>
+</ol>
+<h2>時效說明</h2>
+<p>這篇的分類方式仍然適用，但名稱裡的「養豬」已不符合現況，家戶廚餘已經不能餵豬，見 <a href="#S4" class="wl ">&#x3014;S4&#x3015;環境部廚餘去化專案報告（2025-12）</a> 與 <a href="#policy-food-waste-pig" class="wl ">廚餘養豬禁令（新舊規定與生效日）</a>。</p>
+<h2>影響的頁面</h2>
+<p><a href="#cat-food" class="wl food">廚餘</a>、<a href="#item-food-raw-cooked" class="wl ">生熟廚餘怎麼分</a></p>
+<h2>原始資料</h2>
+<p><a href="#raw-S3">raw/S3 原始資料</a></p></article>
+<article class="page " id="p-S4" data-slug="S4" hidden><p class="meta">最後更新 2026-11-10　檔案 wiki/sources/S4.md</p><h1><a class="cite" href="#S4">S4</a>環境部廚餘去化專案報告（2025-12）</h1>
+<p><strong>類型</strong>：政府向立法院的專案報告　<strong>報告機關</strong>：環境部　<strong>日期</strong>：民國 114 年 12 月 15 日</p>
+<h2>為什麼讀這篇</h2>
+<p>說明非洲豬瘟後廚餘政策的轉變：哪些廚餘還能餵豬、到什麼時候為止、家戶廚餘改去哪裡。</p>
+<h2>重點</h2>
+<ol>
+<li>非洲豬瘟後，農業部宣布禁止以廚餘餵豬，環境部改以堆肥化、能源化優先處理，焚化或掩埋為輔。</li>
+<li>廚餘分成「可養豬」與「不可養豬」兩條路。<strong>家戶廚餘、小吃攤、公寓大樓屬不可養豬</strong>。</li>
+<li>2026 年全年為轉型期，只有正面表列的事業廚餘（學校團膳、餐廳、超市賣場的過期食品等）可以在嚴格監管下餵豬。</li>
+<li><strong>2027 年 1 月 1 日起，廚餘全面禁止養豬。</strong></li>
+<li>去化途徑：堆肥、黑水虻、生質能為主，焚化與掩埋為輔；環境部預估 2027 年底再利用量能可大於全國廚餘產生量。</li>
+</ol>
+<h2>影響的頁面</h2>
+<p><a href="#policy-food-waste-pig" class="wl ">廚餘養豬禁令（新舊規定與生效日）</a>、<a href="#cat-food" class="wl food">廚餘</a>、<a href="#item-food-raw-cooked" class="wl ">生熟廚餘怎麼分</a>、<a href="#local-differences" class="wl ">地方差異</a></p>
+<h2>原始資料</h2>
+<p><a href="#raw-S4">raw/S4 原始資料</a></p></article>
+<article class="page " id="p-S5" data-slug="S5" hidden><p class="meta">最後更新 2026-11-10　檔案 wiki/sources/S5.md</p><h1><a class="cite" href="#S5">S5</a>居家針頭與廢藥品的處理</h1>
+<p><strong>類型</strong>：環境部說明（中央社 2026-09-08 報導）＋環保署時期常見問題（舊說法）＋台北市作法</p>
+<h2>為什麼讀這篇</h2>
+<p>有害垃圾頁一直缺內容。居家針頭是家戶最常見、風險最高的危險廢棄物，而且新舊說法不一致。</p>
+<h2>重點</h2>
+<ol>
+<li>居家針頭具感染性，扎傷可能感染 B、C 型肝炎。</li>
+<li><strong>新規定</strong>：裝進不易穿刺的容器並標示，送回原購買機構、醫院、藥局或指定地點；<strong>不可丟垃圾車、回收車或路邊垃圾桶</strong>。</li>
+<li><strong>舊說法</strong>（環保署時期）：沒有回收管道時，可裝硬容器交清潔隊；廢藥品可隨生活垃圾焚化。</li>
+<li>2026 年 6 月廢棄物清理法修正後，任意棄置最高可罰新台幣 10 萬元。</li>
+<li>台北市有「居家廢棄藥物檢收站」，回收針具與五大類藥物。</li>
+</ol>
+<h2>新舊衝突的處理</h2>
+<p>依 SCHEMA 第 3 條，兩種說法並列，並標明時期。新說法為環境部 2026 年 9 月的說明，時間較新且明確禁止交垃圾車，本 wiki 以新說法為建議做法。</p>
+<h2>來源品質（2026-11-10 依新來源政策檢查）</h2>
+<table>
+<thead>
+<tr>
+<th>內容</th>
+<th>出處</th>
+<th>是否官方</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>新說法：居家針頭的處理方式、10 萬元罰則</td>
+<td>中央社報導轉述環境部</td>
+<td><span class="unoff" aria-label="非官方來源">◇</span> 非官方（媒體報導），待找環境部新聞稿原文</td>
+</tr>
+<tr>
+<td>舊說法：環保署醫療廢棄物資訊網</td>
+<td>行政院環境保護署</td>
+<td>官方</td>
+</tr>
+<tr>
+<td>台北市針頭與針筒的處理</td>
+<td>臺北市環保局</td>
+<td>官方</td>
+</tr>
+<tr>
+<td>台北市五大類藥物檢收</td>
+<td>臺北市藥師公會網站</td>
+<td><span class="unoff" aria-label="非官方來源">◇</span> 非官方（公會網站），待找臺北市衛生局原文</td>
+</tr>
+</tbody>
+</table>
+<h2>影響的頁面</h2>
+<p><a href="#item-needle" class="wl ">居家針頭（瘦瘦針、胰島素針）</a>、<a href="#item-medicine" class="wl ">廢藥品</a>、<a href="#cat-hazardous" class="wl hazard">有害垃圾</a>、<a href="#law-regulation" class="wl ">一般廢棄物回收清除處理辦法</a>、<a href="#local-differences" class="wl ">地方差異</a></p>
+<h2>原始資料</h2>
+<p><a href="#raw-S5">raw/S5 原始資料</a></p></article>
+<article class="page " id="p-lint-2026-11-10" data-slug="lint-2026-11-10" hidden><p class="meta">最後更新 2026-11-10　檔案 wiki/maintenance/lint-2026-11-10.md</p><h1>健康檢查報告（2026-11-10）</h1>
+<p>依 Karpathy 流程的 lint 操作，在 5 篇來源 ingest 完成後執行。分兩層：程式檢查（結構）與 LLM 檢查（內容）。</p>
+<h2>一、程式檢查</h2>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>結果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>頁面總數</td>
+<td>34 頁 wiki 頁面（不含 raw、log、schema）</td>
+</tr>
+<tr>
+<td>斷鏈</td>
+<td>0</td>
+</tr>
+<tr>
+<td>孤兒頁（只有 index 連到）</td>
+<td>0（來源頁的引用標籤也算連結）</td>
+</tr>
+<tr>
+<td>未列入 index 的頁面</td>
+<td>0</td>
+</tr>
+<tr>
+<td>沒有任何來源引用的頁面</td>
+<td>0</td>
+</tr>
+<tr>
+<td>引用了未在 frontmatter 宣告的來源</td>
+<td>0</td>
+</tr>
+<tr>
+<td>依據非官方來源的內容（<span class="unoff" aria-label="非官方來源">◇</span>）</td>
+<td>19 行，分布於 9 頁（2026-11-10 新來源政策實施後補標）</td>
+</tr>
+<tr>
+<td>過期的「將由第 N 篇補充」字樣</td>
+<td>0（已在 ingest S5 時清除 cat-general、item-mandatory 兩處）</td>
+</tr>
+</tbody>
+</table>
+<h2>二、LLM 內容檢查</h2>
+<h3>已修正</h3>
+<ol>
+<li><strong>判斷順序與實務不符</strong>：首頁與 <a href="#concept-legal-categories" class="wl ">垃圾分類的法定定義：五類與三類</a> 寫「有害嗎？→ 交專用車」，但 S2、S5 顯示家戶常見危險物品多半走回收或逆向回收。已改寫說明並連到 <a href="#cat-hazardous" class="wl hazard">有害垃圾</a> 的管道對照表。</li>
+<li><strong>回收前處理缺針頭</strong>：<a href="#concept-prep" class="wl ">回收前處理</a> 的危險物列只有 S2 項目，已補上居家針頭<a class="cite" href="#S5">S5</a>。</li>
+</ol>
+<h3>待釐清（<span class="warn" aria-label="待釐清">⚠</span> 共 5 項）</h3>
+<table>
+<thead>
+<tr>
+<th>頁面</th>
+<th>問題</th>
+<th>建議下一步</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#cat-hazardous" class="wl hazard">有害垃圾</a></td>
+<td>法定有害垃圾的家戶項目清單</td>
+<td>搜尋環境部公告「有害一般廢棄物」</td>
+</tr>
+<tr>
+<td><a href="#item-glass" class="wl ">玻璃類</a></td>
+<td>鏡子、陶瓷不可回收後的去處</td>
+<td>找縣市環保局說明</td>
+</tr>
+<tr>
+<td><a href="#item-medicine" class="wl ">廢藥品</a></td>
+<td>中央對廢藥品是否有新規定</td>
+<td>找衛福部或環境部說明</td>
+</tr>
+<tr>
+<td><a href="#law-regulation" class="wl ">一般廢棄物回收清除處理辦法</a></td>
+<td>2026-06 廢清法修正案的條號、生效日、罰則級距</td>
+<td>找全國法規資料庫或立法院三讀資料</td>
+</tr>
+<tr>
+<td><a href="#cat-food" class="wl food">廚餘</a>、<a href="#local-differences" class="wl ">地方差異</a></td>
+<td>縣市廚餘是否仍分生熟收運（目前僅媒體報導）</td>
+<td>找各縣市環保局公告</td>
+</tr>
+</tbody>
+</table>
+<h3>時效提醒</h3>
+<table>
+<thead>
+<tr>
+<th>頁面</th>
+<th>到期條件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#policy-food-waste-pig" class="wl ">廚餘養豬禁令（新舊規定與生效日）</a></td>
+<td>2027-01-01 全面禁止生效後，需確認並把「轉型期」改為過去式</td>
+</tr>
+<tr>
+<td><a href="#law-regulation" class="wl ">一般廢棄物回收清除處理辦法</a></td>
+<td>2026-06 修法內容取得原文後更新</td>
+</tr>
+</tbody>
+</table>
+<h3>來源品質（依 AGENTS.md 來源政策：只收政府機關原始文件）</h3>
+<table>
+<thead>
+<tr>
+<th>來源</th>
+<th>狀態</th>
+<th>處理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#S1" class="wl ">&#x3014;S1&#x3015;一般廢棄物回收清除處理辦法</a></td>
+<td>條文網址原為民間法規網站</td>
+<td><span class="ok" aria-label="已釐清">✔</span> 已改以環境部主管法規系統為準</td>
+</tr>
+<tr>
+<td><a href="#S1" class="wl ">&#x3014;S1&#x3015;一般廢棄物回收清除處理辦法</a> 參照</td>
+<td>「強制分類三類」引用學校文件</td>
+<td><span class="unoff" aria-label="非官方來源">◇</span> 保留，待找政府說明</td>
+</tr>
+<tr>
+<td><a href="#S2" class="wl ">&#x3014;S2&#x3015;一般廢棄物回收項目排出方式</a>、<a href="#S4" class="wl ">&#x3014;S4&#x3015;環境部廚餘去化專案報告（2025-12）</a></td>
+<td>政府原始文件</td>
+<td>符合</td>
+</tr>
+<tr>
+<td><a href="#S3" class="wl ">&#x3014;S3&#x3015;環境部廚餘分類說明</a></td>
+<td>環境部網站，但內容依搜尋摘要整理</td>
+<td>符合政策；待人工下載原文</td>
+</tr>
+<tr>
+<td><a href="#S5" class="wl ">&#x3014;S5&#x3015;居家針頭與廢藥品的處理</a></td>
+<td>新說法與罰則來自中央社報導；五大類藥物來自公會網站</td>
+<td><span class="unoff" aria-label="非官方來源">◇</span> 保留，待找環境部新聞稿與臺北市衛生局原文</td>
+</tr>
+<tr>
+<td><a href="#local-differences" class="wl ">地方差異</a></td>
+<td>台北市廚餘紅藍桶來自媒體報導</td>
+<td><span class="unoff" aria-label="非官方來源">◇</span> 保留，待找臺北市環保局公告</td>
+</tr>
+</tbody>
+</table>
+<h3>覆蓋缺口（建議的下一批來源）</h3>
+<ol>
+<li><a href="#cat-bulky" class="wl bulky">巨大垃圾</a> 只有法規定義，缺各縣市預約方式。</li>
+<li>舊衣、雨傘等縣市自訂項目只有清單，缺實際縣市公告。</li>
+<li>罰則只有居家針頭一例，缺一般分類違規的罰鍰規定。</li>
+</ol></article>
+<article class="page " id="p-raw-S1" data-slug="raw-S1" hidden><p class="meta">檔案 raw/S1-waste-disposal-regulation.md</p><h1><a class="cite" href="#S1">S1</a>一般廢棄物回收清除處理辦法（摘錄）</h1>
+<ul>
+<li>主管機關：環境部</li>
+<li>現行版本修正日期：民國 114 年 1 月 3 日</li>
+<li>法源：廢棄物清理法第十二條第一項</li>
+<li>取得日期：2026-11-10</li>
+<li>參考網址：</li>
+<li>行政院公報修正總說明：https://gazette2.nat.gov.tw/EG_FileManager/eguploadpub/eg029222/ch07/type1/gov60/num36/images/AA.pdf</li>
+<li>條文：https://www.rootlaw.com.tw/LetterContent.aspx?LCode=24&amp;Soid=209341</li>
+</ul>
+<p>（法律條文依著作權法第九條不屬著作權標的，以下為條文摘錄。）</p>
+<h2>第二條 用詞定義（摘錄）</h2>
+<p>一、巨大垃圾：指體積龐大之廢棄傢俱、修剪庭院之樹枝或經主管機關公告之一般廢棄物。
+二、資源垃圾：指依本法第五條第六項公告之一般廢棄物回收項目（廚餘除外）及依本法第十五條第二項公告應回收之物品或其包裝、容器，經食用或使用後產生之一般廢棄物。
+三、有害垃圾：指符合有害事業廢棄物認定標準並經中央主管機關公告之一般廢棄物。
+四、廚餘：指被拋棄之生、熟食物及其殘渣或經主管機關公告之有機性一般廢棄物。
+五、一般垃圾：指巨大垃圾、資源垃圾、有害垃圾、廚餘以外之一般廢棄物。
+六、分類：指一般廢棄物於排出、貯存、回收、清除及處理過程中，為利於後續之運輸、處理，將不同類別性質者加以分開之行為。</p>
+<h2>分類排出條文（摘錄）</h2>
+<p>一般廢棄物應依下列方式分類後，始得交付回收、清除或處理：
+一、巨大垃圾：洽請執行機關或受託機構安排時間排出，並應符合執行機關規定之清除處理方式。
+二、資源垃圾：（一）依指定時間、地點及作業方式交付資源垃圾回收車；（二）依各地區分類規定投置於資源回收桶（箱、站）；（三）屬應回收廢棄物者得自行交付原販賣業者或依回收管道回收。
+三、有害垃圾：依指定時間、地點及作業方式，交付專用車輛清除。
+四、一般垃圾：（一）交付垃圾車清除；（二）投置於執行機關設置之一般垃圾貯存設備。
+五、廚餘：（一）交付廚餘回收貯存設備；（二）投置於廚餘回收桶（箱、站）。
+委託清除、處理者應依前項分類項目進行分類。</p>
+<h2>沿革（取自公報修正總說明）</h2>
+<ul>
+<li>民國 86 年 4 月 23 日訂定，原名「一般廢棄物貯存清除處理方法及設施標準」</li>
+<li>87 年 6 月 10 日修正</li>
+<li>91 年 11 月 27 日更名為「一般廢棄物回收清除處理辦法」</li>
+<li>110 年 2 月 22 日修正</li>
+<li>114 年 1 月 3 日修正：新增建築物拆除石綿瓦廢棄物之分類、貯存、排出、清除及處理管理方式</li>
+</ul>
+<h2>參照：強制分類三類說法（學校宣導文件）</h2>
+<ul>
+<li>雲林科技大學電機系公告：https://www.ee.yuntech.edu.tw/new_ee_web/Upload_Files/請全體師生務必遵守本校廢棄物處理方式.doc</li>
+<li>台北城市科技大學「垃圾強制分類知識篇」：https://ga.tcust.edu.tw/var/file/4/1004/img/162/101186763.pdf</li>
+</ul></article>
+<article class="page " id="p-raw-S2" data-slug="raw-S2" hidden><p class="meta">檔案 raw/S2-recycling-items-guide.md</p><h1><a class="cite" href="#S2">S2</a>一般廢棄物回收項目排出方式（整理筆記）</h1>
+<ul>
+<li>發布：環境部（資源回收網）</li>
+<li>網址：https://recycle.moenv.gov.tw/QA/pdf/%E4%B8%80%E8%88%AC%E5%BB%A2%E6%A3%84%E7%89%A9%E5%9B%9E%E6%94%B6%E9%A0%85%E7%9B%AE%E6%8E%92%E5%87%BA%E6%96%B9%E5%BC%8F.pdf</li>
+<li>取得日期：2026-11-10</li>
+<li>依據：廢棄物清理法第 5 條第 6 項公告「執行機關一般廢棄物應回收項目」（公告網址：https://oaout.moenv.gov.tw/Law/LawContent.aspx?id=GL006478）</li>
+<li>說明：本檔為依原文整理的筆記，非全文轉載；細節請以原 PDF 為準。</li>
+</ul>
+<h2>文件性質</h2>
+<p>彙整執行機關現行回收項目與交付注意事項；直轄市、縣（市）可增訂回收項目；實際排出方式以當地環保局、鄉鎮市公所規定為準。標 * 者依各縣市自行公告為準。</p>
+<h2>各類整理</h2>
+<ul>
+<li>廢紙類：可回收紙板、書報、文化用紙、紙容器（含平板容器、免洗餐具）、鋁箔包。注意：紙與紙容器、鋁箔包分開；去除塑膠封面、膠帶、線圈、釘書針；鋁箔包抽出吸管壓扁；平板容器剩菜倒廚餘後擦拭或沖洗。不可回收：紙尿布、衛生紙、複寫紙、蠟紙、貼紙底襯、轉印紙、砂紙、塑膠光面紙、感熱紙（電子發票、傳真、心電圖紙）、標籤貼紙；理由：複合材質再利用比例低且影響再生品質。</li>
+<li>廢鐵類：鐵容器（小於 17 公升，如罐頭、髮膠罐、卡式瓦斯罐）、鐵製用品。注意：倒空、清洗、壓扁；非鐵附著物分離；高壓罐須在空曠處排空、確認用完、單獨打包標示「內有高壓瓶」，不可丟進壓縮車。不可回收：氣體鋼瓶，交瓦斯行逆向回收或內政部認證瓦斯檢驗場。</li>
+<li>廢鋁類：鋁容器（小於 17 公升，如飲料罐）、鋁製用品（鋁鍋、鋁門窗外框、鋼圈）。倒空沖洗壓扁；非鋁附著物分離。</li>
+<li>廢玻璃類：玻璃容器（小於 17 公升）、玻璃製品（盤、杯、碗、平板玻璃）。去瓶蓋吸管、倒空沖洗。不可回收：衛浴設備、陶瓷製品、陶瓷花瓶與酒瓶、鏡子、磁磚。</li>
+<li>廢塑膠類：塑膠容器（小於 17 公升，回收辨識碼 1–7 號）、平板包材（平板容器、塑膠襯墊、泡殼、免洗餐具）、一般塑膠類（塑膠盆、桌椅、資料夾、籃、衣架、水桶）、塑膠袋*（乾淨不含油漬的單一材質）。注意：倒空清洗壓扁；襯墊泡殼去標籤；保麗龍去除膠帶、木材、鐵釘及非保麗龍包材；環境用藥、農藥、肥料容器至少清洗三次，送農會回收點或回收車。不可回收：玻璃纖維、汽機車坐墊、塑膠膜、塑膠繩、尼龍繩、塑膠布、安全座椅、巧拼、護貝膜、保鮮膜、泡棉、膠帶、原子筆、吸管、塑膠玩具等；髒污塑膠袋；內層有錫箔或鋁箔的複合塑膠袋。</li>
+<li>廢光碟片：CD、VCD、DVD（不含外殼）。卸除外包裝；PC 外殼另行回收。</li>
+<li>廢行動電話及充電器：手機、具通話功能的平板等及配件、充電器。先刪除個資；功能機卸電池、拔記憶卡與 SIM 卡。</li>
+<li>廢食用油：含回鍋油、過期油。自備容器蓋緊交回收車或定點回收。</li>
+<li>應回收廢棄物物品類：乾電池（一次與二次電池）、機動車輛、廢輪胎、鉛蓄電池、電子電器（電視、冰箱、洗衣機、冷暖氣機、電風扇）、資訊物品、照明光源。注意：乾電池交回收車或超商、量販店等販賣業者逆向回收；二次鋰電池儘速排出不暫存、避高溫、正負極貼絕緣膠帶；廢車可用「廢車回收一站通」，汽車 10 年、機車 7 年以上可申請獎勵金；大型家電交經銷商或約清潔隊，小型交回收車；碳粉匣由廠商逆向回收；燈管用紙套包好，破損以堅固容器包裝並註明。</li>
+<li>其他（*縣市自訂）：含汞廢棄物、舊衣、雨傘骨架、滅火器、安全帽、行李箱、獎盃、腳踏車、嬰兒車。含汞物品用原包裝交隨車人員；舊衣洗淨投有許可字號的回收箱或交回收車；滅火器優先交販賣業者。</li>
+</ul>
+<h1>S1 補充（2026-11-10 第 2 次 ingest 時一併取得）</h1>
+<ul>
+<li>環境部主管法規系統現行條文：https://oaout.moenv.gov.tw/Law/LawContent.aspx?id=FL015638</li>
+<li>歷史版本：https://oaout.moenv.gov.tw/law/LawContentHistory.aspx?hid=620&amp;id=FL015638</li>
+<li>第 13 條：執行機關應宣導民眾依下列方式排出：廚餘先瀝除水分並妥為包裝；刀片、玻璃碎片等尖銳利器以不易穿透容器或材質包妥並標示；木、竹片裁剪綑紮；封緊垃圾袋袋口；有害垃圾分開貯存排出；資源垃圾依回收管道分類、貯存、排出及回收。</li>
+</ul></article>
+<article class="page " id="p-raw-S3" data-slug="raw-S3" hidden><p class="meta">檔案 raw/S3-food-waste-classification.md</p><h1><a class="cite" href="#S3">S3</a>環境部〈廚餘該怎麼分類？〉與「廚餘再利用」說明（整理筆記）</h1>
+<ul>
+<li>發布：環境部 一般（生活）廢棄物管理資訊系統（回收-QA、回收-百科）</li>
+<li>網址：</li>
+<li>回收-QA：https://hwms.moenv.gov.tw/dispPageBox/pubweb/pubwebCP.aspx?ddsPageID=THREE&amp;dbid=3593712472</li>
+<li>回收-百科：https://hwms.moenv.gov.tw/dispPageBox/pubweb/pubwebCP.aspx?ddsPageID=RESOURCEANDRESOURCES&amp;dbid=3357912191</li>
+<li>取得日期：2026-11-10（網站不允許自動擷取全文，以下依搜尋結果摘要整理）</li>
+<li>注意：本文寫於「廚餘養豬禁令」之前，使用舊名稱「養豬廚餘／堆肥廚餘」。</li>
+</ul>
+<h2>分類</h2>
+<ul>
+<li>廚餘分為熟廚餘（養豬廚餘）與生廚餘（堆肥廚餘）兩種。</li>
+<li>熟廚餘（養豬廚餘）：一般家庭剩菜剩飯、麵食、魚、蝦、肉類、內臟、生鮮或熟食等適合豬隻食用者。</li>
+<li>生廚餘（堆肥廚餘）：生菜葉、果皮、茶渣、貝殼、果核、落葉、花材等不適合養豬者。</li>
+<li>混雜或無法分辨的廚餘（不含不可回收者），均歸類為堆肥廚餘回收。</li>
+</ul>
+<h2>再利用</h2>
+<ul>
+<li>廚餘再利用大致分為四種形式：堆肥、養豬、能源回收、其他。</li>
+<li>以廚餘養豬時，廚餘加熱中心溫度至少 90℃，維持至少一小時，並持續攪拌。</li>
+</ul>
+<h2>參照（地方說明，非本來源）</h2>
+<ul>
+<li>高雄市環保局常見問答（同樣的生熟分類文字，另列「過期食品」為養豬廚餘）：https://ksepb.kcg.gov.tw/Faq/commonquestions?ID=0503af06-72cf-4551-b6ff-5fcfd1b8cccf&amp;PageIndex=11&amp;PageType=1</li>
+<li>臺南市廚餘分類（原則：「煮熟後豬可以食用」歸為養豬廚餘）：https://tnepb-kitchen.clweb.com.tw/mode02.asp?m=20150526161126239&amp;t=list</li>
+</ul></article>
+<article class="page " id="p-raw-S4" data-slug="raw-S4" hidden><p class="meta">檔案 raw/S4-food-waste-policy-report.md</p><h1><a class="cite" href="#S4">S4</a>2027 年全面禁止廚餘養豬：環境部廚餘再利用管理與去化規劃專案報告（整理筆記）</h1>
+<ul>
+<li>報告機關：環境部（報告人：常務次長沈志修）</li>
+<li>場合：立法院第 11 屆第 4 會期經濟委員會第 16 次全體委員會議</li>
+<li>日期：民國 114 年 12 月 15 日（2025-12-15）</li>
+<li>網址：https://lis.ly.gov.tw/lydb/uploadn/114/1141215/302.pdf</li>
+<li>取得日期：2026-11-10</li>
+<li>說明：依原文整理的筆記。</li>
+</ul>
+<h2>背景</h2>
+<ul>
+<li>因應國內發生非洲豬瘟個案，農業部宣布禁止搬運廚餘至養豬場餵豬。環境部於 114/10/22、10/25 與各縣市研商，以堆肥化與能源化優先，輔以焚化或掩埋；10/31 成立廚餘去化中央前進協調所。</li>
+<li>114/10/23 至 12/11：平均每日清運廚餘 1,755 噸；再利用 44%（肥料化 29%、生質能 12%、黑水虻等 3%），焚化 51%、掩埋 5%。</li>
+</ul>
+<h2>分流原則</h2>
+<ul>
+<li>可養豬廚餘（環境部正面表列）：115/1/1 至 115/12/31 仍可送往取得再利用檢核許可的養豬場，高溫蒸煮後餵豬，受嚴格監管。來源：集中供膳（學校、部隊、矯正機關）、餐館業、超市與賣場等的過期食品、食品加工廠的動物性廢渣或屠宰下腳料。正面表列另含連鎖便利商店、百貨公司、旅館、量販、速食店、長照與護理機構、觀光遊樂業。</li>
+<li>管理：載運車輛裝 GPS；養豬場裝溫度及影像即時監控，落實蒸煮 90℃以上、持續 1 小時以上。115/1/1 起養豬戶須完成 3 日蒸煮連線測試才可繼續使用廚餘。</li>
+<li>不可養豬廚餘：家戶廚餘、小吃攤、公寓大樓。全面禁止進入養豬系統；優先堆肥、黑水虻、生質能，輔以焚化或掩埋。</li>
+<li>116/1/1（2027-01-01）起廚餘全面禁止養豬。</li>
+</ul>
+<h2>數量與量能</h2>
+<ul>
+<li>113 年全國廚餘約 2,115 噸/日：養豬 1,324 噸（家戶 593、事業 731）、其他再利用 791 噸。</li>
+<li>設施量能：現況 1,100 噸/日 → 115 年底 1,720 → 116 年底 2,119（大於產生量，不再需要焚化掩埋）→ 117 年底 2,529。</li>
+<li>115 年底全面禁養後，預估仍有 395 噸/日需焚化或掩埋。</li>
+</ul>
+<h2>配套</h2>
+<ul>
+<li>修法：共通性事業廢棄物再利用管理辦法、一般廢棄物清除處理方式、應裝置即時追蹤系統之清運機具及其規定；農業部依動物傳染病防治條例第 28 條修正公告。預定 114/12/31 前完成。</li>
+<li>焚化廠處理廚餘作業指引（114/11/28 函頒）：加強瀝水、混拌、穩定投料、爐溫控制、排放監控；戴奧辛檢測結果均低於標準。</li>
+<li>環境部、教育部、農業部共同推動惜食環境教育。</li>
+</ul>
+<h2>參照（媒體報導，非本來源）</h2>
+<ul>
+<li>環境資訊中心：官方表示生、熟廚餘分類不受影響 https://www.e-info.org.tw/node/242639</li>
+<li>今周刊：台北市規劃不再分紅藍兩桶，全部堆肥 https://www.businesstoday.com.tw/article/category/183030/post/202512070009/</li>
+<li>聯合新聞網：截至 2026 年 1 月底，435 場廚餘養豬場中 192 場表示不再使用廚餘 https://udn.com/news/story/7266/9326164</li>
+</ul></article>
+<article class="page " id="p-raw-S5" data-slug="raw-S5" hidden><p class="meta">檔案 raw/S5-needles-and-medicine.md</p><h1><a class="cite" href="#S5">S5</a>居家針頭與廢藥品的處理（整理筆記）</h1>
+<h2>主要來源（新規定）</h2>
+<ul>
+<li>中央社報導〈瘦瘦針頭違規亂丟最高可罰10萬元 環部：妥善回收避免感染風險〉，2026-09-08，內容為環境部及環境管理署代理署長林健三的說明</li>
+<li>https://www.cna.com.tw/news/ahel/202609080063.aspx</li>
+<li>同文轉載：https://udn.com/news/story/7266/9741039</li>
+<li>取得日期：2026-11-10</li>
+<li>要點：</li>
+<li>瘦瘦針、糖尿病友使用的居家護理針頭，以不易穿刺的容器（如牛奶瓶或醫療院所提供的容器）貯存並清楚標示。</li>
+<li>不可混入一般家戶垃圾或資源回收物，不可丟入路邊垃圾桶。</li>
+<li>廢棄針頭與醫療院所針具同樣具感染性，扎傷可能感染 B、C 型肝炎；大型醫院多有逆向回收機制。</li>
+<li>各縣市規定以送回原購買機構、醫院或特定地點回收為主；購買或領用時應主動詢問有無回收服務，優先送回原購買機構。</li>
+<li>居家護理針頭屬一般廢棄物；依 2026 年 6 月立法院三讀通過的廢棄物清理法修正案，任意棄置最高可處新台幣 10 萬元罰鍰。</li>
+</ul>
+<h2>對照來源（舊說法）</h2>
+<ul>
+<li>行政院環境保護署 醫療廢棄物資訊網 常見問題（環保署時期，2023 年 8 月改制為環境部之前）</li>
+<li>https://medwaste.epa.gov.tw/Contents/G03_2.html</li>
+<li>要點：過期藥物與自行注射的廢棄針頭，盡可能拿回原就診醫院；部分公立醫院、衛生所、社區藥局有廢藥品回收。若都不提供，廢藥品可併同生活垃圾交清潔隊焚化；廢棄針頭放入堅硬不易刺穿的容器再交清潔隊。</li>
+</ul>
+<h2>地方作法（台北市）</h2>
+<ul>
+<li>臺北市環保局常見問答：https://www.dep.gov.taipei/News_Content.aspx?n=ACEFA960B5A4ACD7&amp;sms=87415A8B9CE81B16&amp;s=642B8CBB4CACF9F1</li>
+<li>家戶針頭回診時交醫療院所，或送貼有「居家廢棄藥物檢收站」標章的藥局；未直接接觸血液或體液的針筒屬一般廢棄物，密封裝專用垃圾袋交清潔隊。</li>
+<li>臺北市居家廢棄藥品針具檢收專區（臺北市藥師公會）：http://www.tpa.org.tw/FamilyDrugsInspection/index.htm</li>
+<li>檢收五大類：針具針頭、含液體藥品的抗生素、抗癌與免疫抑制劑、荷爾蒙、管制藥品；其他藥品依一般家中垃圾處理。</li>
+<li>2026-09 報導：台北市衛生局與藥師公會的檢收專區有 48 間醫院、337 間藥局加入（同上中央社報導）。</li>
+</ul></article>
+<article class="page " id="p-log" data-slug="log" hidden><p class="meta">檔案 log.md</p><h1>更新紀錄</h1>
+<h2>[2026-11-10] setup | 建立 wiki 架構與 SCHEMA</h2>
+<ul>
+<li>決定：以台灣為主、每篇 ingest 前逐一討論、交付網頁版。</li>
+<li>架構以法定五類為主軸，強制分類三類另頁對照。</li>
+</ul>
+<h2>[2026-11-10] ingest | <a class="cite" href="#S1">S1</a>一般廢棄物回收清除處理辦法</h2>
+<ul>
+<li>新增：S1、cat-bulky、cat-recyclable、cat-hazardous、cat-food、cat-general、concept-legal-categories、law-regulation、local-differences</li>
+<li>待釐清：第二條廚餘定義有兩種版本寫法。</li>
+<li>下一篇：環境部回收項目與排出方式。</li>
+</ul>
+<h2>[2026-11-10] ingest | <a class="cite" href="#S2">S2</a>一般廢棄物回收項目排出方式</h2>
+<ul>
+<li>新增：S2；物品群組 9 頁（item-paper、item-iron、item-aluminum、item-glass、item-plastic、item-disc、item-phone、item-cooking-oil、item-mandatory）；易混淆單品 6 頁（item-receipt、item-pressurized-can、item-gas-cylinder、item-plastic-bag、item-styrofoam、item-lithium-battery）；概念 concept-prep</li>
+<li>更新：cat-recyclable、cat-general、cat-hazardous、cat-food、local-differences、concept-legal-categories、S1、index</li>
+<li>釐清：S1 廚餘定義的另一寫法為歷史版本用語，<span class="warn" aria-label="待釐清">⚠</span> 改為 <span class="ok" aria-label="已釐清">✔</span>。</li>
+<li>補充：S1 第 13 條排出原則。</li>
+<li>新待釐清：鏡子與陶瓷「不可回收」後的去處（item-glass）；法定有害垃圾的家戶範圍（cat-hazardous）。</li>
+<li>下一篇：廚餘分類規定。</li>
+</ul>
+<h2>[2026-11-10] ingest | <a class="cite" href="#S3">S3</a>環境部廚餘分類說明、<a class="cite" href="#S4">S4</a>環境部廚餘去化專案報告</h2>
+<ul>
+<li>決定：廚餘拆成兩篇來源；全 wiki 總數定為 5 篇，第 5 篇選較重要的主題。</li>
+<li>決定：時效性內容新舊規定並列，標明生效期間。</li>
+<li>新增：S3、S4、item-food-raw-cooked、policy-food-waste-pig</li>
+<li>改寫：cat-food（改用熟廚餘、生廚餘，舊稱對照）</li>
+<li>更新：local-differences、index</li>
+<li>待辦：2027-01-01 後重新 lint policy-food-waste-pig，確認全面禁止已生效。</li>
+<li>待釐清：縣市廚餘是否仍分生熟收運（目前僅有媒體報導）。</li>
+</ul>
+<h2>[2026-11-10] ingest | <a class="cite" href="#S5">S5</a>居家針頭與廢藥品的處理</h2>
+<ul>
+<li>決定：第 5 篇選居家醫療廢棄物（理由：易混淆物品多已由 S2 涵蓋；有害垃圾頁缺內容；涉及安全）。</li>
+<li>新增：S5、item-needle、item-medicine</li>
+<li>改寫：cat-hazardous（改為「法定定義＋實務管道對照表」）</li>
+<li>更新：item-mandatory、law-regulation（2026-06 廢清法修正、罰則）、local-differences（台北市檢收站）、cat-general、index</li>
+<li>新舊衝突：針頭處理的環保署舊說法與環境部 2026-09 新說法並列，建議依新說法。</li>
+<li>新待釐清：中央對廢藥品是否有新規定；廢清法修正案條號與生效日。</li>
+</ul>
+<h2>[2026-11-10] lint | 第一次健康檢查</h2>
+<ul>
+<li>程式檢查：斷鏈 0、孤兒頁 0、未列 index 0、無引用頁 0。</li>
+<li>內容修正：判斷順序中「有害垃圾交專用車」與實務不符，已改寫；concept-prep 補上針頭。</li>
+<li>待釐清 5 項、時效提醒 2 項、來源品質注意 2 項、覆蓋缺口 3 項，詳見 lint-2026-11-10。</li>
+</ul>
+<h2>[2026-11-10] maintenance | raw 檔名改為英數</h2>
+<ul>
+<li>原因：中文檔名在部分解壓縮工具（如 Windows 內建）會顯示為空資料夾或亂碼。</li>
+<li>變更：S1–S5 的 raw 檔改為英數檔名，wiki 內引用同步更新；內容不變。</li>
+</ul>
+<h2>[2026-11-10] maintenance | 新增 AGENTS.md</h2>
+<ul>
+<li>原因：Karpathy 模式的第三層是給代理人的設定檔（AGENTS.md 或 CLAUDE.md）。原本的 SCHEMA.md 只有內容規則，缺少操作步驟。</li>
+<li>新增：AGENTS.md（必讀檔案、ingest／query／lint 步驟、禁止事項、待辦）</li>
+<li>修正：scripts/build.py 與 scripts/lint.py 改用相對路徑，在任何電腦解壓縮後都能執行。</li>
+</ul>
+<h2>[2026-11-10] maintenance | 依討論改寫 AGENTS.md，實施來源政策</h2>
+<ul>
+<li>決定：在 claude.ai 維護；以上傳的 zip 為準，收工時給 zip 並更新網站。</li>
+<li>決定：修改分兩級。可直接做：錯字、連結、lint 找到的內容矛盾、有官方依據時 <span class="warn" aria-label="待釐清">⚠</span> 改 <span class="ok" aria-label="已釐清">✔</span>。其餘需要同意。</li>
+<li>決定：新來源只收政府機關原始文件；既有非官方內容保留並標「<span class="unoff" aria-label="非官方來源">◇</span> 非官方」。</li>
+<li>改寫：AGENTS.md（新增開工與收工流程、兩級修改表、來源政策）</li>
+<li>更新：SCHEMA.md（第 6 條 <span class="unoff" aria-label="非官方來源">◇</span> 標記）；lint.py（統計 <span class="unoff" aria-label="非官方來源">◇</span>，健康檢查報告不列入過期字樣檢查）；build.py 與 template.html（<span class="unoff" aria-label="非官方來源">◇</span> 樣式）</li>
+<li>標記 <span class="unoff" aria-label="非官方來源">◇</span>：cat-hazardous、concept-legal-categories、concept-prep、item-needle、item-medicine、law-regulation、local-differences、S5</li>
+<li>釐清：S1 條文網址改以環境部主管法規系統為準（<span class="ok" aria-label="已釐清">✔</span>）。</li>
+<li>更新：lint-2026-11-10 的來源品質段落。</li>
+</ul>
+<h2>[2026-11-10] fix | 廚餘「分類方式不變」的引用錯誤（製作簡報時發現）</h2>
+<ul>
+<li>問題：item-food-raw-cooked 把「生熟分類方式不變」標為 S4，但 S4 未提及；該說法僅見於媒體報導。cat-food、policy-food-waste-pig、local-differences 的「仍分生熟」也把禁令前的 S3 寫成現況。</li>
+<li>修正（屬可直接做：lint 找到的內容錯誤）：改寫為「禁令前的說明分生熟<a class="cite" href="#S3">S3</a>；禁令後是否調整 <span class="warn" aria-label="待釐清">⚠</span> 依縣市公告」。</li>
+</ul></article>
+<article class="page " id="p-schema" data-slug="schema" hidden><p class="meta">最後更新 2026-11-10　檔案 SCHEMA.md</p><h1>Wiki 規則（SCHEMA）</h1>
+<p>本 wiki 依 Karpathy 的 LLM Wiki 模式維護：raw（原始資料，只讀）→ wiki（由 LLM 維護）→ 本規則檔。操作有三種：ingest、query、lint。</p>
+<p>操作步驟（ingest、query、lint 怎麼執行）見 AGENTS.md；本檔只管內容怎麼寫。</p>
+<h2>工作方式：先討論、後生成</h2>
+<p>每一篇來源 ingest 前，先向使用者報告重點、預計新增或修改的頁面、與既有內容的衝突，經同意後才寫入，最後更新 <a href="#index" class="wl ">台灣垃圾分類 Wiki</a> 與 <a href="#log" class="wl ">更新紀錄</a>。</p>
+<h2>頁面類型</h2>
+<ul>
+<li><strong>來源摘要</strong>（wiki/sources）：每篇來源一頁，記錄出處、日期、重點。</li>
+<li><strong>分類類別</strong>（wiki/categories）：五個法定類別，各寫定義與排出方式。</li>
+<li><strong>物品</strong>（wiki/items）：回答「這個丟哪」。</li>
+<li><strong>概念</strong>（wiki/concepts）：跨來源的觀念與比較。</li>
+<li><strong>法規與地方差異</strong>（wiki/law）：中央與縣市規定分開寫。</li>
+</ul>
+<h2>寫作規則</h2>
+<ol>
+<li>每頁開頭標示最後更新日期與依據來源。</li>
+<li>每個事實附來源編號，例如<a class="cite" href="#S1">S1</a>。</li>
+<li>來源說法不同時，兩種都寫並標記「<span class="warn" aria-label="待釐清">⚠</span> 待釐清」，不自行取捨。</li>
+<li>中央規定與縣市規定分開寫。</li>
+<li>頁面互連使用雙中括號包住頁面代號，例如連到 index 頁。</li>
+<li>依據非官方來源（媒體、學校、公會、民間網站）的內容，在句末或表格依據欄加「<span class="unoff" aria-label="非官方來源">◇</span> 非官方（類型）」。新來源只收政府機關原始文件，見 AGENTS.md 的來源政策。</li>
+<li>架構以法定五類為主軸，「強制分類三類」作為日常簡化說法另頁對照。</li>
+</ol></article>
+<article class="page " id="p-agents" data-slug="agents" hidden><p class="meta">最後更新 2026-11-10　檔案 AGENTS.md</p><h1>代理人操作說明（AGENTS.md）</h1>
+<p>你是這個「台灣垃圾分類 Wiki」的維護者。本檔說明你<strong>怎麼做事</strong>；內容寫作規則見 SCHEMA.md。兩者衝突時，以使用者當下的指示優先，其次 SCHEMA.md，再其次本檔。</p>
+<p>本 wiki 在 <strong>claude.ai 網頁對話</strong>中維護。網頁對話不會自動讀取本檔，每次對話的工作資料夾也會清空，所以請嚴格照「開工」與「收工」流程執行。</p>
+<h2>開工流程</h2>
+<ol>
+<li><strong>以使用者上傳的 zip 為準</strong>，解壓縮到工作資料夾。</li>
+<li>若這次沒有上傳 zip：先問使用者要上傳 zip，或改從網站讀回（Artifact 的 read 動作）。不可假設手上已有最新版。</li>
+<li>依序讀取：本檔、<code>SCHEMA.md</code>、<code>index.md</code>、<code>log.md</code> 最後 3 筆、<code>wiki/maintenance/</code> 中最新的健康檢查報告。</li>
+<li>先向使用者回報：目前有幾篇來源、幾頁內容、未解決的待釐清與時效提醒。</li>
+</ol>
+<h2>收工流程（這次有任何修改就要做）</h2>
+<ol>
+<li>執行 <code>python3 scripts/lint.py</code>：斷鏈與孤兒頁必須為 0。</li>
+<li>執行 <code>python3 scripts/build.py</code> 重建網站，並以同一個網址重新發布：https://claude.ai/artifact/Nn72wkrBCABFUswgrkwVbu</li>
+<li>打包新的 <code>garbage-wiki.zip</code> 交給使用者。要用會標記 UTF-8 檔名的方式打包，例如 Python 的 zipfile。</li>
+<li>在 <code>log.md</code> 追加一筆，格式為「## [YYYY-MM-DD] 類型 | 標題」。</li>
+</ol>
+<h2>修改的兩個等級</h2>
+<table>
+<thead>
+<tr>
+<th>等級</th>
+<th>包含哪些修改</th>
+<th>怎麼處理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>可直接做</td>
+<td>錯字；斷鏈與連結修正；lint 找到的內容矛盾；有官方依據時把 <span class="warn" aria-label="待釐清">⚠</span> 改成 <span class="ok" aria-label="已釐清">✔</span></td>
+<td>先做，事後在回覆中列出改了什麼，並記進 log</td>
+</tr>
+<tr>
+<td>需要同意</td>
+<td>新增來源；時效到期後更新政策頁；把查詢結果存回 wiki；刪除任何內容；修改 SCHEMA.md 或本檔；新增或移除 <span class="unoff" aria-label="非官方來源">◇</span> 標記以外的來源</td>
+<td>先報告，等使用者同意才寫入</td>
+</tr>
+</tbody>
+</table>
+<p>例外：「內容矛盾」的兩邊若都是官方來源，屬於來源衝突，不算可直接修正的錯誤。此時依 SCHEMA 並列兩種說法，並提出討論。</p>
+<h2>來源政策</h2>
+<ul>
+<li><strong>新來源只收政府機關的原始文件</strong>：中央部會、立法院、行政院公報、縣市政府與環保局、全國法規資料庫、環境部主管法規系統。</li>
+<li>不可作為新來源：媒體報導、民間法規網站、學校文件、公會或協會網站、個人部落格。這類資料只能幫你<strong>找到</strong>官方原文。</li>
+<li>既有的非官方內容：保留，並在句末或表格依據欄加「<span class="unoff" aria-label="非官方來源">◇</span> 非官方（類型）」。找到官方原文後替換內容並移除標記（屬可直接做），在 log 記錄。</li>
+</ul>
+<h2>操作一：Ingest（新增一篇來源，需要同意）</h2>
+<p><strong>第一次回覆（不寫任何檔案）</strong>
+1. 搜尋候選來源，確認是政府機關的原始文件。
+2. 報告：來源是什麼、重點、預計新增與修改的頁面、與既有內容的衝突或新舊差異、需要使用者決定的問題。
+3. 等待同意。</p>
+<p><strong>第二次回覆（同意後）</strong>
+1. 在 <code>raw/</code> 新增整理筆記：出處、網址、取得日期、重點。檔名格式「S編號-英文簡稱.md」，只用英數。非法規文件只寫整理筆記，不轉載全文。
+2. 新增 <code>wiki/sources/S編號.md</code>，新增或更新受影響的頁面，每個事實附來源編號。
+3. 更新 <code>index.md</code>，執行收工流程。</p>
+<h2>操作二：Query（回答問題、做簡報）</h2>
+<ol>
+<li>先讀 <code>index.md</code>，再讀相關頁面；<strong>只用 wiki 內容回答</strong>，不從記憶補事實。</li>
+<li>保留來源編號；<span class="warn" aria-label="待釐清">⚠</span> 的內容說明「目前未確定」；<span class="unoff" aria-label="非官方來源">◇</span> 的內容說明「來自非官方來源」；有時效的內容寫出生效日。</li>
+<li>wiki 缺資料時不自行補寫，改為建議 ingest 新來源。</li>
+<li>有長期價值的回答，經同意後存回 <code>wiki/concepts/</code>。</li>
+<li>做簡報時，每張投影片都要過 1 到 3 項的檢查，不通過的投影片重新生成。</li>
+</ol>
+<h2>操作三：Lint（健康檢查）</h2>
+<ol>
+<li>執行 <code>python3 scripts/lint.py</code>：斷鏈、孤兒頁、未列入 index、無引用頁面、frontmatter 未宣告的來源、<span class="warn" aria-label="待釐清">⚠</span> 數量、<span class="unoff" aria-label="非官方來源">◇</span> 數量。</li>
+<li>逐頁做內容檢查：互相矛盾、過期的時效內容、「將由第 N 篇補充」這類過期字樣、違反來源政策的內容。</li>
+<li>結果寫入 <code>wiki/maintenance/lint-YYYY-MM-DD.md</code>，並執行收工流程。</li>
+<li>時機：每批 ingest 完成後；時效提醒到期時。</li>
+</ol>
+<h2>禁止事項</h2>
+<ul>
+<li>不修改或刪除 <code>raw/</code> 的檔案；raw 有錯時，在對應的 <code>wiki/sources/</code> 頁面註明更正。</li>
+<li>不自行刪除 <span class="warn" aria-label="待釐清">⚠</span>；有官方依據時改為 <span class="ok" aria-label="已釐清">✔</span> 並寫明依據。</li>
+<li>來源衝突時不自行取捨，兩種說法並列。</li>
+<li>不用中文檔名；頁面連結用雙中括號包住頁面代號，代號只用英數和連字號。</li>
+</ul>
+<h2>目前待辦（2026-11-10）</h2>
+<ul>
+<li>2027-01-01 以後：重新 lint <code>policy-food-waste-pig</code>（更新內容需要同意）。</li>
+<li>健康檢查報告中的 5 項待釐清與 3 項覆蓋缺口。</li>
+<li><span class="unoff" aria-label="非官方來源">◇</span> 非官方內容待替換：S5 的環境部新聞稿原文、臺北市衛生局的藥物檢收說明、「強制分類三類」的政府說明、台北市廚餘收運的官方公告。</li>
+<li>S3 原文取得後替換 raw 中的摘要版本。</li>
+</ul></article>
+</main>
+</div>
+<script type="application/json" id="wiki-src">{"index.md": "# 台灣垃圾分類 Wiki\n\n以台灣法規與官方說明為主的垃圾分類知識庫。共 ingest 5 篇來源。\n\n## 從這裡開始\n- [[concept-legal-categories]]：五類與三類，判斷順序\n- [[concept-prep]]：倒空、清洗、壓扁、拆開\n\n## 分類類別\n- [[cat-bulky]]：體積大的傢俱、樹枝，先預約\n- [[cat-hazardous]]：經公告的有害一般廢棄物\n- [[cat-food]]：生熟食物與殘渣\n- [[cat-recyclable]]：公告回收項目與應回收物品\n- [[cat-general]]：以上皆非的剩餘類別\n\n## 物品：依材質\n- [[item-paper]]、[[item-iron]]、[[item-aluminum]]、[[item-glass]]、[[item-plastic]]\n- [[item-disc]]、[[item-phone]]、[[item-cooking-oil]]\n- [[item-mandatory]]\n- [[item-food-raw-cooked]]\n\n## 物品：容易丟錯\n- [[item-receipt]]：看起來是紙，其實是一般垃圾\n- [[item-pressurized-can]]：排空、標示，絕不能進垃圾車\n- [[item-gas-cylinder]]：交瓦斯行\n- [[item-plastic-bag]]：乾淨與髒污的分法不同\n- [[item-styrofoam]]：可回收，先拆膠帶\n- [[item-lithium-battery]]：貼絕緣膠帶，不要囤\n- [[item-needle]]：裝硬瓶，送回醫院或藥局，不可丟垃圾車\n- [[item-medicine]]：送藥局檢收站\n\n## 法規與地方差異\n- [[law-regulation]]：五類定義的法源\n- [[policy-food-waste-pig]]：2027-01-01 起全面禁止，新舊規定對照\n- [[local-differences]]：縣市自訂項目、廚餘收運\n\n## 來源\n- [[S1]]：一般廢棄物回收清除處理辦法（114/1/3 修正）\n- [[S2]]：一般廢棄物回收項目排出方式（環境部）\n- [[S3]]：環境部廚餘分類說明\n- [[S4]]：環境部廚餘去化專案報告（2025-12）\n- [[S5]]：居家針頭與廢藥品的處理\n\n## 維護\n- [[lint-2026-11-10]]：健康檢查報告\n- [[log]]：更新紀錄\n- [[schema]]：本 wiki 的規則\n- [[agents]]：代理人操作說明\n", "wiki/categories/cat-bulky.md": "---\ntitle: 巨大垃圾\nupdated: 2026-11-10\nsources: [S1]\n---\n# 巨大垃圾\n\n## 定義\n體積龐大的廢棄傢俱、修剪庭院的樹枝，或經主管機關公告的一般廢棄物。〔S1〕\n\n## 怎麼丟\n不能直接丟上垃圾車。要先聯絡清潔隊（執行機關）或受託機構約時間排出，並依當地規定的清除處理方式辦理。〔S1〕\n\n## 常見例子\n沙發、床架、衣櫃、桌椅、修剪下來的樹枝。（依 S1 定義所舉類型推得）\n\n## 相關\n[[concept-legal-categories]]、[[local-differences]]（各縣市預約方式不同，待補）\n", "wiki/categories/cat-hazardous.md": "---\ntitle: 有害垃圾\nupdated: 2026-11-10\nsources: [S1, S2, S5]\n---\n# 有害垃圾\n\n## 法定定義\n符合「有害事業廢棄物認定標準」，並經中央主管機關公告的一般廢棄物。〔S1〕\n\n## 法定排出方式\n依指定時間、地點及作業方式，交給清潔隊或受託機構的**專用車輛**清除；要分開貯存排出，不可混入一般垃圾。〔S1〕\n\n## 現況：家戶常見的危險物品怎麼走\n目前蒐集的 5 篇來源中，**沒有找到中央公布的「家戶有害垃圾」項目清單**。家裡常見的危險物品，實務上分別走以下管道：\n\n| 物品 | 管道 | 頁面 | 依據 |\n|---|---|---|---|\n| 乾電池、鋰電池 | 資源回收車或販賣業者逆向回收 | [[item-lithium-battery]]、[[item-mandatory]] | 〔S2〕 |\n| 日光燈管、含汞物品 | 資源回收車或販賣業者 | [[item-mandatory]] | 〔S2〕 |\n| 高壓罐 | 排空、標示後交資源回收車 | [[item-pressurized-can]] | 〔S2〕 |\n| 瓦斯鋼瓶 | 瓦斯行 | [[item-gas-cylinder]] | 〔S2〕 |\n| 居家針頭 | 送回原購買機構、醫院、藥局 | [[item-needle]] | 〔S5〕◇ 非官方（媒體報導） |\n| 廢藥品 | 醫院或藥局檢收站，其餘依地方規定 | [[item-medicine]] | 〔S5〕◇ 非官方（公會網站） |\n\n⚠ 待釐清：哪些家戶物品屬於法定「有害垃圾」、由專用車收運，需要另找中央公告確認。\n\n## 共同原則\n不要混進垃圾車：高壓罐和電池可能在壓縮時起火爆炸〔S2〕，針頭可能扎傷清潔隊員〔S5〕◇ 非官方（媒體報導）。\n\n## 相關\n[[concept-legal-categories]]\n", "wiki/categories/cat-food.md": "---\ntitle: 廚餘\nupdated: 2026-11-10\nsources: [S1, S2, S3, S4]\n---\n# 廚餘\n\n## 定義\n被拋棄的生、熟食物及其殘渣，或經主管機關公告的有機性一般廢棄物。〔S1〕\n\n✔ 已釐清：另一種定義寫法為舊版用語，見 [[S1]]。\n\n## 兩種廚餘\n| 現在的名稱 | 舊稱 | 例子 | 依據 |\n|---|---|---|---|\n| 熟廚餘 | 養豬廚餘 | 剩菜剩飯、麵食、魚蝦、肉類、內臟 | 〔S3〕 |\n| 生廚餘 | 堆肥廚餘 | 生菜葉、果皮、茶渣、貝殼、果核、落葉、花材 | 〔S3〕 |\n\n混雜或分不清楚的，歸生廚餘。〔S3〕詳細清單見 [[item-food-raw-cooked]]。\n\n## 為什麼名稱要改\n「養豬廚餘」這個名稱來自舊制：熟廚餘以前主要送去養豬。非洲豬瘟後，家戶廚餘已經禁止餵豬，**2027 年 1 月 1 日起所有廚餘全面禁止養豬**。〔S4〕本 wiki 因此改用「熟廚餘、生廚餘」，舊稱只作對照。完整新舊規定見 [[policy-food-waste-pig]]。\n\n## 家戶廚餘現在送去哪裡〔S4〕\n堆肥、黑水虻、生質能等再利用方式為優先，處理量能不足的部分以焚化或掩埋輔助。\n\n## 怎麼丟〔S1〕\n1. 依指定時間、地點交到**廚餘回收貯存設備**。\n2. 依規定投入**廚餘回收桶（箱、站）**。\n\n## 排出前〔S1〕\n先瀝乾水分並包好。\n\n## 要不要分生熟\n環境部禁令前的分類說明分生熟兩類〔S3〕；禁令後各縣市的收運方式正在調整，見 [[local-differences]]。⚠ 請以所在縣市的最新公告為準。\n\n## 法規上的特殊地位\n廚餘雖然也屬「公告回收項目」，但法規把它從資源垃圾中**排除**，獨立成一類。〔S1〕\n\n## 不要搞混\n廢食用油不是廚餘，屬資源垃圾，見 [[item-cooking-oil]]。〔S2〕\n\n## 相關\n[[cat-recyclable]]、[[concept-legal-categories]]\n", "wiki/categories/cat-recyclable.md": "---\ntitle: 資源垃圾\nupdated: 2026-11-10\nsources: [S1, S2]\n---\n# 資源垃圾\n\n## 定義\n包含兩部分〔S1〕：\n\n1. 依廢棄物清理法第 5 條第 6 項公告的「一般廢棄物回收項目」（廚餘除外）；\n2. 依廢棄物清理法第 15 條第 2 項公告「應回收」的物品或其包裝、容器，在食用或使用後產生的廢棄物。\n\n## 怎麼丟（三種管道）〔S1〕\n1. 依指定時間、地點交給**資源回收車**。\n2. 依各地區分類規定投入**資源回收桶（箱、站）**。\n3. 屬於應回收廢棄物的，可以**交回原販賣業者**（逆向回收）或其他回收管道。\n\n## 有哪些東西〔S2〕\n- [[item-paper]]、[[item-iron]]、[[item-aluminum]]、[[item-glass]]、[[item-plastic]]\n- [[item-disc]]、[[item-phone]]、[[item-cooking-oil]]\n- [[item-mandatory]]\n- 縣市自訂項目（舊衣、雨傘骨架、滅火器等），見 [[local-differences]]\n\n容器類（鐵、鋁、玻璃、塑膠）指**內容量小於 17 公升**的容器。〔S2〕\n\n## 回收前要做什麼\n見 [[concept-prep]]。\n\n## 相關\n[[cat-general]]（不能回收的就屬一般垃圾）、[[concept-legal-categories]]\n", "wiki/categories/cat-general.md": "---\ntitle: 一般垃圾\nupdated: 2026-11-10\nsources: [S1, S2]\n---\n# 一般垃圾\n\n## 定義\n巨大垃圾、資源垃圾、有害垃圾、廚餘**以外**的一般廢棄物。〔S1〕\n\n這是「剩餘類別」：一件東西要先確認不屬於其他四類，才算一般垃圾。\n\n## 怎麼丟〔S1〕\n1. 依指定時間、地點交給**垃圾車**。\n2. 投入執行機關設置的**一般垃圾貯存設備**。\n\n## 常被誤丟進回收的一般垃圾〔S2〕\n- 紙類：衛生紙、紙尿布、[[item-receipt]]、貼紙底襯、標籤貼紙、複寫紙\n- 塑膠類：保鮮膜、塑膠繩、膠帶、吸管、原子筆、塑膠玩具、泡棉、巧拼\n- 髒污塑膠袋、內層有鋁箔的零食包裝袋（見 [[item-plastic-bag]]）\n\n\n\n## 排出前〔S1〕\n尖銳物（刀片、碎玻璃）要用不易穿透的材質包好並標示；封緊垃圾袋口。\n\n## 相關\n[[concept-legal-categories]]\n", "wiki/items/item-paper.md": "---\ntitle: 紙類\nupdated: 2026-11-10\nsources: [S2]\n---\n# 紙類\n\n所屬類別：[[cat-recyclable]]（不可回收者為 [[cat-general]]）\n\n## 可回收〔S2〕\n- **紙板**：紙箱、瓦楞紙、紙製禮盒、紙製茶葉罐\n- **書報**：雜誌、書籍、筆記本、報紙\n- **文化用紙**：影印紙、非熱感應的傳真紙、包裝紙、日曆、紙袋、宣傳單、衛生紙滾筒、信封、名片等純紙漿成品\n- **紙容器**：牛奶盒、植物纖維容器、紙製平板容器（紙餐盒、紙盤、紙杯等免洗餐具）\n- **鋁箔包**\n\n## 交付前〔S2〕\n1. 一般紙類與紙容器、鋁箔包**分開**打包。\n2. 拆掉塑膠封面、膠帶、線圈、釘書針。\n3. 鋁箔包、紙盒包抽出吸管、壓扁。\n4. 紙餐盒先把剩菜倒進廚餘桶，再擦拭或沖一下。\n\n## 不可回收，丟一般垃圾〔S2〕\n紙尿布、衛生紙、複寫紙、蠟紙、貼紙底襯、轉印紙、砂紙、塑膠光面紙、感熱紙（見 [[item-receipt]]）、標籤貼紙。\n\n理由：這些多為複合材質，可再利用的比例低，還會影響再生紙品質。〔S2〕\n", "wiki/items/item-iron.md": "---\ntitle: 鐵類\nupdated: 2026-11-10\nsources: [S2]\n---\n# 鐵類\n\n所屬類別：[[cat-recyclable]]\n\n## 可回收〔S2〕\n- **鐵容器**：內容量小於 17 公升，例如罐頭、髮膠罐、卡式爐瓦斯罐\n- **鐵製用品**：鐵窗、鐵架、鐵鍋、鐵櫃、鐵絲、鐵釘、菜刀刀身、鐵製餅乾盒等\n\n## 交付前〔S2〕\n1. 倒空、清洗、壓扁後裝成一袋。\n2. 鐵製用品上的非鐵附著物要先拆開。\n3. 噴霧罐、瓦斯罐等請看 [[item-pressurized-can]]。\n\n## 不可回收〔S2〕\n氣體鋼瓶，見 [[item-gas-cylinder]]。\n", "wiki/items/item-aluminum.md": "---\ntitle: 鋁類\nupdated: 2026-11-10\nsources: [S2]\n---\n# 鋁類\n\n所屬類別：[[cat-recyclable]]\n\n## 可回收〔S2〕\n- **鋁容器**：內容量小於 17 公升，例如飲料罐、汽水罐、啤酒罐\n- **鋁製用品**：鋁鍋、鋁盆、鋁門窗外框、鋁合金鋼圈\n\n## 交付前〔S2〕\n倒空、略為沖洗、壓扁；非鋁附著物要分離。\n", "wiki/items/item-glass.md": "---\ntitle: 玻璃類\nupdated: 2026-11-10\nsources: [S1, S2]\n---\n# 玻璃類\n\n所屬類別：[[cat-recyclable]]\n\n## 可回收〔S2〕\n- **玻璃容器**：內容量小於 17 公升，例如油瓶、醬料瓶、酒瓶\n- **玻璃製品**：玻璃盤、杯、碗、平板玻璃\n\n## 交付前〔S2〕\n去除瓶蓋、吸管，倒空後略為沖洗。\n\n## 不可回收〔S2〕\n衛浴設備、陶瓷製品、陶瓷花瓶與酒瓶、**鏡子**、磁磚。\n\n⚠ 待釐清：S2 只說不可回收，沒有說要怎麼丟。碎玻璃、碎陶瓷屬尖銳物，S1 要求用不易穿透的材質包好並標示〔S1〕；少量陶瓷是否有縣市另訂管道，待後續來源確認。\n", "wiki/items/item-plastic.md": "---\ntitle: 塑膠類\nupdated: 2026-11-10\nsources: [S2]\n---\n# 塑膠類\n\n所屬類別：[[cat-recyclable]]（不可回收者為 [[cat-general]]）\n\n## 可回收〔S2〕\n- **塑膠容器**：內容量小於 17 公升、印有回收辨識碼 1–7 號的容器（PET、PVC、PP、PE、PS 等）\n- **平板包材**：塑膠便當盒、盒蓋、托盤、免洗餐具、塑膠襯墊、泡殼（商品的透明包裝殼）\n- **一般塑膠製品**：塑膠盆、塑膠桌椅、資料夾、籃子、衣架、水桶\n- **塑膠袋**：見 [[item-plastic-bag]]（依縣市規定）\n- **保麗龍**：見 [[item-styrofoam]]\n\n## 交付前〔S2〕\n1. 倒空、清洗、壓扁後裝成一袋。\n2. 襯墊、泡殼去掉標籤。\n3. 環境用藥、農藥、肥料容器至少清洗三次，清洗液重複噴灑利用，再送農會回收點或資源回收車。\n\n## 不可回收，丟一般垃圾〔S2〕\n玻璃纖維製品、汽機車坐墊、塑膠膜、保鮮膜、塑膠繩、尼龍繩、塑膠布、安全座椅、巧拼地墊、護貝膜、泡棉、膠帶、原子筆、**吸管**、塑膠玩具、塑膠鉛筆盒等。\n", "wiki/items/item-disc.md": "---\ntitle: 光碟片\nupdated: 2026-11-10\nsources: [S2]\n---\n# 光碟片\n\n所屬類別：[[cat-recyclable]]\n\n## 可回收〔S2〕\nCD、VCD、DVD 片本身，不含外殼。\n\n## 交付前〔S2〕\n拆掉棉套或塑膠盒後裝成一袋；PC 塑膠材質的外殼另外回收。\n", "wiki/items/item-phone.md": "---\ntitle: 手機與充電器\nupdated: 2026-11-10\nsources: [S2]\n---\n# 手機與充電器\n\n所屬類別：[[cat-recyclable]]\n\n## 可回收〔S2〕\n手機、具通話功能的平板或 GPS，以及配件：充電器（座充、旅充）、電池、耳機、傳輸線、讀卡機等。\n\n## 交付前〔S2〕\n1. 依品牌建議的方式**刪除個人資料**。\n2. 功能型手機可先拆電池，拔出記憶卡與 SIM 卡。\n\n## 相關\n[[item-lithium-battery]]\n", "wiki/items/item-cooking-oil.md": "---\ntitle: 廢食用油\nupdated: 2026-11-10\nsources: [S2]\n---\n# 廢食用油\n\n所屬類別：[[cat-recyclable]]（注意：不是廚餘）\n\n## 範圍〔S2〕\n所有烹調用油，包括回鍋油、過期食用油。\n\n## 交付方式〔S2〕\n自備容器（原包裝、寶特瓶或塑膠空瓶）裝好蓋緊，交資源回收車，或送到清潔隊的定點回收地點。\n", "wiki/items/item-mandatory.md": "---\ntitle: 應回收物品類（電池、家電、燈管、車輛）\nupdated: 2026-11-10\nsources: [S2, S5]\n---\n# 應回收物品類（電池、家電、燈管、車輛）\n\n所屬類別：[[cat-recyclable]]\n\n## 項目與交付方式〔S2〕\n\n| 物品 | 範圍 | 怎麼交 |\n|---|---|---|\n| 乾電池 | 一次電池（碳鋅、鹼錳、鈕扣）、充電電池（鎳鎘、鎳氫、鋰） | 回收車，或超商、量販店、通訊行等逆向回收；鋰電池見 [[item-lithium-battery]] |\n| 機動車輛 | 汽車、機車 | 「廢車回收一站通」平台或回收業者；汽車 10 年、機車 7 年以上可申請獎勵金 |\n| 廢輪胎 | 橡膠外胎，不含內胎與實心胎 | 家戶交回收車 |\n| 鉛蓄電池 | 汽機車電瓶等 | 家戶交回收車 |\n| 電子電器 | 電視、冰箱、洗衣機、冷暖氣機、電風扇 | 大型的交經銷商逆向回收或先約清潔隊；小型交回收車 |\n| 資訊物品 | 筆電、平板、主機板、硬碟、螢幕、印表機、鍵盤等 | 回收車；碳粉匣由廠商逆向回收 |\n| 照明光源 | 日光燈管、省電燈泡、白熾燈泡、LED 燈管等 | 用紙套包好交回收車或販賣業者；破損時用堅固容器包裝並註明 |\n\n## 和「有害垃圾」的關係\n乾電池、照明光源（含汞燈管）雖然帶有有害成分，但在 S2 中屬於回收項目，實務上走資源回收車或販賣業者逆向回收，而不是 [[cat-hazardous]] 的專用車。〔S2〕第 5 篇來源也沒有找到把這些物品列為法定有害垃圾的中央公告，因此維持此寫法。\n", "wiki/items/item-food-raw-cooked.md": "---\ntitle: 生熟廚餘怎麼分\nupdated: 2026-11-10\nsources: [S3, S4]\n---\n# 生熟廚餘怎麼分\n\n所屬類別：[[cat-food]]\n\n## 熟廚餘（舊稱養豬廚餘）〔S3〕\n剩菜剩飯、麵食、魚、蝦、肉類、內臟、生鮮或熟食等。\n\n## 生廚餘（舊稱堆肥廚餘）〔S3〕\n生菜葉、果皮、茶渣、貝殼、果核、落葉、花材等。\n\n## 分不清楚時〔S3〕\n混雜或無法分辨的廚餘，歸生廚餘。\n\n## 判斷口訣的新舊差異\n| 時期 | 判斷原則 | 依據 |\n|---|---|---|\n| 舊制 | 適合豬吃的歸「養豬廚餘」，其餘歸「堆肥廚餘」 | 〔S3〕 |\n| 現在 | 家戶的熟廚餘已不會送去餵豬，改走堆肥、生質能等途徑 | 〔S4〕 |\n| 現在 | 家戶是否仍要分生熟：S4 未說明 ⚠ 依縣市公告 | — |\n\n舊口訣「豬能吃的是養豬廚餘」仍可用來判斷生熟，只是名稱已經不符合實際去向。S3 是禁令前發布的說明，禁令後家戶是否仍分生熟收運，請以縣市公告為準。\n\n## 相關\n[[policy-food-waste-pig]]、[[local-differences]]\n", "wiki/items/item-receipt.md": "---\ntitle: 感熱紙發票\nupdated: 2026-11-10\nsources: [S2]\n---\n# 感熱紙發票\n\n**丟哪裡：**[[cat-general]]\n\n## 為什麼不能丟紙類回收\n感熱紙（電子發票證明聯、感熱式傳真紙、心電圖紙）列在紙類的「不可回收」清單。這類複合材質紙張能再利用的比例低，而且會影響再生紙品質。〔S2〕\n\n## 同一類的易混淆物\n貼紙底襯、標籤貼紙、複寫紙、轉印紙、蠟紙。〔S2〕\n\n## 相關\n[[item-paper]]\n", "wiki/items/item-pressurized-can.md": "---\ntitle: 高壓罐（噴霧罐、卡式瓦斯罐）\nupdated: 2026-11-10\nsources: [S2]\n---\n# 高壓罐（噴霧罐、卡式瓦斯罐）\n\n**丟哪裡：**[[cat-recyclable]]（鐵類），但要特別處理\n\n## 為什麼危險\n卡式爐瓦斯罐、髮膠罐等高壓鐵罐遇到高溫或壓縮容易爆炸。若和垃圾一起丟進垃圾車的壓縮槽，可能起火或爆炸。〔S2〕\n\n## 交付前〔S2〕\n1. 到**空曠處**把內容物排空，確認已完全用完。\n2. **單獨打包**，標示「內有高壓瓶」。\n3. 交給資源回收車的隨車人員，絕不能丟進垃圾車。\n\n## 不要搞混\n空的瓦斯鋼瓶不是這一類，見 [[item-gas-cylinder]]。\n", "wiki/items/item-gas-cylinder.md": "---\ntitle: 瓦斯鋼瓶\nupdated: 2026-11-10\nsources: [S2]\n---\n# 瓦斯鋼瓶\n\n**丟哪裡：**不歸清潔隊收，交**瓦斯行**逆向回收\n\n## 為什麼\n空瓦斯鋼瓶屬於壓力容器，用完後仍可能殘留瓦斯，因此不在清潔隊回收範圍內。〔S2〕\n\n## 怎麼處理〔S2〕\n洽瓦斯行，或內政部認證的瓦斯檢驗場；檢驗場資訊可在中華民國液化石油氣容器安全協會網站查詢。\n\n## 不要搞混\n卡式爐用的小瓦斯罐可以回收，見 [[item-pressurized-can]]。\n", "wiki/items/item-plastic-bag.md": "---\ntitle: 塑膠袋\nupdated: 2026-11-10\nsources: [S2]\n---\n# 塑膠袋\n\n**丟哪裡：**乾淨的 → [[cat-recyclable]]（依縣市規定）；髒的或複合材質 → [[cat-general]]\n\n## 可回收〔S2〕\n乾淨、不含油漬的**單一材質**塑膠袋。此項標註為依各縣市自行公告為準，見 [[local-differences]]。\n\n## 不可回收〔S2〕\n1. 沾到湯汁、油漬、血水的塑膠袋。\n2. 內層有錫箔或鋁箔的複合材質袋，例如糖果、餅乾、茶包的小包裝袋。\n\n## 相關\n[[item-plastic]]\n", "wiki/items/item-styrofoam.md": "---\ntitle: 保麗龍\nupdated: 2026-11-10\nsources: [S2]\n---\n# 保麗龍\n\n**丟哪裡：**[[cat-recyclable]]（塑膠類，發泡 PS）\n\n## 範圍〔S2〕\n漁箱、冰品盒、蛋糕盒、家電包裝用的保麗龍和箱內填充物。\n\n## 交付前〔S2〕\n撕掉膠帶，拆掉木材、鐵釘和其他非保麗龍的包材。\n\n## 相關\n[[item-plastic]]\n", "wiki/items/item-lithium-battery.md": "---\ntitle: 鋰電池\nupdated: 2026-11-10\nsources: [S2]\n---\n# 鋰電池\n\n**丟哪裡：**[[cat-recyclable]]（應回收物品類的乾電池），**絕不能混入垃圾**\n\n## 為什麼要特別處理\n鋰金屬材料活性大。〔S2〕\n\n## 交付前〔S2〕\n1. 從物品中取出後**儘快排出，不要囤放**。\n2. 排出前單獨存放，避開高溫。\n3. 在正負極貼上**絕緣膠帶**，避免短路。\n4. 交資源回收車，或超商、量販店、通訊行等販賣業者逆向回收。\n\n## 相關\n[[item-mandatory]]、[[item-phone]]\n", "wiki/items/item-medicine.md": "---\ntitle: 廢藥品\nupdated: 2026-11-10\nsources: [S5]\n---\n# 廢藥品\n\n**丟哪裡：**優先送回醫院或貼有「居家廢棄藥物檢收站」標章的藥局；特定種類以外的藥品，依各地規定處理。\n\n## 新舊說法對照\n\n| 時期 | 說法 | 依據 |\n|---|---|---|\n| 舊說法（環保署時期） | 盡可能拿回原就診醫院；部分公立醫院、衛生所、社區藥局有回收；都沒有時可併同生活垃圾交清潔隊焚化 | 〔S5〕 |\n| 地方作法（台北市） | 五大類送檢收站，其餘依一般家中垃圾處理 | 〔S5〕◇ 非官方（公會網站） |\n\n⚠ 待釐清：環境部 2026 年 9 月的說明只談針頭，沒有提到廢藥品，中央對廢藥品是否有新規定，尚待確認。\n\n## 需要送檢收的五大類（台北市）〔S5〕◇ 非官方（公會網站）\n1. 針具針頭\n2. 含液體藥品的抗生素\n3. 抗癌與免疫抑制劑\n4. 荷爾蒙\n5. 管制藥品\n\n## 相關\n[[item-needle]]、[[cat-hazardous]]、[[local-differences]]\n", "wiki/items/item-needle.md": "---\ntitle: 居家針頭（瘦瘦針、胰島素針）\nupdated: 2026-11-10\nsources: [S1, S5]\n---\n# 居家針頭（瘦瘦針、胰島素針）\n\n**丟哪裡：**送回原購買機構、醫院、藥局或指定回收點。**不可丟垃圾車、回收車、路邊垃圾桶。**\n\n## 為什麼危險〔S5〕◇ 非官方（媒體報導）\n居家針頭和醫院的針具一樣具感染性。清潔隊員或拾荒者被扎傷，可能感染 B 型、C 型肝炎。\n\n## 怎麼處理〔S5〕◇ 非官方（媒體報導）\n1. 裝進**不易穿刺的容器**，例如厚牛奶瓶，或醫療院所提供的收集盒。\n2. 蓋緊並**清楚標示**是廢棄針頭。\n3. **優先送回原購買機構**；也可送醫院或指定地點。領藥時就先問醫療院所有沒有回收服務。\n\n## 新舊說法對照\n\n| 時期 | 說法 | 依據 |\n|---|---|---|\n| 舊說法（環保署時期，2023 年 8 月改制為環境部之前） | 先拿回醫院；若無回收管道，裝硬容器交清潔隊 | 〔S5〕 |\n| 新說法（環境部 2026 年 9 月說明） | 不可混入垃圾或回收物；送回原購買機構、醫院或指定地點 | 〔S5〕◇ 非官方（媒體報導） |\n\n本 wiki 建議依新說法處理。新說法目前只有媒體轉述環境部的說法，尚未取得環境部新聞稿原文。\n\n## 罰則〔S5〕◇ 非官方（媒體報導）\n居家護理針頭屬一般廢棄物。依 2026 年 6 月三讀通過的廢棄物清理法修正案，任意棄置最高可罰新台幣 10 萬元。\n\n## 針筒本體\n台北市的說法：沒有直接接觸血液或體液的針筒屬一般廢棄物，密封後交清潔隊。〔S5〕其他縣市見 [[local-differences]]。\n\n## 相關\n[[cat-hazardous]]、[[item-medicine]]；尖銳物包裝原則見 [[concept-prep]]〔S1〕\n", "wiki/concepts/concept-legal-categories.md": "---\ntitle: 垃圾分類的法定定義：五類與三類\nupdated: 2026-11-10\nsources: [S1, S2, S5]\n---\n# 垃圾分類的法定定義：五類與三類\n\n## 法定五類〔S1〕\n\n| 類別 | 一句話判斷 | 交付管道 |\n|---|---|---|\n| [[cat-bulky]] | 體積大的傢俱、樹枝 | 先預約 |\n| [[cat-hazardous]] | 經公告的有害一般廢棄物 | 法定為專用車；家戶常見危險物品實務上走回收或逆向回收 |\n| [[cat-food]] | 生熟食物與殘渣 | 廚餘桶 |\n| [[cat-recyclable]] | 公告回收項目、應回收物品與容器 | 回收車、回收桶、交回賣家 |\n| [[cat-general]] | 以上皆非 | 垃圾車 |\n\n法規定義「分類」為：在排出、貯存、回收、清除及處理過程中，為利後續運輸與處理，把不同類別性質者分開的行為。〔S1〕\n\n## 日常說的「強制分類三類」\n學校與宣導文件常說垃圾強制分類為「一般垃圾、資源垃圾、廚餘」三大類（參見 raw/S1 參照資料）◇ 非官方（學校文件）。\n\n這是**日常排出時的簡化說法**：家戶每天面對的主要是垃圾車、回收車、廚餘桶三個出口。巨大垃圾與有害垃圾頻率低，又需另外預約或交專用車，因此常被省略。\n\n## 對照\n\n| 法定五類 | 日常三類 |\n|---|---|\n| 資源垃圾 | 資源垃圾 |\n| 廚餘 | 廚餘 |\n| 一般垃圾 | 一般垃圾 |\n| 巨大垃圾 | 另行預約，不在三類內 |\n| 有害垃圾 | 交專用車，不在三類內 |\n\n## 延伸\n回收前要做什麼，見 [[concept-prep]]。\n\n## 判斷順序建議\n因為一般垃圾是剩餘類別，判斷時可依序問：太大嗎？有害嗎？是食物嗎？可回收嗎？都不是，才丟垃圾車。（本 wiki 依 S1 定義整理的判斷流程）\n\n注意「有害嗎？」這一步：電池、燈管、高壓罐等走資源回收〔S2〕，針頭、藥品走醫院或藥局〔S5〕◇ 非官方（媒體報導），並不是都交專用車。請看 [[cat-hazardous]] 的管道對照表。\n", "wiki/concepts/concept-prep.md": "---\ntitle: 回收前處理\nupdated: 2026-11-10\nsources: [S1, S2, S5]\n---\n# 回收前處理\n\nS2 各材質的交付注意事項，可以歸納成幾個共通動作。（本頁為跨頁整理）\n\n| 動作 | 適用 | 依據 |\n|---|---|---|\n| 倒空殘餘物 | 所有容器 | 〔S2〕 |\n| 略為沖洗或擦拭 | 鐵鋁玻璃塑膠容器、紙餐盒 | 〔S2〕 |\n| 壓扁 | 鐵鋁容器、塑膠容器、鋁箔包 | 〔S2〕 |\n| 拆開不同材質 | 紙類去膠帶與釘書針、鐵鋁用品去附著物、保麗龍去膠帶與鐵釘、光碟去外殼 | 〔S2〕 |\n| 分開打包 | 一般紙類與紙容器、鋁箔包分開 | 〔S2〕 |\n| 剩菜先倒廚餘 | 紙或塑膠餐盒 | 〔S2〕 |\n| 危險物單獨處理 | 高壓罐、鋰電池、燈管 | 〔S2〕 |\n| 尖銳醫療物裝硬瓶並標示 | 居家針頭（[[item-needle]]） | 〔S5〕◇ 非官方（媒體報導） |\n\n## 中央法規的排出原則〔S1〕\n執行機關應宣導民眾：廚餘先瀝乾水分並包好；刀片、玻璃碎片等尖銳物用不易穿透的容器或材質包好並標示；木、竹片裁剪後綑紮；封緊垃圾袋口；有害垃圾分開貯存排出。\n\n## 為什麼要做\n「看起來像可回收」不等於能回收。污染或複合材質會降低再利用比例、影響再生品質（見 [[item-receipt]]）。\n", "wiki/law/law-regulation.md": "---\ntitle: 一般廢棄物回收清除處理辦法\nupdated: 2026-11-10\nsources: [S1, S5]\n---\n# 一般廢棄物回收清除處理辦法\n\n## 基本資料〔S1〕\n- 主管機關：環境部（改制前為行政院環境保護署）\n- 法源：廢棄物清理法第 12 條第 1 項\n- 現行版本：民國 114 年 1 月 3 日修正\n\n## 沿革〔S1〕\n\n| 日期（民國） | 事件 |\n|---|---|\n| 86 年 4 月 23 日 | 訂定，原名「一般廢棄物貯存清除處理方法及設施標準」 |\n| 87 年 6 月 10 日 | 修正 |\n| 91 年 11 月 27 日 | 更名為現名 |\n| 110 年 2 月 22 日 | 修正 |\n| 114 年 1 月 3 日 | 修正，新增建築物拆除石綿瓦廢棄物的管理方式 |\n\n## 本辦法規範的內容\n- 五類一般廢棄物的定義：見 [[concept-legal-categories]]\n- 各類的排出方式：見各分類類別頁\n- 委託業者清運時也須依同樣類別分類\n\n## 與其他法規的關係\n- 資源垃圾的範圍引用廢棄物清理法第 5 條第 6 項與第 15 條第 2 項的公告。\n- 有害垃圾引用「有害事業廢棄物認定標準」。\n- 違規罰則規定在廢棄物清理法。2026 年 6 月立法院三讀通過廢棄物清理法修正案；依環境部說明，任意棄置居家針頭等廢棄物最高可罰新台幣 10 萬元。〔S5〕◇ 非官方（媒體報導）\n\n⚠ 待釐清：修正案的條號、生效日與完整罰則級距，尚未取得法條原文。\n", "wiki/law/local-differences.md": "---\ntitle: 地方差異\nupdated: 2026-11-10\nsources: [S1, S2, S3, S4, S5]\n---\n# 地方差異\n\n中央辦法規定依「執行機關指定之時間、地點及作業方式」排出，並依「各地區設置資源回收設施分類規定」投放〔S1〕，因此實際細節由各縣市決定。\n\n## 縣市自訂回收項目〔S2〕\n各直轄市、縣（市）可視需要增訂回收項目。S2 中以下項目標註「依各縣市自行公告為準」：\n\n- 乾淨的單一材質塑膠袋（[[item-plastic-bag]]）\n- 含汞廢棄物（水銀體溫計、血壓計、溫度計）\n- 舊衣（洗淨後投有地方政府許可字號的回收箱，或交回收車）\n- 雨傘骨架、滅火器（優先交販賣業者）、安全帽、行李箱、獎盃、腳踏車、嬰兒車\n\n## 廚餘收運方式\n中央禁令前的說明分生熟兩類〔S3〕；廚餘養豬禁令後，各縣市的收運與處理方式正在調整〔S4〕。例如有媒體報導台北市規劃不再分紅、藍兩桶，全部作堆肥處理（記於 raw/S4 參照，尚未有官方來源）◇ 非官方（媒體報導）。\n\n⚠ 請以所在縣市環保局的最新公告為準。\n\n## 居家針頭與廢藥品（台北市）〔S5〕\n- 針頭：回診時交醫療院所，或送貼有「居家廢棄藥物檢收站」標章的藥局。\n- 未接觸血液或體液的針筒本體：屬一般廢棄物，密封後交清潔隊。\n- 藥品：五大類送檢收站，其餘依一般家中垃圾處理。◇ 非官方（公會網站）\n- 依 2026 年 9 月報導，台北市的檢收專區有 48 間醫院、337 間藥局加入。◇ 非官方（媒體報導）\n\n## 待補充\n\n- 各縣市資源回收細分規定\n- 巨大垃圾預約方式\n- 各縣市實際公告的自訂項目清單\n", "wiki/law/policy-food-waste-pig.md": "---\ntitle: 廚餘養豬禁令（新舊規定與生效日）\nupdated: 2026-11-10\nsources: [S3, S4]\n---\n# 廚餘養豬禁令（新舊規定與生效日）\n\n## 時間軸\n\n| 時期 | 生效期間 | 家戶廚餘 | 事業廚餘 | 依據 |\n|---|---|---|---|---|\n| 舊制 | 至 2025 年 10 月非洲豬瘟爆發前 | 熟廚餘（養豬廚餘）可送養豬場，須蒸煮至中心溫度 90℃以上、維持 1 小時以上；生廚餘堆肥 | 同左 | 〔S3〕 |\n| 疫情應變期 | 2025 年 10 月下旬起 | 農業部宣布禁止以廚餘餵豬；家戶廚餘改走堆肥、能源化，輔以焚化、掩埋 | 同左 | 〔S4〕 |\n| 轉型期 | 2026-01-01 至 2026-12-31 | **禁止養豬** | 僅正面表列來源，在 GPS 與溫度影像監控下可養豬 | 〔S4〕 |\n| 全面禁止 | **2027-01-01 起** | 禁止養豬 | **禁止養豬** | 〔S4〕 |\n\n⚠ 時效提醒：今天是 2026-11-10，目前處於「轉型期」。2027-01-01 後請重新 lint 本頁，確認禁令已如期生效、有無新的公告。\n\n## 轉型期可養豬的事業廚餘（正面表列）〔S4〕\n集中供膳（學校、部隊、矯正機關）、餐館業、超市與賣場的過期食品、食品加工廠的動物性廢渣或屠宰下腳料；正面表列另含連鎖便利商店、百貨公司、旅館、量販店、連鎖速食店、長照與護理機構、觀光遊樂業。\n\n## 不可養豬的廚餘〔S4〕\n家戶廚餘、小吃攤、公寓大樓。\n\n## 廚餘以後去哪裡〔S4〕\n堆肥、黑水虻、生質能為主，焚化與掩埋為輔。環境部預估再利用設施量能將從 1,100 噸/日，提升到 2026 年底 1,720 噸/日、2027 年底 2,119 噸/日，屆時可大於全國廚餘產生量（約 2,115 噸/日），不再需要焚化或掩埋。\n\n## 對民眾的影響\n- 家戶的分類方式：環境部禁令前的說明分生熟兩類〔S3〕；禁令後是否調整，S4 未說明 ⚠ 依縣市公告，見 [[local-differences]]。\n- 名稱：「養豬廚餘」改稱「熟廚餘」，見 [[cat-food]]。\n\n## 相關\n[[item-food-raw-cooked]]、[[S4]]\n", "wiki/sources/S1.md": "---\ntitle: 〔S1〕一般廢棄物回收清除處理辦法\nupdated: 2026-11-10（第 2 次更新）\nsources: [S1]\n---\n# 〔S1〕一般廢棄物回收清除處理辦法\n\n**類型**：中央法規　**主管機關**：環境部　**現行版本**：民國 114 年 1 月 3 日修正　**法源**：廢棄物清理法第 12 條第 1 項\n\n## 為什麼先讀這篇\n它定義了台灣一般廢棄物的五個法定類別與各自的排出方式，是整個 wiki 的骨架。\n\n## 重點\n1. 一般廢棄物分為五類：[[cat-bulky]]、[[cat-recyclable]]、[[cat-hazardous]]、[[cat-food]]、[[cat-general]]。\n2. 「一般垃圾」是剩餘類別：不屬於其他四類的才是一般垃圾，所以判斷時要先排除前四類。\n3. 每一類有不同的交付管道：預約、回收車或回收桶、專用車、垃圾車、廚餘桶。\n4. 資源垃圾可以「逆向回收」，交回原販賣業者。\n5. 委託業者清運的，也要依同樣類別分類。\n6. 114 年修正的重點是新增建築物拆除石綿瓦廢棄物的管理方式。\n\n## 影響的頁面\n[[concept-legal-categories]]、[[law-regulation]]、五個分類類別頁、[[local-differences]]\n\n## 已釐清（2026-11-10）\n✔ 先前發現另一份版本的第二條，廚餘定義寫法不同（「丟棄之生、熟食物及其殘渣或有機性廢棄物，並經主管機關公告之一般廢棄物」）。比對環境部主管法規系統後，這段文字與**歷史版本**一致，屬舊版用語，不是現行規定的矛盾。本 wiki 採現行用語。\n\n## 補充：排出原則（第 13 條）\n執行機關應宣導民眾：廚餘先瀝乾水分並包好；刀片、玻璃碎片等尖銳物用不易穿透的容器或材質包好並標示；木、竹片裁剪後綑紮；封緊垃圾袋口；有害垃圾分開貯存排出；資源垃圾依回收管道分類排出。見 [[concept-prep]]。\n\n## 來源品質（2026-11-10 依新來源政策檢查）\n- 條文網址：raw/S1 記錄的是民間法規網站 rootlaw。✔ 已有官方替代：環境部主管法規系統的現行條文與歷史版本網址，記於 raw/S2-recycling-items-guide.md 末段，本頁條文內容以該系統為準。行政院公報網址為官方，不受影響。\n- 「強制分類三類」的說法引用兩所大學的宣導文件 ◇ 非官方（學校文件），待找到政府機關的說明後替換。\n\n## 原始資料\nraw/S1-waste-disposal-regulation.md（第 13 條與現行、歷史條文網址記於 raw/S2-recycling-items-guide.md 末段）\n", "wiki/sources/S2.md": "---\ntitle: 〔S2〕一般廢棄物回收項目排出方式\nupdated: 2026-11-10\nsources: [S2]\n---\n# 〔S2〕一般廢棄物回收項目排出方式\n\n**類型**：中央官方說明　**發布**：環境部資源回收網　**依據**：廢棄物清理法第 5 條第 6 項公告\n\n## 為什麼讀這篇\nS1 定義了「資源垃圾」，但沒有說哪些東西算。S2 列出各材質的可回收、不可回收物品與交付注意事項，是物品頁的主要依據。\n\n## 重點\n1. 容器類（鐵、鋁、玻璃、塑膠）的範圍以**內容量小於 17 公升**為準。\n2. 看起來是紙、不代表能回收：感熱紙、貼紙底襯、衛生紙等複合或污染紙類屬一般垃圾，理由是再利用比例低且影響再生品質。\n3. 安全相關：高壓罐要排空並標示「內有高壓瓶」；瓦斯鋼瓶不歸清潔隊；鋰電池要貼絕緣膠帶、不暫存。\n4. 乾電池、照明光源、含汞物品在 S2 中屬回收項目，走資源回收車或販賣業者逆向回收。\n5. 標 * 的項目由各縣市自行公告。\n\n## 新增的頁面\n物品群組：[[item-paper]]、[[item-iron]]、[[item-aluminum]]、[[item-glass]]、[[item-plastic]]、[[item-disc]]、[[item-phone]]、[[item-cooking-oil]]、[[item-mandatory]]\n\n容易丟錯：[[item-receipt]]、[[item-pressurized-can]]、[[item-gas-cylinder]]、[[item-plastic-bag]]、[[item-styrofoam]]、[[item-lithium-battery]]\n\n概念：[[concept-prep]]\n\n## 原始資料\nraw/S2-recycling-items-guide.md\n", "wiki/sources/S3.md": "---\ntitle: 〔S3〕環境部廚餘分類說明\nupdated: 2026-11-10\nsources: [S3]\n---\n# 〔S3〕環境部廚餘分類說明\n\n**類型**：中央官方說明　**發布**：環境部一般（生活）廢棄物管理資訊系統　**注意**：寫於廚餘養豬禁令之前\n\n## 為什麼讀這篇\nS1 只定義了廚餘，S3 說明廚餘怎麼再分成兩種。\n\n## 重點\n1. 廚餘分成熟廚餘與生廚餘兩種，舊稱分別是「養豬廚餘」與「堆肥廚餘」。\n2. 熟廚餘：剩菜剩飯、麵食、魚蝦、肉類、內臟、生鮮或熟食。\n3. 生廚餘：生菜葉、果皮、茶渣、貝殼、果核、落葉、花材。\n4. 混雜或分不清楚的，一律歸生廚餘（堆肥廚餘）。\n5. 舊制下以廚餘養豬，必須加熱到中心溫度 90℃以上、維持至少一小時並持續攪拌。\n\n## 時效說明\n這篇的分類方式仍然適用，但名稱裡的「養豬」已不符合現況，家戶廚餘已經不能餵豬，見 [[S4]] 與 [[policy-food-waste-pig]]。\n\n## 影響的頁面\n[[cat-food]]、[[item-food-raw-cooked]]\n\n## 原始資料\nraw/S3-food-waste-classification.md\n", "wiki/sources/S4.md": "---\ntitle: 〔S4〕環境部廚餘去化專案報告（2025-12）\nupdated: 2026-11-10\nsources: [S4]\n---\n# 〔S4〕環境部廚餘去化專案報告（2025-12）\n\n**類型**：政府向立法院的專案報告　**報告機關**：環境部　**日期**：民國 114 年 12 月 15 日\n\n## 為什麼讀這篇\n說明非洲豬瘟後廚餘政策的轉變：哪些廚餘還能餵豬、到什麼時候為止、家戶廚餘改去哪裡。\n\n## 重點\n1. 非洲豬瘟後，農業部宣布禁止以廚餘餵豬，環境部改以堆肥化、能源化優先處理，焚化或掩埋為輔。\n2. 廚餘分成「可養豬」與「不可養豬」兩條路。**家戶廚餘、小吃攤、公寓大樓屬不可養豬**。\n3. 2026 年全年為轉型期，只有正面表列的事業廚餘（學校團膳、餐廳、超市賣場的過期食品等）可以在嚴格監管下餵豬。\n4. **2027 年 1 月 1 日起，廚餘全面禁止養豬。**\n5. 去化途徑：堆肥、黑水虻、生質能為主，焚化與掩埋為輔；環境部預估 2027 年底再利用量能可大於全國廚餘產生量。\n\n## 影響的頁面\n[[policy-food-waste-pig]]、[[cat-food]]、[[item-food-raw-cooked]]、[[local-differences]]\n\n## 原始資料\nraw/S4-food-waste-policy-report.md\n", "wiki/sources/S5.md": "---\ntitle: 〔S5〕居家針頭與廢藥品的處理\nupdated: 2026-11-10\nsources: [S5]\n---\n# 〔S5〕居家針頭與廢藥品的處理\n\n**類型**：環境部說明（中央社 2026-09-08 報導）＋環保署時期常見問題（舊說法）＋台北市作法\n\n## 為什麼讀這篇\n有害垃圾頁一直缺內容。居家針頭是家戶最常見、風險最高的危險廢棄物，而且新舊說法不一致。\n\n## 重點\n1. 居家針頭具感染性，扎傷可能感染 B、C 型肝炎。\n2. **新規定**：裝進不易穿刺的容器並標示，送回原購買機構、醫院、藥局或指定地點；**不可丟垃圾車、回收車或路邊垃圾桶**。\n3. **舊說法**（環保署時期）：沒有回收管道時，可裝硬容器交清潔隊；廢藥品可隨生活垃圾焚化。\n4. 2026 年 6 月廢棄物清理法修正後，任意棄置最高可罰新台幣 10 萬元。\n5. 台北市有「居家廢棄藥物檢收站」，回收針具與五大類藥物。\n\n## 新舊衝突的處理\n依 SCHEMA 第 3 條，兩種說法並列，並標明時期。新說法為環境部 2026 年 9 月的說明，時間較新且明確禁止交垃圾車，本 wiki 以新說法為建議做法。\n\n## 來源品質（2026-11-10 依新來源政策檢查）\n| 內容 | 出處 | 是否官方 |\n|---|---|---|\n| 新說法：居家針頭的處理方式、10 萬元罰則 | 中央社報導轉述環境部 | ◇ 非官方（媒體報導），待找環境部新聞稿原文 |\n| 舊說法：環保署醫療廢棄物資訊網 | 行政院環境保護署 | 官方 |\n| 台北市針頭與針筒的處理 | 臺北市環保局 | 官方 |\n| 台北市五大類藥物檢收 | 臺北市藥師公會網站 | ◇ 非官方（公會網站），待找臺北市衛生局原文 |\n\n## 影響的頁面\n[[item-needle]]、[[item-medicine]]、[[cat-hazardous]]、[[law-regulation]]、[[local-differences]]\n\n## 原始資料\nraw/S5-needles-and-medicine.md\n", "wiki/maintenance/lint-2026-11-10.md": "---\ntitle: 健康檢查報告（2026-11-10）\nupdated: 2026-11-10\n---\n# 健康檢查報告（2026-11-10）\n\n依 Karpathy 流程的 lint 操作，在 5 篇來源 ingest 完成後執行。分兩層：程式檢查（結構）與 LLM 檢查（內容）。\n\n## 一、程式檢查\n\n| 項目 | 結果 |\n|---|---|\n| 頁面總數 | 34 頁 wiki 頁面（不含 raw、log、schema） |\n| 斷鏈 | 0 |\n| 孤兒頁（只有 index 連到） | 0（來源頁的引用標籤也算連結） |\n| 未列入 index 的頁面 | 0 |\n| 沒有任何來源引用的頁面 | 0 |\n| 引用了未在 frontmatter 宣告的來源 | 0 |\n| 依據非官方來源的內容（◇） | 19 行，分布於 9 頁（2026-11-10 新來源政策實施後補標） |\n| 過期的「將由第 N 篇補充」字樣 | 0（已在 ingest S5 時清除 cat-general、item-mandatory 兩處） |\n\n## 二、LLM 內容檢查\n\n### 已修正\n1. **判斷順序與實務不符**：首頁與 [[concept-legal-categories]] 寫「有害嗎？→ 交專用車」，但 S2、S5 顯示家戶常見危險物品多半走回收或逆向回收。已改寫說明並連到 [[cat-hazardous]] 的管道對照表。\n2. **回收前處理缺針頭**：[[concept-prep]] 的危險物列只有 S2 項目，已補上居家針頭〔S5〕。\n\n### 待釐清（⚠ 共 5 項）\n\n| 頁面 | 問題 | 建議下一步 |\n|---|---|---|\n| [[cat-hazardous]] | 法定有害垃圾的家戶項目清單 | 搜尋環境部公告「有害一般廢棄物」 |\n| [[item-glass]] | 鏡子、陶瓷不可回收後的去處 | 找縣市環保局說明 |\n| [[item-medicine]] | 中央對廢藥品是否有新規定 | 找衛福部或環境部說明 |\n| [[law-regulation]] | 2026-06 廢清法修正案的條號、生效日、罰則級距 | 找全國法規資料庫或立法院三讀資料 |\n| [[cat-food]]、[[local-differences]] | 縣市廚餘是否仍分生熟收運（目前僅媒體報導） | 找各縣市環保局公告 |\n\n### 時效提醒\n| 頁面 | 到期條件 |\n|---|---|\n| [[policy-food-waste-pig]] | 2027-01-01 全面禁止生效後，需確認並把「轉型期」改為過去式 |\n| [[law-regulation]] | 2026-06 修法內容取得原文後更新 |\n\n### 來源品質（依 AGENTS.md 來源政策：只收政府機關原始文件）\n\n| 來源 | 狀態 | 處理 |\n|---|---|---|\n| [[S1]] | 條文網址原為民間法規網站 | ✔ 已改以環境部主管法規系統為準 |\n| [[S1]] 參照 | 「強制分類三類」引用學校文件 | ◇ 保留，待找政府說明 |\n| [[S2]]、[[S4]] | 政府原始文件 | 符合 |\n| [[S3]] | 環境部網站，但內容依搜尋摘要整理 | 符合政策；待人工下載原文 |\n| [[S5]] | 新說法與罰則來自中央社報導；五大類藥物來自公會網站 | ◇ 保留，待找環境部新聞稿與臺北市衛生局原文 |\n| [[local-differences]] | 台北市廚餘紅藍桶來自媒體報導 | ◇ 保留，待找臺北市環保局公告 |\n\n### 覆蓋缺口（建議的下一批來源）\n1. [[cat-bulky]] 只有法規定義，缺各縣市預約方式。\n2. 舊衣、雨傘等縣市自訂項目只有清單，缺實際縣市公告。\n3. 罰則只有居家針頭一例，缺一般分類違規的罰鍰規定。\n", "raw/S1-waste-disposal-regulation.md": "# 〔S1〕一般廢棄物回收清除處理辦法（摘錄）\n\n- 主管機關：環境部\n- 現行版本修正日期：民國 114 年 1 月 3 日\n- 法源：廢棄物清理法第十二條第一項\n- 取得日期：2026-11-10\n- 參考網址：\n  - 行政院公報修正總說明：https://gazette2.nat.gov.tw/EG_FileManager/eguploadpub/eg029222/ch07/type1/gov60/num36/images/AA.pdf\n  - 條文：https://www.rootlaw.com.tw/LetterContent.aspx?LCode=24&Soid=209341\n\n（法律條文依著作權法第九條不屬著作權標的，以下為條文摘錄。）\n\n## 第二條 用詞定義（摘錄）\n一、巨大垃圾：指體積龐大之廢棄傢俱、修剪庭院之樹枝或經主管機關公告之一般廢棄物。\n二、資源垃圾：指依本法第五條第六項公告之一般廢棄物回收項目（廚餘除外）及依本法第十五條第二項公告應回收之物品或其包裝、容器，經食用或使用後產生之一般廢棄物。\n三、有害垃圾：指符合有害事業廢棄物認定標準並經中央主管機關公告之一般廢棄物。\n四、廚餘：指被拋棄之生、熟食物及其殘渣或經主管機關公告之有機性一般廢棄物。\n五、一般垃圾：指巨大垃圾、資源垃圾、有害垃圾、廚餘以外之一般廢棄物。\n六、分類：指一般廢棄物於排出、貯存、回收、清除及處理過程中，為利於後續之運輸、處理，將不同類別性質者加以分開之行為。\n\n## 分類排出條文（摘錄）\n一般廢棄物應依下列方式分類後，始得交付回收、清除或處理：\n一、巨大垃圾：洽請執行機關或受託機構安排時間排出，並應符合執行機關規定之清除處理方式。\n二、資源垃圾：（一）依指定時間、地點及作業方式交付資源垃圾回收車；（二）依各地區分類規定投置於資源回收桶（箱、站）；（三）屬應回收廢棄物者得自行交付原販賣業者或依回收管道回收。\n三、有害垃圾：依指定時間、地點及作業方式，交付專用車輛清除。\n四、一般垃圾：（一）交付垃圾車清除；（二）投置於執行機關設置之一般垃圾貯存設備。\n五、廚餘：（一）交付廚餘回收貯存設備；（二）投置於廚餘回收桶（箱、站）。\n委託清除、處理者應依前項分類項目進行分類。\n\n## 沿革（取自公報修正總說明）\n- 民國 86 年 4 月 23 日訂定，原名「一般廢棄物貯存清除處理方法及設施標準」\n- 87 年 6 月 10 日修正\n- 91 年 11 月 27 日更名為「一般廢棄物回收清除處理辦法」\n- 110 年 2 月 22 日修正\n- 114 年 1 月 3 日修正：新增建築物拆除石綿瓦廢棄物之分類、貯存、排出、清除及處理管理方式\n\n## 參照：強制分類三類說法（學校宣導文件）\n- 雲林科技大學電機系公告：https://www.ee.yuntech.edu.tw/new_ee_web/Upload_Files/請全體師生務必遵守本校廢棄物處理方式.doc\n- 台北城市科技大學「垃圾強制分類知識篇」：https://ga.tcust.edu.tw/var/file/4/1004/img/162/101186763.pdf\n", "raw/S2-recycling-items-guide.md": "# 〔S2〕一般廢棄物回收項目排出方式（整理筆記）\n\n- 發布：環境部（資源回收網）\n- 網址：https://recycle.moenv.gov.tw/QA/pdf/%E4%B8%80%E8%88%AC%E5%BB%A2%E6%A3%84%E7%89%A9%E5%9B%9E%E6%94%B6%E9%A0%85%E7%9B%AE%E6%8E%92%E5%87%BA%E6%96%B9%E5%BC%8F.pdf\n- 取得日期：2026-11-10\n- 依據：廢棄物清理法第 5 條第 6 項公告「執行機關一般廢棄物應回收項目」（公告網址：https://oaout.moenv.gov.tw/Law/LawContent.aspx?id=GL006478）\n- 說明：本檔為依原文整理的筆記，非全文轉載；細節請以原 PDF 為準。\n\n## 文件性質\n彙整執行機關現行回收項目與交付注意事項；直轄市、縣（市）可增訂回收項目；實際排出方式以當地環保局、鄉鎮市公所規定為準。標 * 者依各縣市自行公告為準。\n\n## 各類整理\n- 廢紙類：可回收紙板、書報、文化用紙、紙容器（含平板容器、免洗餐具）、鋁箔包。注意：紙與紙容器、鋁箔包分開；去除塑膠封面、膠帶、線圈、釘書針；鋁箔包抽出吸管壓扁；平板容器剩菜倒廚餘後擦拭或沖洗。不可回收：紙尿布、衛生紙、複寫紙、蠟紙、貼紙底襯、轉印紙、砂紙、塑膠光面紙、感熱紙（電子發票、傳真、心電圖紙）、標籤貼紙；理由：複合材質再利用比例低且影響再生品質。\n- 廢鐵類：鐵容器（小於 17 公升，如罐頭、髮膠罐、卡式瓦斯罐）、鐵製用品。注意：倒空、清洗、壓扁；非鐵附著物分離；高壓罐須在空曠處排空、確認用完、單獨打包標示「內有高壓瓶」，不可丟進壓縮車。不可回收：氣體鋼瓶，交瓦斯行逆向回收或內政部認證瓦斯檢驗場。\n- 廢鋁類：鋁容器（小於 17 公升，如飲料罐）、鋁製用品（鋁鍋、鋁門窗外框、鋼圈）。倒空沖洗壓扁；非鋁附著物分離。\n- 廢玻璃類：玻璃容器（小於 17 公升）、玻璃製品（盤、杯、碗、平板玻璃）。去瓶蓋吸管、倒空沖洗。不可回收：衛浴設備、陶瓷製品、陶瓷花瓶與酒瓶、鏡子、磁磚。\n- 廢塑膠類：塑膠容器（小於 17 公升，回收辨識碼 1–7 號）、平板包材（平板容器、塑膠襯墊、泡殼、免洗餐具）、一般塑膠類（塑膠盆、桌椅、資料夾、籃、衣架、水桶）、塑膠袋*（乾淨不含油漬的單一材質）。注意：倒空清洗壓扁；襯墊泡殼去標籤；保麗龍去除膠帶、木材、鐵釘及非保麗龍包材；環境用藥、農藥、肥料容器至少清洗三次，送農會回收點或回收車。不可回收：玻璃纖維、汽機車坐墊、塑膠膜、塑膠繩、尼龍繩、塑膠布、安全座椅、巧拼、護貝膜、保鮮膜、泡棉、膠帶、原子筆、吸管、塑膠玩具等；髒污塑膠袋；內層有錫箔或鋁箔的複合塑膠袋。\n- 廢光碟片：CD、VCD、DVD（不含外殼）。卸除外包裝；PC 外殼另行回收。\n- 廢行動電話及充電器：手機、具通話功能的平板等及配件、充電器。先刪除個資；功能機卸電池、拔記憶卡與 SIM 卡。\n- 廢食用油：含回鍋油、過期油。自備容器蓋緊交回收車或定點回收。\n- 應回收廢棄物物品類：乾電池（一次與二次電池）、機動車輛、廢輪胎、鉛蓄電池、電子電器（電視、冰箱、洗衣機、冷暖氣機、電風扇）、資訊物品、照明光源。注意：乾電池交回收車或超商、量販店等販賣業者逆向回收；二次鋰電池儘速排出不暫存、避高溫、正負極貼絕緣膠帶；廢車可用「廢車回收一站通」，汽車 10 年、機車 7 年以上可申請獎勵金；大型家電交經銷商或約清潔隊，小型交回收車；碳粉匣由廠商逆向回收；燈管用紙套包好，破損以堅固容器包裝並註明。\n- 其他（*縣市自訂）：含汞廢棄物、舊衣、雨傘骨架、滅火器、安全帽、行李箱、獎盃、腳踏車、嬰兒車。含汞物品用原包裝交隨車人員；舊衣洗淨投有許可字號的回收箱或交回收車；滅火器優先交販賣業者。\n\n# S1 補充（2026-11-10 第 2 次 ingest 時一併取得）\n- 環境部主管法規系統現行條文：https://oaout.moenv.gov.tw/Law/LawContent.aspx?id=FL015638\n- 歷史版本：https://oaout.moenv.gov.tw/law/LawContentHistory.aspx?hid=620&id=FL015638\n- 第 13 條：執行機關應宣導民眾依下列方式排出：廚餘先瀝除水分並妥為包裝；刀片、玻璃碎片等尖銳利器以不易穿透容器或材質包妥並標示；木、竹片裁剪綑紮；封緊垃圾袋袋口；有害垃圾分開貯存排出；資源垃圾依回收管道分類、貯存、排出及回收。\n", "raw/S3-food-waste-classification.md": "# 〔S3〕環境部〈廚餘該怎麼分類？〉與「廚餘再利用」說明（整理筆記）\n\n- 發布：環境部 一般（生活）廢棄物管理資訊系統（回收-QA、回收-百科）\n- 網址：\n  - 回收-QA：https://hwms.moenv.gov.tw/dispPageBox/pubweb/pubwebCP.aspx?ddsPageID=THREE&dbid=3593712472\n  - 回收-百科：https://hwms.moenv.gov.tw/dispPageBox/pubweb/pubwebCP.aspx?ddsPageID=RESOURCEANDRESOURCES&dbid=3357912191\n- 取得日期：2026-11-10（網站不允許自動擷取全文，以下依搜尋結果摘要整理）\n- 注意：本文寫於「廚餘養豬禁令」之前，使用舊名稱「養豬廚餘／堆肥廚餘」。\n\n## 分類\n- 廚餘分為熟廚餘（養豬廚餘）與生廚餘（堆肥廚餘）兩種。\n- 熟廚餘（養豬廚餘）：一般家庭剩菜剩飯、麵食、魚、蝦、肉類、內臟、生鮮或熟食等適合豬隻食用者。\n- 生廚餘（堆肥廚餘）：生菜葉、果皮、茶渣、貝殼、果核、落葉、花材等不適合養豬者。\n- 混雜或無法分辨的廚餘（不含不可回收者），均歸類為堆肥廚餘回收。\n\n## 再利用\n- 廚餘再利用大致分為四種形式：堆肥、養豬、能源回收、其他。\n- 以廚餘養豬時，廚餘加熱中心溫度至少 90℃，維持至少一小時，並持續攪拌。\n\n## 參照（地方說明，非本來源）\n- 高雄市環保局常見問答（同樣的生熟分類文字，另列「過期食品」為養豬廚餘）：https://ksepb.kcg.gov.tw/Faq/commonquestions?ID=0503af06-72cf-4551-b6ff-5fcfd1b8cccf&PageIndex=11&PageType=1\n- 臺南市廚餘分類（原則：「煮熟後豬可以食用」歸為養豬廚餘）：https://tnepb-kitchen.clweb.com.tw/mode02.asp?m=20150526161126239&t=list\n", "raw/S4-food-waste-policy-report.md": "# 〔S4〕2027 年全面禁止廚餘養豬：環境部廚餘再利用管理與去化規劃專案報告（整理筆記）\n\n- 報告機關：環境部（報告人：常務次長沈志修）\n- 場合：立法院第 11 屆第 4 會期經濟委員會第 16 次全體委員會議\n- 日期：民國 114 年 12 月 15 日（2025-12-15）\n- 網址：https://lis.ly.gov.tw/lydb/uploadn/114/1141215/302.pdf\n- 取得日期：2026-11-10\n- 說明：依原文整理的筆記。\n\n## 背景\n- 因應國內發生非洲豬瘟個案，農業部宣布禁止搬運廚餘至養豬場餵豬。環境部於 114/10/22、10/25 與各縣市研商，以堆肥化與能源化優先，輔以焚化或掩埋；10/31 成立廚餘去化中央前進協調所。\n- 114/10/23 至 12/11：平均每日清運廚餘 1,755 噸；再利用 44%（肥料化 29%、生質能 12%、黑水虻等 3%），焚化 51%、掩埋 5%。\n\n## 分流原則\n- 可養豬廚餘（環境部正面表列）：115/1/1 至 115/12/31 仍可送往取得再利用檢核許可的養豬場，高溫蒸煮後餵豬，受嚴格監管。來源：集中供膳（學校、部隊、矯正機關）、餐館業、超市與賣場等的過期食品、食品加工廠的動物性廢渣或屠宰下腳料。正面表列另含連鎖便利商店、百貨公司、旅館、量販、速食店、長照與護理機構、觀光遊樂業。\n- 管理：載運車輛裝 GPS；養豬場裝溫度及影像即時監控，落實蒸煮 90℃以上、持續 1 小時以上。115/1/1 起養豬戶須完成 3 日蒸煮連線測試才可繼續使用廚餘。\n- 不可養豬廚餘：家戶廚餘、小吃攤、公寓大樓。全面禁止進入養豬系統；優先堆肥、黑水虻、生質能，輔以焚化或掩埋。\n- 116/1/1（2027-01-01）起廚餘全面禁止養豬。\n\n## 數量與量能\n- 113 年全國廚餘約 2,115 噸/日：養豬 1,324 噸（家戶 593、事業 731）、其他再利用 791 噸。\n- 設施量能：現況 1,100 噸/日 → 115 年底 1,720 → 116 年底 2,119（大於產生量，不再需要焚化掩埋）→ 117 年底 2,529。\n- 115 年底全面禁養後，預估仍有 395 噸/日需焚化或掩埋。\n\n## 配套\n- 修法：共通性事業廢棄物再利用管理辦法、一般廢棄物清除處理方式、應裝置即時追蹤系統之清運機具及其規定；農業部依動物傳染病防治條例第 28 條修正公告。預定 114/12/31 前完成。\n- 焚化廠處理廚餘作業指引（114/11/28 函頒）：加強瀝水、混拌、穩定投料、爐溫控制、排放監控；戴奧辛檢測結果均低於標準。\n- 環境部、教育部、農業部共同推動惜食環境教育。\n\n## 參照（媒體報導，非本來源）\n- 環境資訊中心：官方表示生、熟廚餘分類不受影響 https://www.e-info.org.tw/node/242639\n- 今周刊：台北市規劃不再分紅藍兩桶，全部堆肥 https://www.businesstoday.com.tw/article/category/183030/post/202512070009/\n- 聯合新聞網：截至 2026 年 1 月底，435 場廚餘養豬場中 192 場表示不再使用廚餘 https://udn.com/news/story/7266/9326164\n", "raw/S5-needles-and-medicine.md": "# 〔S5〕居家針頭與廢藥品的處理（整理筆記）\n\n## 主要來源（新規定）\n- 中央社報導〈瘦瘦針頭違規亂丟最高可罰10萬元 環部：妥善回收避免感染風險〉，2026-09-08，內容為環境部及環境管理署代理署長林健三的說明\n  - https://www.cna.com.tw/news/ahel/202609080063.aspx\n  - 同文轉載：https://udn.com/news/story/7266/9741039\n- 取得日期：2026-11-10\n- 要點：\n  - 瘦瘦針、糖尿病友使用的居家護理針頭，以不易穿刺的容器（如牛奶瓶或醫療院所提供的容器）貯存並清楚標示。\n  - 不可混入一般家戶垃圾或資源回收物，不可丟入路邊垃圾桶。\n  - 廢棄針頭與醫療院所針具同樣具感染性，扎傷可能感染 B、C 型肝炎；大型醫院多有逆向回收機制。\n  - 各縣市規定以送回原購買機構、醫院或特定地點回收為主；購買或領用時應主動詢問有無回收服務，優先送回原購買機構。\n  - 居家護理針頭屬一般廢棄物；依 2026 年 6 月立法院三讀通過的廢棄物清理法修正案，任意棄置最高可處新台幣 10 萬元罰鍰。\n\n## 對照來源（舊說法）\n- 行政院環境保護署 醫療廢棄物資訊網 常見問題（環保署時期，2023 年 8 月改制為環境部之前）\n  - https://medwaste.epa.gov.tw/Contents/G03_2.html\n  - 要點：過期藥物與自行注射的廢棄針頭，盡可能拿回原就診醫院；部分公立醫院、衛生所、社區藥局有廢藥品回收。若都不提供，廢藥品可併同生活垃圾交清潔隊焚化；廢棄針頭放入堅硬不易刺穿的容器再交清潔隊。\n\n## 地方作法（台北市）\n- 臺北市環保局常見問答：https://www.dep.gov.taipei/News_Content.aspx?n=ACEFA960B5A4ACD7&sms=87415A8B9CE81B16&s=642B8CBB4CACF9F1\n  - 家戶針頭回診時交醫療院所，或送貼有「居家廢棄藥物檢收站」標章的藥局；未直接接觸血液或體液的針筒屬一般廢棄物，密封裝專用垃圾袋交清潔隊。\n- 臺北市居家廢棄藥品針具檢收專區（臺北市藥師公會）：http://www.tpa.org.tw/FamilyDrugsInspection/index.htm\n  - 檢收五大類：針具針頭、含液體藥品的抗生素、抗癌與免疫抑制劑、荷爾蒙、管制藥品；其他藥品依一般家中垃圾處理。\n- 2026-09 報導：台北市衛生局與藥師公會的檢收專區有 48 間醫院、337 間藥局加入（同上中央社報導）。\n", "log.md": "# 更新紀錄\n\n## [2026-11-10] setup | 建立 wiki 架構與 SCHEMA\n- 決定：以台灣為主、每篇 ingest 前逐一討論、交付網頁版。\n- 架構以法定五類為主軸，強制分類三類另頁對照。\n\n## [2026-11-10] ingest | 〔S1〕一般廢棄物回收清除處理辦法\n- 新增：S1、cat-bulky、cat-recyclable、cat-hazardous、cat-food、cat-general、concept-legal-categories、law-regulation、local-differences\n- 待釐清：第二條廚餘定義有兩種版本寫法。\n- 下一篇：環境部回收項目與排出方式。\n\n## [2026-11-10] ingest | 〔S2〕一般廢棄物回收項目排出方式\n- 新增：S2；物品群組 9 頁（item-paper、item-iron、item-aluminum、item-glass、item-plastic、item-disc、item-phone、item-cooking-oil、item-mandatory）；易混淆單品 6 頁（item-receipt、item-pressurized-can、item-gas-cylinder、item-plastic-bag、item-styrofoam、item-lithium-battery）；概念 concept-prep\n- 更新：cat-recyclable、cat-general、cat-hazardous、cat-food、local-differences、concept-legal-categories、S1、index\n- 釐清：S1 廚餘定義的另一寫法為歷史版本用語，⚠ 改為 ✔。\n- 補充：S1 第 13 條排出原則。\n- 新待釐清：鏡子與陶瓷「不可回收」後的去處（item-glass）；法定有害垃圾的家戶範圍（cat-hazardous）。\n- 下一篇：廚餘分類規定。\n\n## [2026-11-10] ingest | 〔S3〕環境部廚餘分類說明、〔S4〕環境部廚餘去化專案報告\n- 決定：廚餘拆成兩篇來源；全 wiki 總數定為 5 篇，第 5 篇選較重要的主題。\n- 決定：時效性內容新舊規定並列，標明生效期間。\n- 新增：S3、S4、item-food-raw-cooked、policy-food-waste-pig\n- 改寫：cat-food（改用熟廚餘、生廚餘，舊稱對照）\n- 更新：local-differences、index\n- 待辦：2027-01-01 後重新 lint policy-food-waste-pig，確認全面禁止已生效。\n- 待釐清：縣市廚餘是否仍分生熟收運（目前僅有媒體報導）。\n\n## [2026-11-10] ingest | 〔S5〕居家針頭與廢藥品的處理\n- 決定：第 5 篇選居家醫療廢棄物（理由：易混淆物品多已由 S2 涵蓋；有害垃圾頁缺內容；涉及安全）。\n- 新增：S5、item-needle、item-medicine\n- 改寫：cat-hazardous（改為「法定定義＋實務管道對照表」）\n- 更新：item-mandatory、law-regulation（2026-06 廢清法修正、罰則）、local-differences（台北市檢收站）、cat-general、index\n- 新舊衝突：針頭處理的環保署舊說法與環境部 2026-09 新說法並列，建議依新說法。\n- 新待釐清：中央對廢藥品是否有新規定；廢清法修正案條號與生效日。\n\n## [2026-11-10] lint | 第一次健康檢查\n- 程式檢查：斷鏈 0、孤兒頁 0、未列 index 0、無引用頁 0。\n- 內容修正：判斷順序中「有害垃圾交專用車」與實務不符，已改寫；concept-prep 補上針頭。\n- 待釐清 5 項、時效提醒 2 項、來源品質注意 2 項、覆蓋缺口 3 項，詳見 lint-2026-11-10。\n\n## [2026-11-10] maintenance | raw 檔名改為英數\n- 原因：中文檔名在部分解壓縮工具（如 Windows 內建）會顯示為空資料夾或亂碼。\n- 變更：S1–S5 的 raw 檔改為英數檔名，wiki 內引用同步更新；內容不變。\n\n## [2026-11-10] maintenance | 新增 AGENTS.md\n- 原因：Karpathy 模式的第三層是給代理人的設定檔（AGENTS.md 或 CLAUDE.md）。原本的 SCHEMA.md 只有內容規則，缺少操作步驟。\n- 新增：AGENTS.md（必讀檔案、ingest／query／lint 步驟、禁止事項、待辦）\n- 修正：scripts/build.py 與 scripts/lint.py 改用相對路徑，在任何電腦解壓縮後都能執行。\n\n## [2026-11-10] maintenance | 依討論改寫 AGENTS.md，實施來源政策\n- 決定：在 claude.ai 維護；以上傳的 zip 為準，收工時給 zip 並更新網站。\n- 決定：修改分兩級。可直接做：錯字、連結、lint 找到的內容矛盾、有官方依據時 ⚠ 改 ✔。其餘需要同意。\n- 決定：新來源只收政府機關原始文件；既有非官方內容保留並標「◇ 非官方」。\n- 改寫：AGENTS.md（新增開工與收工流程、兩級修改表、來源政策）\n- 更新：SCHEMA.md（第 6 條 ◇ 標記）；lint.py（統計 ◇，健康檢查報告不列入過期字樣檢查）；build.py 與 template.html（◇ 樣式）\n- 標記 ◇：cat-hazardous、concept-legal-categories、concept-prep、item-needle、item-medicine、law-regulation、local-differences、S5\n- 釐清：S1 條文網址改以環境部主管法規系統為準（✔）。\n- 更新：lint-2026-11-10 的來源品質段落。\n\n## [2026-11-10] fix | 廚餘「分類方式不變」的引用錯誤（製作簡報時發現）\n- 問題：item-food-raw-cooked 把「生熟分類方式不變」標為 S4，但 S4 未提及；該說法僅見於媒體報導。cat-food、policy-food-waste-pig、local-differences 的「仍分生熟」也把禁令前的 S3 寫成現況。\n- 修正（屬可直接做：lint 找到的內容錯誤）：改寫為「禁令前的說明分生熟〔S3〕；禁令後是否調整 ⚠ 依縣市公告」。\n", "SCHEMA.md": "---\ntitle: Wiki 規則（SCHEMA）\nupdated: 2026-11-10\n---\n# Wiki 規則（SCHEMA）\n\n本 wiki 依 Karpathy 的 LLM Wiki 模式維護：raw（原始資料，只讀）→ wiki（由 LLM 維護）→ 本規則檔。操作有三種：ingest、query、lint。\n\n操作步驟（ingest、query、lint 怎麼執行）見 AGENTS.md；本檔只管內容怎麼寫。\n\n## 工作方式：先討論、後生成\n每一篇來源 ingest 前，先向使用者報告重點、預計新增或修改的頁面、與既有內容的衝突，經同意後才寫入，最後更新 [[index]] 與 [[log]]。\n\n## 頁面類型\n- **來源摘要**（wiki/sources）：每篇來源一頁，記錄出處、日期、重點。\n- **分類類別**（wiki/categories）：五個法定類別，各寫定義與排出方式。\n- **物品**（wiki/items）：回答「這個丟哪」。\n- **概念**（wiki/concepts）：跨來源的觀念與比較。\n- **法規與地方差異**（wiki/law）：中央與縣市規定分開寫。\n\n## 寫作規則\n1. 每頁開頭標示最後更新日期與依據來源。\n2. 每個事實附來源編號，例如〔S1〕。\n3. 來源說法不同時，兩種都寫並標記「⚠ 待釐清」，不自行取捨。\n4. 中央規定與縣市規定分開寫。\n5. 頁面互連使用雙中括號包住頁面代號，例如連到 index 頁。\n6. 依據非官方來源（媒體、學校、公會、民間網站）的內容，在句末或表格依據欄加「◇ 非官方（類型）」。新來源只收政府機關原始文件，見 AGENTS.md 的來源政策。\n7. 架構以法定五類為主軸，「強制分類三類」作為日常簡化說法另頁對照。\n", "AGENTS.md": "---\ntitle: 代理人操作說明（AGENTS.md）\nupdated: 2026-11-10\n---\n# 代理人操作說明（AGENTS.md）\n\n你是這個「台灣垃圾分類 Wiki」的維護者。本檔說明你**怎麼做事**；內容寫作規則見 SCHEMA.md。兩者衝突時，以使用者當下的指示優先，其次 SCHEMA.md，再其次本檔。\n\n本 wiki 在 **claude.ai 網頁對話**中維護。網頁對話不會自動讀取本檔，每次對話的工作資料夾也會清空，所以請嚴格照「開工」與「收工」流程執行。\n\n## 開工流程\n1. **以使用者上傳的 zip 為準**，解壓縮到工作資料夾。\n2. 若這次沒有上傳 zip：先問使用者要上傳 zip，或改從網站讀回（Artifact 的 read 動作）。不可假設手上已有最新版。\n3. 依序讀取：本檔、`SCHEMA.md`、`index.md`、`log.md` 最後 3 筆、`wiki/maintenance/` 中最新的健康檢查報告。\n4. 先向使用者回報：目前有幾篇來源、幾頁內容、未解決的待釐清與時效提醒。\n\n## 收工流程（這次有任何修改就要做）\n1. 執行 `python3 scripts/lint.py`：斷鏈與孤兒頁必須為 0。\n2. 執行 `python3 scripts/build.py` 重建網站，並以同一個網址重新發布：https://claude.ai/artifact/Nn72wkrBCABFUswgrkwVbu\n3. 打包新的 `garbage-wiki.zip` 交給使用者。要用會標記 UTF-8 檔名的方式打包，例如 Python 的 zipfile。\n4. 在 `log.md` 追加一筆，格式為「## [YYYY-MM-DD] 類型 | 標題」。\n\n## 修改的兩個等級\n\n| 等級 | 包含哪些修改 | 怎麼處理 |\n|---|---|---|\n| 可直接做 | 錯字；斷鏈與連結修正；lint 找到的內容矛盾；有官方依據時把 ⚠ 改成 ✔ | 先做，事後在回覆中列出改了什麼，並記進 log |\n| 需要同意 | 新增來源；時效到期後更新政策頁；把查詢結果存回 wiki；刪除任何內容；修改 SCHEMA.md 或本檔；新增或移除 ◇ 標記以外的來源 | 先報告，等使用者同意才寫入 |\n\n例外：「內容矛盾」的兩邊若都是官方來源，屬於來源衝突，不算可直接修正的錯誤。此時依 SCHEMA 並列兩種說法，並提出討論。\n\n## 來源政策\n- **新來源只收政府機關的原始文件**：中央部會、立法院、行政院公報、縣市政府與環保局、全國法規資料庫、環境部主管法規系統。\n- 不可作為新來源：媒體報導、民間法規網站、學校文件、公會或協會網站、個人部落格。這類資料只能幫你**找到**官方原文。\n- 既有的非官方內容：保留，並在句末或表格依據欄加「◇ 非官方（類型）」。找到官方原文後替換內容並移除標記（屬可直接做），在 log 記錄。\n\n## 操作一：Ingest（新增一篇來源，需要同意）\n**第一次回覆（不寫任何檔案）**\n1. 搜尋候選來源，確認是政府機關的原始文件。\n2. 報告：來源是什麼、重點、預計新增與修改的頁面、與既有內容的衝突或新舊差異、需要使用者決定的問題。\n3. 等待同意。\n\n**第二次回覆（同意後）**\n1. 在 `raw/` 新增整理筆記：出處、網址、取得日期、重點。檔名格式「S編號-英文簡稱.md」，只用英數。非法規文件只寫整理筆記，不轉載全文。\n2. 新增 `wiki/sources/S編號.md`，新增或更新受影響的頁面，每個事實附來源編號。\n3. 更新 `index.md`，執行收工流程。\n\n## 操作二：Query（回答問題、做簡報）\n1. 先讀 `index.md`，再讀相關頁面；**只用 wiki 內容回答**，不從記憶補事實。\n2. 保留來源編號；⚠ 的內容說明「目前未確定」；◇ 的內容說明「來自非官方來源」；有時效的內容寫出生效日。\n3. wiki 缺資料時不自行補寫，改為建議 ingest 新來源。\n4. 有長期價值的回答，經同意後存回 `wiki/concepts/`。\n5. 做簡報時，每張投影片都要過 1 到 3 項的檢查，不通過的投影片重新生成。\n\n## 操作三：Lint（健康檢查）\n1. 執行 `python3 scripts/lint.py`：斷鏈、孤兒頁、未列入 index、無引用頁面、frontmatter 未宣告的來源、⚠ 數量、◇ 數量。\n2. 逐頁做內容檢查：互相矛盾、過期的時效內容、「將由第 N 篇補充」這類過期字樣、違反來源政策的內容。\n3. 結果寫入 `wiki/maintenance/lint-YYYY-MM-DD.md`，並執行收工流程。\n4. 時機：每批 ingest 完成後；時效提醒到期時。\n\n## 禁止事項\n- 不修改或刪除 `raw/` 的檔案；raw 有錯時，在對應的 `wiki/sources/` 頁面註明更正。\n- 不自行刪除 ⚠；有官方依據時改為 ✔ 並寫明依據。\n- 來源衝突時不自行取捨，兩種說法並列。\n- 不用中文檔名；頁面連結用雙中括號包住頁面代號，代號只用英數和連字號。\n\n## 目前待辦（2026-11-10）\n- 2027-01-01 以後：重新 lint `policy-food-waste-pig`（更新內容需要同意）。\n- 健康檢查報告中的 5 項待釐清與 3 項覆蓋缺口。\n- ◇ 非官方內容待替換：S5 的環境部新聞稿原文、臺北市衛生局的藥物檢收說明、「強制分類三類」的政府說明、台北市廚餘收運的官方公告。\n- S3 原文取得後替換 raw 中的摘要版本。\n"}</script>
+<script>
+(function(){
+  // 表格包上可橫向捲動的容器
+  document.querySelectorAll('.page table').forEach(function(t){
+    var d=document.createElement('div');d.className='table-scroll';t.parentNode.insertBefore(d,t);d.appendChild(t);
+  });
+  // 首頁插入判斷順序
+  var idx=document.getElementById('p-index');
+  if(idx){var h=idx.querySelector('h1');h.insertAdjacentElement('afterend',document.createElement('div'));
+    h.nextElementSibling.replaceWith(document.getElementById('flow').content.cloneNode(true));}
+  function show(){
+    var s=(location.hash||'#index').slice(1);
+    var el=document.getElementById('p-'+s);
+    if(!el){s='index';el=document.getElementById('p-index');}
+    document.querySelectorAll('.page').forEach(function(p){p.hidden=(p!==el);});
+    document.querySelectorAll('[data-slug]').forEach(function(a){
+      if(a.tagName==='A'){a.classList.toggle(a.parentNode.classList.contains('strip')?'on':'cur',a.dataset.slug===s);}
+    });
+    var t=el.querySelector('h1');document.title=(t?t.textContent+'｜':'')+'台灣垃圾分類 Wiki';
+    window.scrollTo(0,0);
+    document.querySelector('nav.side').classList.remove('open');
+  }
+  window.addEventListener('hashchange',show);show();
+  var nav=document.querySelector('nav.side'),mb=document.querySelector('.menu');
+  mb.addEventListener('click',function(){var o=nav.classList.toggle('open');mb.setAttribute('aria-expanded',o);mb.textContent=o?'收起目錄':'顯示目錄';});
+  var root=document.documentElement;
+  try{var saved=localStorage.getItem('theme');if(saved)root.dataset.theme=saved;}catch(e){}
+  document.querySelector('.theme').addEventListener('click',function(){
+    var dark=root.dataset.theme?root.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;
+    root.dataset.theme=dark?'light':'dark';
+    try{localStorage.setItem('theme',root.dataset.theme);}catch(e){}
+  });
+})();
+</script>
+</body>
+</html>
