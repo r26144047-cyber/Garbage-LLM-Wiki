@@ -7,11 +7,51 @@
 
 ## 工作流程
  
-![兩層迴圈流程圖：外層建立與維護 wiki，內層把 wiki 轉成簡報](assets/workflow.png)
+```mermaid
+flowchart TB
+    subgraph outer["外層迴圈：建立與維護 wiki（每篇來源跑一次）"]
+        direction LR
+        A["取得資料<br/>搜尋官方來源"] --> B["討論確認<br/>人同意才寫入"]
+        B --> C["Ingest 寫入<br/>raw、wiki、log"]
+        C --> D["Lint 檢查<br/>斷鏈、⚠、時效"]
+        D -. "↻ lint 找到的缺口，決定下一篇來源" .-> A
+    end
  
-- **外層迴圈（建立與維護 wiki）**：每篇來源跑一次。取得資料 → 討論確認（人同意才寫入）→ Ingest 寫入 raw、wiki、log → Lint 檢查。lint 找到的缺口，決定下一篇來源。
-- **內層流程（wiki 轉簡報）**：查詢 Wiki → 整理重點 → 檢查內容 → 產生簡報。檢查不通過就回到整理重點重新生成；發現 wiki 本身有問題，就回外層修正。
-- 兩層之間只透過 wiki 連接：簡報不直接讀原始網頁，只讀 wiki。
+    subgraph inner["內層流程：wiki 轉簡報（每張投影片都要過檢查）"]
+        direction LR
+        E["查詢 Wiki<br/>index → 頁面"] --> F["整理重點<br/>每頁一個結論"]
+        F --> G["檢查內容<br/>引用、⚠、時效"]
+        G --> H["產生簡報<br/>逐頁生成"]
+        G -. "↻ 不通過：回到整理重點，重新生成" .-> F
+    end
+ 
+    outer == "完成的 wiki 成為簡報唯一的資料來源" ==> inner
+ 
+    classDef gen fill:#E1F5EE,stroke:#0F6E56,color:#085041
+    classDef gate fill:#FAEEDA,stroke:#854F0B,color:#633806
+    class A,C,E,F,H gen
+    class B,D,G gate
+    style outer fill:transparent,stroke:#888780,stroke-dasharray:4 4
+    style inner fill:transparent,stroke:#888780,stroke-dasharray:4 4
+```
+ 
+另外兩條回頭的路：
+ 
+- ↻ 檢查時發現 wiki 本身缺資料：回外層，補 ingest 後再做簡報
+- ↻ 好的查詢整理：存回 wiki 成為新頁面
+| 顏色 | 意思 |
+|---|---|
+| 綠色框 | 生成步驟 |
+| 橘色框 | 檢查閘門 |
+ 
+
+## 線上瀏覽
+ 
+| 成果 | 連結 |
+|---|---|
+| Wiki 網站 | https://r26144047-cyber.github.io/Garbage-LLM-Wiki/ |
+| 教學簡報 | https://r26144047-cyber.github.io/Garbage-LLM-Wiki/slides.html |
+
 ## 檔案結構
  
 ```
@@ -29,10 +69,7 @@ garbage-wiki/
 │   ├── concepts/    ← 概念：法定五類與日常三類、回收前處理
 │   ├── law/         ← 政策與地區：法規沿革、廚餘養豬禁令、各地差異
 │   └── maintenance/ ← 健康檢查（lint）報告
-├── scripts/         ← lint.py（結構檢查）、build.py + template.html（產生網站）
-├── docs/            ← GitHub Pages：index.html（wiki 網站）、slides.html（教學簡報）
-└── assets/
-    └── workflow.png ← 流程圖
+└── scripts/         ← lint.py（結構檢查）、build.py + template.html（產生網站）
 ```
  
 ## 資料來源
