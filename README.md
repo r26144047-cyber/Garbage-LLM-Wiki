@@ -35,14 +35,6 @@ flowchart TB
     style inner fill:transparent,stroke:#888780,stroke-dasharray:4 4
 ```
  
-另外兩條回頭的路：
- 
-- ↻ 檢查時發現 wiki 本身缺資料：回外層，補 ingest 後再做簡報
-- ↻ 好的查詢整理：存回 wiki 成為新頁面
-| 顏色 | 意思 |
-|---|---|
-| 綠色框 | 生成步驟 |
-| 橘色框 | 檢查閘門 |
  
 
 ## 線上瀏覽
