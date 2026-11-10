@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>台灣垃圾分類 Wiki</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F2F5F3; --surface:#FFFFFF; --ink:#1A2421; --muted:#56625D; --line:#D3DAD6;
+  --bulky:#6A55A8; --hazard:#BE3B28; --food:#87661A; --recycle:#16776A; --general:#4B5551;
+  --tint:#E6ECE9;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#151B19; --surface:#1D2522; --ink:#E5ECE8; --muted:#9CA9A3; --line:#33403B;
+    --bulky:#A493E0; --hazard:#F07A63; --food:#D6AE52; --recycle:#5CC4B1; --general:#A9B4AF;
+    --tint:#24302C;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#151B19; --surface:#1D2522; --ink:#E5ECE8; --muted:#9CA9A3; --line:#33403B;
+  --bulky:#A493E0; --hazard:#F07A63; --food:#D6AE52; --recycle:#5CC4B1; --general:#A9B4AF;
+  --tint:#24302C;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  font-size:17px;line-height:1.8}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:3px solid var(--recycle);outline-offset:2px;border-radius:2px}
+
+/* 五類色條：全站識別，也是快速導覽 */
+.strip{display:flex;height:56px;position:sticky;top:0;z-index:5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--ink)}
+.strip a{flex:1;display:flex;align-items:center;justify-content:center;text-decoration:none;
+  color:#fff;font-weight:700;font-size:15px;transition:flex .25s ease;white-space:nowrap;overflow:hidden}
+.strip a.bulky{background:var(--bulky)}.strip a.hazard{background:var(--hazard)}
+.strip a.food{background:var(--food)}.strip a.recycle{background:var(--recycle)}.strip a.general{background:var(--general)}
+:root[data-theme="dark"] .strip a,:root:not([data-theme="light"]) .strip a{color:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .strip a{color:#111}}
+:root[data-theme="dark"] .strip a{color:#111}
+.strip a.on{flex:2.4}
+.strip a .q{opacity:.75;font-weight:500;margin-right:.4em}
+@media (max-width:640px){.strip a .q{display:none}.strip a{font-size:12px}.strip a.on{font-size:14px}}
+@media (prefers-reduced-motion:reduce){.strip a{transition:none}}
+
+.wrap{display:grid;grid-template-columns:260px minmax(0,1fr);max-width:1180px;margin:0 auto}
+nav.side{padding:28px 20px 40px 24px;border-right:1px solid var(--line);font-size:15px;line-height:1.6;
+  position:sticky;top:56px;align-self:start;max-height:calc(100vh - 56px);overflow:auto}
+.brand{font-family:"Noto Serif TC",serif;font-weight:900;font-size:22px;line-height:1.3;margin:0 0 4px}
+.sub{color:var(--muted);font-size:13px;margin:0 0 20px}
+.nav-g{color:var(--muted);font-size:13px;margin:20px 0 6px}
+nav ul{list-style:none;margin:0;padding:0}
+nav li a,.nav-home{display:block;padding:4px 8px;margin-left:-8px;border-radius:4px;text-decoration:none}
+nav li a.bulky{border-left:4px solid var(--bulky)}nav li a.hazard{border-left:4px solid var(--hazard)}
+nav li a.food{border-left:4px solid var(--food)}nav li a.recycle{border-left:4px solid var(--recycle)}
+nav li a.general{border-left:4px solid var(--general)}
+nav a.cur{background:var(--tint);font-weight:700}
+.theme{margin-top:28px;font:inherit;font-size:13px;background:none;border:1px solid var(--line);color:var(--muted);padding:4px 10px;border-radius:4px;cursor:pointer}
+.menu{display:none}
+
+main{padding:36px 40px 80px;min-width:0}
+.page{max-width:44em}
+.page h1{font-family:"Noto Serif TC",serif;font-weight:900;font-size:clamp(28px,4.5vw,40px);line-height:1.3;margin:6px 0 20px}
+.page h2{font-family:"Noto Serif TC",serif;font-weight:600;font-size:22px;margin:36px 0 8px}
+.page.bulky h1{color:var(--bulky)}.page.hazard h1{color:var(--hazard)}.page.food h1{color:var(--food)}
+.page.recycle h1{color:var(--recycle)}.page.general h1{color:var(--general)}
+.meta{color:var(--muted);font-size:13px;margin:0}
+.page p,.page li{max-width:40em}
+.table-scroll{overflow-x:auto;margin:16px 0}
+table{border-collapse:collapse;width:100%;min-width:420px;background:var(--surface);font-size:15px}
+th,td{border:1px solid var(--line);padding:8px 12px;text-align:left;vertical-align:top}
+th{background:var(--tint)}
+td:first-child,th:first-child{white-space:nowrap}
+a.wl{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px;text-decoration-color:var(--line)}
+a.wl.bulky{text-decoration-color:var(--bulky)}a.wl.hazard{text-decoration-color:var(--hazard)}
+a.wl.food{text-decoration-color:var(--food)}a.wl.recycle{text-decoration-color:var(--recycle)}a.wl.general{text-decoration-color:var(--general)}
+a.cite{font-size:12px;font-weight:700;text-decoration:none;background:var(--tint);border:1px solid var(--line);
+  padding:0 6px;border-radius:9px;margin:0 2px;vertical-align:2px}
+.warn{color:var(--hazard);font-weight:700}
+.ok{color:var(--recycle);font-weight:700}
+.unoff{color:var(--bulky);font-weight:700}
+.broken{color:var(--hazard);text-decoration:line-through}
+
+/* 首頁：判斷順序 */
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin:8px 0 32px;border:1px solid var(--line);background:var(--surface)}
+.flow a{display:block;padding:16px 14px 18px;text-decoration:none;border-right:1px solid var(--line);border-top:6px solid}
+.flow a:last-child{border-right:0}
+.flow .n{font-size:13px;color:var(--muted)}
+.flow .ask{display:block;font-family:"Noto Serif TC",serif;font-weight:900;font-size:21px;line-height:1.35;margin:2px 0 6px}
+.flow .to{font-size:14px}
+.flow .bulky{border-top-color:var(--bulky)}.flow .hazard{border-top-color:var(--hazard)}.flow .food{border-top-color:var(--food)}
+.flow .recycle{border-top-color:var(--recycle)}.flow .general{border-top-color:var(--general)}
+.flow-cap{color:var(--muted);font-size:14px;margin:-20px 0 32px}
+@media (max-width:860px){
+  .wrap{grid-template-columns:1fr}
+  nav.side{position:static;max-height:none;border-right:0;border-bottom:1px solid var(--line);padding:16px 20px}
+  nav.side .navbody{display:none}
+  nav.side.open .navbody{display:block}
+  .menu{display:inline-block;font:inherit;font-size:14px;background:var(--surface);border:1px solid var(--line);color:var(--ink);padding:4px 12px;border-radius:4px;margin-top:8px;cursor:pointer}
+  main{padding:24px 20px 64px}
+  .flow{grid-template-columns:1fr}
+  .flow a{border-right:0;border-top:0;border-left:6px solid;border-bottom:1px solid var(--line)}
+  .flow .bulky{border-left-color:var(--bulky)}.flow .hazard{border-left-color:var(--hazard)}.flow .food{border-left-color:var(--food)}
+  .flow .recycle{border-left-color:var(--recycle)}.flow .general{border-left-color:var(--general)}
+}
+</style>
+</head>
+<body>
+<div class="strip" role="navigation" aria-label="五個法定類別">
+  <a href="#cat-bulky" class="bulky" data-slug="cat-bulky"><span class="q">太大？</span>巨大垃圾</a>
+  <a href="#cat-hazardous" class="hazard" data-slug="cat-hazardous"><span class="q">有害？</span>有害垃圾</a>
+  <a href="#cat-food" class="food" data-slug="cat-food"><span class="q">食物？</span>廚餘</a>
+  <a href="#cat-recyclable" class="recycle" data-slug="cat-recyclable"><span class="q">可回收？</span>資源垃圾</a>
+  <a href="#cat-general" class="general" data-slug="cat-general"><span class="q">都不是</span>一般垃圾</a>
+</div>
+<div class="wrap">
+<nav class="side" aria-label="Wiki 目錄">
+  <p class="brand">台灣垃圾分類 Wiki</p>
+  <p class="sub">已 ingest %%COUNT%% 篇來源</p>
+  <button class="menu" type="button" aria-expanded="false">顯示目錄</button>
+  <div class="navbody">
+  %%NAV%%
+  <button class="theme" type="button">切換深淺色</button>
+  </div>
+</nav>
+<main>
+<template id="flow">
+  <div class="flow" aria-label="判斷順序">
+    <a href="#cat-bulky" class="bulky"><span class="n">第 1 問</span><span class="ask">太大嗎？</span><span class="to">巨大垃圾，先預約</span></a>
+    <a href="#cat-hazardous" class="hazard"><span class="n">第 2 問</span><span class="ask">有害嗎？</span><span class="to">有害垃圾，依物品走不同管道</span></a>
+    <a href="#cat-food" class="food"><span class="n">第 3 問</span><span class="ask">是食物嗎？</span><span class="to">廚餘，倒廚餘桶</span></a>
+    <a href="#cat-recyclable" class="recycle"><span class="n">第 4 問</span><span class="ask">可回收嗎？</span><span class="to">資源垃圾，交回收車</span></a>
+    <a href="#cat-general" class="general"><span class="n">最後</span><span class="ask">都不是</span><span class="to">一般垃圾，交垃圾車</span></a>
+  </div>
+  <p class="flow-cap">一般垃圾是法規上的剩餘類別，所以要先排除前四類。〔依 S1 整理〕</p>
+</template>
+%%PAGES%%
+</main>
+</div>
+<script type="application/json" id="wiki-src">%%SRC%%</script>
+<script>
+(function(){
+  // 表格包上可橫向捲動的容器
+  document.querySelectorAll('.page table').forEach(function(t){
+    var d=document.createElement('div');d.className='table-scroll';t.parentNode.insertBefore(d,t);d.appendChild(t);
+  });
+  // 首頁插入判斷順序
+  var idx=document.getElementById('p-index');
+  if(idx){var h=idx.querySelector('h1');h.insertAdjacentElement('afterend',document.createElement('div'));
+    h.nextElementSibling.replaceWith(document.getElementById('flow').content.cloneNode(true));}
+  function show(){
+    var s=(location.hash||'#index').slice(1);
+    var el=document.getElementById('p-'+s);
+    if(!el){s='index';el=document.getElementById('p-index');}
+    document.querySelectorAll('.page').forEach(function(p){p.hidden=(p!==el);});
+    document.querySelectorAll('[data-slug]').forEach(function(a){
+      if(a.tagName==='A'){a.classList.toggle(a.parentNode.classList.contains('strip')?'on':'cur',a.dataset.slug===s);}
+    });
+    var t=el.querySelector('h1');document.title=(t?t.textContent+'｜':'')+'台灣垃圾分類 Wiki';
+    window.scrollTo(0,0);
+    document.querySelector('nav.side').classList.remove('open');
+  }
+  window.addEventListener('hashchange',show);show();
+  var nav=document.querySelector('nav.side'),mb=document.querySelector('.menu');
+  mb.addEventListener('click',function(){var o=nav.classList.toggle('open');mb.setAttribute('aria-expanded',o);mb.textContent=o?'收起目錄':'顯示目錄';});
+  var root=document.documentElement;
+  try{var saved=localStorage.getItem('theme');if(saved)root.dataset.theme=saved;}catch(e){}
+  document.querySelector('.theme').addEventListener('click',function(){
+    var dark=root.dataset.theme?root.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;
+    root.dataset.theme=dark?'light':'dark';
+    try{localStorage.setItem('theme',root.dataset.theme);}catch(e){}
+  });
+})();
+</script>
+</body>
+</html>
